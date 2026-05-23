@@ -1,0 +1,14 @@
+{
+  "commerce.core": {
+    "order_commit": "تأكيد الالتزام التجاري",
+    "visibility_private": "مرئي فقط ضمن شبكتك التجارية"
+  },
+  "commerce.relationships": {
+    "pending_partner": "جاري التحقق من الشريك",
+    "trust_signal": "مؤشر ثقة الشبكة"
+  },
+  "roles.terminology": {
+    "WHOLESALER_A": "شريك توزيع رئيسي",
+    "RETAILER": "مشغّل نقطة البيع"
+  }
+}

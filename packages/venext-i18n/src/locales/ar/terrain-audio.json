@@ -1,0 +1,9 @@
+{
+  "listenDescription": "استمع إلى الوصف",
+  "audioPresentation": "عرض صوتي",
+  "recordPresentation": "تسجيل عرضي",
+  "audioUnavailable": "الصوت غير متاح",
+  "maxDuration": "المدة القصوى: دقيقة و30 ثانية",
+  "businessSection": "عرض نشاطي",
+  "presentActivityAudio": "قدّم نشاطك صوتياً"
+}

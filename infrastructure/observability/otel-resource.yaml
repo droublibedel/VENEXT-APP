@@ -1,0 +1,5 @@
+# OpenTelemetry resource defaults for VENEXT services
+resource:
+  attributes:
+    service.namespace: venext
+    deployment.environment.name: development

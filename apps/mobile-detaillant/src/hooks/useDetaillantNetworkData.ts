@@ -1,0 +1,1 @@
+export { useDetaillantNetworkData } from "./useDetaillantLiveData";

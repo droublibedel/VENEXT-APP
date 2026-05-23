@@ -1,0 +1,47 @@
+{
+  "name": "mobile-grossiste-b",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "commercial-network-discovery": "file:../../packages/commercial-network-discovery",
+    "relational-commerce-catalog": "file:../../packages/relational-commerce-catalog",
+    "commerce-messaging": "file:../../packages/commerce-messaging",
+    "commerce-wallet": "file:../../packages/commerce-wallet",
+    "relational-order-orchestration": "file:../../packages/relational-order-orchestration",
+    "commercial-delivery-flow": "file:../../packages/commercial-delivery-flow",
+    "commercial-context-routing": "file:../../packages/commercial-context-routing",
+    "commerce-notifications": "file:../../packages/commerce-notifications",
+    "commercial-activity-feed": "file:../../packages/commercial-activity-feed",
+    "commerce-offline-foundation": "file:../../packages/commerce-offline-foundation",
+    "commerce-ux-harmony": "file:../../packages/commerce-ux-harmony",
+    "commerce-performance-foundation": "file:../../packages/commerce-performance-foundation",
+    "commerce-humanized-errors": "file:../../packages/commerce-humanized-errors",
+    "backoffice-operational": "file:../../packages/backoffice-operational",
+    "commerce-operational-observability": "file:../../packages/commerce-operational-observability",
+    "venext-v1-readiness": "file:../../packages/venext-v1-readiness",
+    "venext-auth-foundation": "file:../../packages/venext-auth-foundation",
+    "venext-i18n": "file:../../packages/venext-i18n",
+    "terrain-commercial-audio": "file:../../packages/terrain-commercial-audio",
+    "commercial-location-terrain": "file:../../packages/commercial-location-terrain",
+    "relational-commerce-feed": "file:../../packages/relational-commerce-feed",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@testing-library/react": "^16.2.0",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@vitejs/plugin-react": "^4.3.4",
+    "jsdom": "^25.0.1",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.3",
+    "vitest": "^3.0.5"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "listenDescription": "收听描述",
+  "audioPresentation": "语音介绍",
+  "recordPresentation": "录制我的介绍",
+  "audioUnavailable": "音频不可用",
+  "maxDuration": "最长时长：1分30秒",
+  "businessSection": "我的业务介绍",
+  "presentActivityAudio": "用语音介绍您的业务"
+}

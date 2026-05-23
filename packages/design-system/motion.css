@@ -1,0 +1,43 @@
+:root {
+  --vx-motion-instant: 90ms;
+  --vx-motion-fast: 140ms;
+  --vx-motion-medium: 200ms;
+  --vx-motion-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --vx-motion-instant: 0ms;
+    --vx-motion-fast: 0ms;
+    --vx-motion-medium: 0ms;
+  }
+}
+
+[data-vx-layer="float"] {
+  transition: transform var(--vx-motion-fast) var(--vx-motion-ease),
+    opacity var(--vx-motion-fast) var(--vx-motion-ease);
+}
+
+[data-vx-pulse="live"] {
+  animation: vx-pulse-live var(--vx-motion-medium) var(--vx-motion-ease) infinite
+    alternate;
+}
+
+@keyframes vx-pulse-live {
+  from {
+    opacity: 0.55;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-vx-pulse="live"] {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}

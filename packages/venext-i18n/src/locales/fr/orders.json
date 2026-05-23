@@ -1,0 +1,13 @@
+{
+  "title": "Commandes",
+  "status": {
+    "validated": "Validée",
+    "preparation": "En préparation",
+    "delivery": "En livraison",
+    "done": "Terminée"
+  },
+  "quickAction": {
+    "ship": "Expédier",
+    "confirm": "Confirmer livraison"
+  }
+}

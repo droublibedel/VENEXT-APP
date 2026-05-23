@@ -1,0 +1,17 @@
+node_modules
+.pnpm-store
+dist
+.next
+.turbo
+*.log
+.env
+.env.*
+!.env.example
+.DS_Store
+coverage
+*.sqlite
+*.db
+target
+.dart_tool
+build
+**/generated

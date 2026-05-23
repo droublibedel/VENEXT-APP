@@ -1,0 +1,22 @@
+{
+  "formal": {
+    "label": "علاقة رسمية",
+    "communication": "بريد مهني"
+  },
+  "terrain": {
+    "label": "علاقة ميدانية",
+    "communication": "مراسلة سريعة"
+  },
+  "hybrid": {
+    "label": "علاقة مرنة",
+    "communication": "تواصل حسب الشريك"
+  },
+  "contactFirst": {
+    "label": "جهة الاتصال أولاً",
+    "communication": "بعد إضافة جهة الاتصال"
+  },
+  "partnerOnly": {
+    "label": "شركاء معتمدون",
+    "communication": "شبكة مغلقة"
+  }
+}

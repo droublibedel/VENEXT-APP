@@ -1,0 +1,1 @@
+export { useDetaillantProductsData } from "./useDetaillantLiveData";

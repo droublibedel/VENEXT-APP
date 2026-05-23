@@ -1,0 +1,39 @@
+{
+  "name": "venext",
+  "private": true,
+  "description": "VENEXT — relational commerce intelligence infrastructure",
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev --parallel",
+    "lint": "turbo run lint",
+    "format": "prettier -w \"packages/**/*.{ts,tsx,json}\" \"services/**/*.ts\" \"apps/**/*.ts\" \"apps/**/*.tsx\"",
+    "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate deploy",
+    "db:migrate:dev": "prisma migrate dev",
+    "db:push": "prisma db push",
+    "db:seed": "prisma db seed",
+    "db:studio": "prisma studio",
+    "commerce:seed": "tsx scripts/commerce-seed.ts",
+    "commerce:reset": "tsx scripts/commerce-reset.ts",
+    "commerce:bootstrap": "tsx scripts/commerce-bootstrap.ts",
+    "test": "vitest run --workspace vitest.workspace.ts"
+  },
+  "dependencies": {
+    "@prisma/client": "6.2.1"
+  },
+  "devDependencies": {
+    "prettier": "^3.4.2",
+    "prisma": "6.2.1",
+    "tsx": "^4.19.2",
+    "turbo": "^2.3.3",
+    "typescript": "^5.7.2",
+    "vitest": "^3.0.5"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
+  },
+  "packageManager": "pnpm@9.15.0",
+  "engines": {
+    "node": ">=20"
+  }
+}

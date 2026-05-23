@@ -1,0 +1,31 @@
+{
+  "phone": {
+    "title": "您的号码",
+    "hint": "联系现场伙伴",
+    "cta": "继续"
+  },
+  "otp": {
+    "title": "收到验证码",
+    "hint": "输入短信验证码",
+    "cta": "验证"
+  },
+  "identity": {
+    "title": "展示名称",
+    "pseudo": "商业昵称",
+    "shop": "店铺（可选）"
+  },
+  "city": {
+    "title": "所在城市",
+    "hint": "用于附近订单"
+  },
+  "contacts": {
+    "title": "通讯录",
+    "allow": "允许访问通讯录",
+    "skip": "稍后"
+  },
+  "autoAccept": {
+    "title": "伙伴请求",
+    "on": "自动接受",
+    "off": "逐条审核"
+  }
+}

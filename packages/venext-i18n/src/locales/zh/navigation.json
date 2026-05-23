@@ -1,0 +1,59 @@
+{
+  "tabs": {
+    "activity": "动态",
+    "messaging": "消息",
+    "wallet": "结算",
+    "catalog": "目录",
+    "orders": "订单",
+    "network": "网络",
+    "profile": "资料",
+    "home": "首页",
+    "products": "产品",
+    "account": "账户"
+  },
+  "actor": {
+    "producer": {
+      "pole": {
+        "network": "商业网络",
+        "orders": "订单",
+        "mail": "正式邮件"
+      }
+    },
+    "grossisteA": {
+      "identity": "结构化分销商",
+      "notProducer": "组织化分销 — 非工厂驾驶舱",
+      "workspace": {
+        "overview": "商务管理",
+        "orders": "订单与跟进",
+        "distribution": "配送与分销",
+        "network": "分销网络",
+        "territory": "区域与活动",
+        "finance": "财务与结算",
+        "networkActivity": "网络活动",
+        "partners": "合作伙伴关系",
+        "governance": "安全与治理"
+      },
+      "poles": {
+        "PILOTAGE_COMMERCIAL": "商务驾驶",
+        "RESEAU_DISTRIBUTION": "网络与分销",
+        "COMMANDES_ADV": "订单与商务跟进",
+        "LIVRAISON_RECEPTION": "配送与收货",
+        "FINANCE_REGLEMENTS": "财务与结算",
+        "RELATIONS_PARTENAIRES": "合作伙伴关系",
+        "SECURITE_GOUVERNANCE": "安全与治理"
+      }
+    },
+    "grossisteB": {
+      "tab": {
+        "activity": "我的动态",
+        "orders": "订单"
+      }
+    },
+    "detaillant": {
+      "tab": {
+        "home": "首页",
+        "orders": "我的订单"
+      }
+    }
+  }
+}

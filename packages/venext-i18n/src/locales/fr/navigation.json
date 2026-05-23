@@ -1,0 +1,59 @@
+{
+  "tabs": {
+    "activity": "Activité",
+    "messaging": "Messagerie",
+    "wallet": "Règlements",
+    "catalog": "Catalogue",
+    "orders": "Commandes",
+    "network": "Réseau",
+    "profile": "Profil",
+    "home": "Accueil",
+    "products": "Produits",
+    "account": "Compte"
+  },
+  "actor": {
+    "producer": {
+      "pole": {
+        "network": "Réseau commercial",
+        "orders": "Commandes",
+        "mail": "Mail formel"
+      }
+    },
+    "grossisteA": {
+      "identity": "Distributeur structuré",
+      "notProducer": "Distribution organisée — pas de pilotage usine",
+      "workspace": {
+        "overview": "Pilotage commercial",
+        "orders": "Commandes & suivi",
+        "distribution": "Livraison & réception",
+        "network": "Réseau distribution",
+        "territory": "Réseau & territoire",
+        "finance": "Finance & règlements",
+        "networkActivity": "Activité réseau",
+        "partners": "Relations partenaires",
+        "governance": "Sécurité & gouvernance"
+      },
+      "poles": {
+        "PILOTAGE_COMMERCIAL": "Pilotage commercial",
+        "RESEAU_DISTRIBUTION": "Réseau & distribution",
+        "COMMANDES_ADV": "Commandes & ADV",
+        "LIVRAISON_RECEPTION": "Livraison & réception",
+        "FINANCE_REGLEMENTS": "Finance & règlements",
+        "RELATIONS_PARTENAIRES": "Relations partenaires",
+        "SECURITE_GOUVERNANCE": "Sécurité & gouvernance"
+      }
+    },
+    "grossisteB": {
+      "tab": {
+        "activity": "Mon activité",
+        "orders": "Commandes"
+      }
+    },
+    "detaillant": {
+      "tab": {
+        "home": "Accueil",
+        "orders": "Mes commandes"
+      }
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "commerce.core": {
+    "order_commit": "确认贸易承诺",
+    "visibility_private": "仅在您的商业网络内可见"
+  },
+  "commerce.relationships": {
+    "pending_partner": "合作伙伴核验进行中",
+    "trust_signal": "网络信任指标"
+  },
+  "roles.terminology": {
+    "WHOLESALER_A": "主分销伙伴",
+    "RETAILER": "零售终端运营方"
+  }
+}

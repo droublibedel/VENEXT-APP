@@ -1,0 +1,1 @@
+export { ProducerPartnerTable } from "./ProducerPartnerTable";

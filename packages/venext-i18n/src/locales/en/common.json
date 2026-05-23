@@ -1,0 +1,20 @@
+{
+  "app": {
+    "name": "VENEXT",
+    "loading": "Loading…",
+    "refresh": "Refresh",
+    "back": "Back",
+    "save": "Save"
+  },
+  "language": {
+    "label": "Language",
+    "fr": "Français",
+    "en": "English",
+    "ar": "العربية",
+    "zh": "中文"
+  },
+  "empty": {
+    "title": "Nothing yet",
+    "hint": "Your activity will show here"
+  }
+}

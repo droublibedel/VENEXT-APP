@@ -1,0 +1,27 @@
+{
+  "title": "Règlements",
+  "balance": "Solde",
+  "transaction": "Mouvement",
+  "actor": {
+    "producer": {
+      "balance": {
+        "label": "Solde partenaire"
+      }
+    },
+    "grossisteA": {
+      "balance": {
+        "label": "Règlement réseau"
+      }
+    },
+    "grossisteB": {
+      "balance": {
+        "label": "Règlement terrain"
+      }
+    },
+    "detaillant": {
+      "balance": {
+        "label": "Paiement"
+      }
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "title": "Orders",
+  "status": {
+    "validated": "Validated",
+    "preparation": "In preparation",
+    "delivery": "Out for delivery",
+    "done": "Completed"
+  },
+  "quickAction": {
+    "ship": "Ship",
+    "confirm": "Confirm delivery"
+  }
+}

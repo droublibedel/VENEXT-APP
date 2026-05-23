@@ -1,0 +1,17 @@
+[package]
+name = "venext-edge"
+version = "0.0.1"
+description = "VENEXT industrial edge — local-first SQLite + sync"
+edition = "2021"
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+serde = { version = "1", features = ["derive"] }
+rusqlite = { version = "0.32", features = ["bundled"] }
+
+[features]
+default = ["custom-protocol"]
+custom-protocol = ["tauri/custom-protocol"]

@@ -1,0 +1,20 @@
+{
+  "app": {
+    "name": "VENEXT",
+    "loading": "Chargement…",
+    "refresh": "Actualiser",
+    "back": "Retour",
+    "save": "Enregistrer"
+  },
+  "language": {
+    "label": "Langue",
+    "fr": "Français",
+    "en": "English",
+    "ar": "العربية",
+    "zh": "中文"
+  },
+  "empty": {
+    "title": "Rien pour l'instant",
+    "hint": "Votre activité apparaîtra ici"
+  }
+}

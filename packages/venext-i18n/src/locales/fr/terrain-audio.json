@@ -1,0 +1,9 @@
+{
+  "listenDescription": "Écouter la description",
+  "audioPresentation": "Présentation audio",
+  "recordPresentation": "Enregistrer ma présentation",
+  "audioUnavailable": "Audio indisponible",
+  "maxDuration": "Durée maximum : 1 min 30",
+  "businessSection": "Présentation de mon activité",
+  "presentActivityAudio": "Présentez votre activité en audio"
+}

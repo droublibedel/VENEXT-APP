@@ -1,0 +1,22 @@
+{
+  "formal": {
+    "label": "正式关系",
+    "communication": "商务邮件"
+  },
+  "terrain": {
+    "label": "现场关系",
+    "communication": "快速消息"
+  },
+  "hybrid": {
+    "label": "灵活关系",
+    "communication": "按伙伴适配"
+  },
+  "contactFirst": {
+    "label": "先加联系人",
+    "communication": "联系后再沟通"
+  },
+  "partnerOnly": {
+    "label": "已验证伙伴",
+    "communication": "封闭网络"
+  }
+}

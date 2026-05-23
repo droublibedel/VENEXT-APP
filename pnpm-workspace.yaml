@@ -1,0 +1,7 @@
+packages:
+  - "packages/*"
+  - "services/*"
+  - "apps/desktop-edge-sync"
+  - "apps/mobile-grossiste-b"
+  - "apps/mobile-detaillant"
+  - "apps/web-grossiste-a"

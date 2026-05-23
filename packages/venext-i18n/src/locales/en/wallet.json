@@ -1,0 +1,27 @@
+{
+  "title": "Settlements",
+  "balance": "Balance",
+  "transaction": "Movement",
+  "actor": {
+    "producer": {
+      "balance": {
+        "label": "Partner balance"
+      }
+    },
+    "grossisteA": {
+      "balance": {
+        "label": "Network settlement"
+      }
+    },
+    "grossisteB": {
+      "balance": {
+        "label": "Field settlement"
+      }
+    },
+    "detaillant": {
+      "balance": {
+        "label": "Payment"
+      }
+    }
+  }
+}

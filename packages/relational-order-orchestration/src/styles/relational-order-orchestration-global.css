@@ -1,0 +1,284 @@
+.roo-shell {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-family: system-ui, sans-serif;
+  color: #f0f4f2;
+  min-height: 280px;
+}
+
+.roo-shell--terrain {
+  gap: 8px;
+}
+
+.roo-header {
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(0, 168, 132, 0.12);
+}
+
+.roo-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.roo-subtitle {
+  margin: 4px 0 0;
+  font-size: 12px;
+  color: #8fa39a;
+}
+
+.roo-hint {
+  font-size: 11px;
+  color: #8fa39a;
+  padding: 6px 10px;
+  border-radius: 8px;
+  background: rgba(0, 168, 132, 0.06);
+}
+
+.roo-card {
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 168, 132, 0.15);
+  background: #0e1a17;
+}
+
+.roo-card-kicker {
+  margin: 0;
+  font-size: 10px;
+  color: #6b7f76;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.roo-card-title {
+  margin: 4px 0 0;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.roo-card-secondary {
+  margin: 2px 0 0;
+  font-size: 12px;
+  color: #8fa39a;
+}
+
+.roo-card-meta {
+  margin: 6px 0 0;
+  font-size: 11px;
+  color: #8fa39a;
+}
+
+.roo-signals {
+  margin: 8px 0 0;
+  padding-left: 16px;
+  font-size: 11px;
+  color: #00a884;
+}
+
+.roo-timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.roo-timeline-step {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+}
+
+.roo-timeline-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #3d524c;
+  flex-shrink: 0;
+}
+
+.roo-timeline-step--done .roo-timeline-dot {
+  background: #00a884;
+}
+
+.roo-timeline-step--current .roo-timeline-dot {
+  background: #e8b84a;
+  box-shadow: 0 0 0 2px rgba(232, 184, 74, 0.25);
+}
+
+.roo-timeline-at {
+  margin-left: auto;
+  color: #6b7f76;
+  font-size: 10px;
+}
+
+.roo-panel {
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: rgba(0, 168, 132, 0.04);
+  border: 1px solid rgba(0, 168, 132, 0.1);
+}
+
+.roo-panel--incident {
+  border-color: rgba(232, 184, 74, 0.35);
+  background: rgba(232, 184, 74, 0.06);
+}
+
+.roo-panel-title {
+  margin: 0 0 6px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.roo-panel-text {
+  margin: 0;
+  font-size: 12px;
+  color: #c5d4ce;
+}
+
+.roo-panel-amount {
+  margin: 0 0 4px;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.roo-lines,
+.roo-hints {
+  margin: 8px 0 0;
+  padding-left: 16px;
+  font-size: 12px;
+}
+
+.roo-hint-inline {
+  margin: 8px 0 0;
+  font-size: 11px;
+  color: #8fa39a;
+}
+
+.roo-quick-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.roo-btn {
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 168, 132, 0.25);
+  background: #0e1a17;
+  color: #f0f4f2;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.roo-btn--action {
+  background: rgba(0, 168, 132, 0.12);
+}
+
+.roo-btn--link {
+  margin-top: 8px;
+  background: transparent;
+  border-color: transparent;
+  color: #00a884;
+  padding-left: 0;
+}
+
+.roo-mobile-summary {
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: rgba(0, 168, 132, 0.08);
+  border: 1px solid rgba(0, 168, 132, 0.2);
+}
+
+.roo-mobile-summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.roo-mobile-partner {
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.roo-mobile-amount {
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.roo-mobile-status {
+  margin: 6px 0 0;
+  font-size: 13px;
+  color: #00a884;
+}
+
+.roo-mobile-hint {
+  margin: 4px 0 0;
+  font-size: 11px;
+  color: #8fa39a;
+}
+
+.roo-order-list-virtual {
+  border-radius: 10px;
+  border: 1px solid rgba(0, 168, 132, 0.1);
+}
+
+.roo-order-row {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  padding: 8px 12px;
+  margin: 0;
+  border: none;
+  border-bottom: 1px solid rgba(0, 168, 132, 0.08);
+  background: #0a1411;
+  color: #f0f4f2;
+  text-align: left;
+  cursor: pointer;
+}
+
+.roo-order-row--active {
+  background: rgba(0, 168, 132, 0.12);
+}
+
+.roo-order-row-partner {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.roo-order-row-status {
+  font-size: 11px;
+  color: #00a884;
+}
+
+.roo-order-row-amount {
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.roo-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.roo-empty {
+  padding: 24px;
+  text-align: center;
+}
+
+.roo-empty-title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.roo-empty-text {
+  margin: 8px 0 0;
+  font-size: 12px;
+  color: #8fa39a;
+}

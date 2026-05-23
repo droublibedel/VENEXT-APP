@@ -1,0 +1,63 @@
+/**
+ * Instruction 20.45 — VENEXT industrial producer design tokens (dark cockpit).
+ */
+
+.producer-industrial-root {
+  --pi-bg: #050608;
+  --pi-surface: #0c0e12;
+  --pi-panel: #12151c;
+  --pi-border: rgba(148, 163, 184, 0.12);
+  --pi-text: #f1f5f9;
+  --pi-muted: #94a3b8;
+  --pi-accent: #00a884;
+  --pi-accent-dim: rgba(0, 168, 132, 0.15);
+  --pi-violet: #a78bfa;
+  --pi-caution: #f59e0b;
+  --pi-danger: #f87171;
+  --pi-shadow: 0 4px 24px rgba(0, 0, 0, 0.45);
+  font-family: var(--vx-font-sans, ui-sans-serif, system-ui, sans-serif);
+  color: var(--pi-text);
+  background: radial-gradient(ellipse 120% 80% at 10% -20%, rgba(0, 168, 132, 0.08), transparent 50%),
+    var(--pi-bg);
+  min-height: 100dvh;
+}
+
+.producer-industrial-card {
+  background: linear-gradient(145deg, rgba(18, 21, 28, 0.95), rgba(12, 14, 18, 0.98));
+  border: 1px solid var(--pi-border);
+  border-radius: 10px;
+  box-shadow: var(--pi-shadow);
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.producer-industrial-card:hover {
+  border-color: rgba(0, 168, 132, 0.25);
+}
+
+.producer-industrial-metric-value {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+.producer-industrial-nav-active {
+  background: var(--pi-accent-dim);
+  border-left: 2px solid var(--pi-accent);
+}
+
+@media (max-width: 1023px) {
+  .producer-industrial-sidebar {
+    position: fixed;
+    z-index: 40;
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
+  }
+  .producer-industrial-sidebar[data-open="true"] {
+    transform: translateX(0);
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .producer-industrial-main-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

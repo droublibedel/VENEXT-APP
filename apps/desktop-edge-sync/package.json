@@ -1,0 +1,20 @@
+{
+  "name": "@venext/desktop-edge-sync",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tauri dev",
+    "build": "vite build",
+    "build:tauri": "tauri build",
+    "vite": "vite dev"
+  },
+  "dependencies": {
+    "@tauri-apps/api": "^2.1.1"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2.1.0",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.3"
+  }
+}

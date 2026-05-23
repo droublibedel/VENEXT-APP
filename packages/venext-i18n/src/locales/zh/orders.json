@@ -1,0 +1,13 @@
+{
+  "title": "订单",
+  "status": {
+    "validated": "已确认",
+    "preparation": "备货中",
+    "delivery": "配送中",
+    "done": "已完成"
+  },
+  "quickAction": {
+    "ship": "发货",
+    "confirm": "确认收货"
+  }
+}

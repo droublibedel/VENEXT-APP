@@ -1,0 +1,53 @@
+.venext-humanized-error {
+  background: #f4f7f5;
+  border: 1px solid #d8e4de;
+  border-radius: 12px;
+  padding: 16px 18px;
+  color: #3d4f48;
+}
+
+.venext-humanized-error__title {
+  margin: 0 0 8px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #2a3530;
+}
+
+.venext-humanized-error__message {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.45;
+  color: #5a6d66;
+}
+
+.venext-humanized-error__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.venext-humanized-error__btn {
+  min-height: 40px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1px solid #b8cfc4;
+  background: #ffffff;
+  color: #2a3530;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.venext-humanized-error__btn--primary {
+  background: #e8f3ee;
+  border-color: #9bc4b0;
+}
+
+.venext-inline-error {
+  font-size: 13px;
+  color: #5a6d66;
+  background: #f8faf9;
+  border-left: 3px solid #9bc4b0;
+  padding: 8px 10px;
+  border-radius: 4px;
+}

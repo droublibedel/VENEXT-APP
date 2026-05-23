@@ -1,0 +1,14 @@
+{
+  "commerce.core": {
+    "order_commit": "Confirm trade commitment",
+    "visibility_private": "Visible only within your commercial network"
+  },
+  "commerce.relationships": {
+    "pending_partner": "Partner verification in progress",
+    "trust_signal": "Network trust indicator"
+  },
+  "roles.terminology": {
+    "WHOLESALER_A": "Primary distribution partner",
+    "RETAILER": "Point-of-sale operator"
+  }
+}

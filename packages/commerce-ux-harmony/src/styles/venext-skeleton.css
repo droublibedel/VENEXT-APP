@@ -1,0 +1,394 @@
+/* VenextSkeletonSystem — pulse doux, pas de shimmer agressif (Instruction 20.87) */
+
+:root {
+  --venext-skeleton-base: #e8edf2;
+  --venext-skeleton-highlight: #f4f7fa;
+  --venext-spacing-2: 2px;
+  --venext-spacing-4: 4px;
+  --venext-spacing-6: 6px;
+  --venext-spacing-8: 8px;
+  --venext-spacing-12: 12px;
+  --venext-spacing-16: 16px;
+  --venext-spacing-24: 24px;
+  --venext-spacing-32: 32px;
+  --venext-radius-xs: 6px;
+  --venext-radius-sm: 8px;
+  --venext-radius-md: 12px;
+  --venext-radius-lg: 16px;
+  --venext-radius-xl: 20px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --venext-skeleton-base: #1e293b;
+    --venext-skeleton-highlight: #334155;
+  }
+}
+
+@keyframes venext-skeleton-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.72;
+  }
+}
+
+.venext-skeleton {
+  display: block;
+  background: var(--venext-skeleton-base);
+  animation: venext-skeleton-pulse 1.6s ease-in-out infinite;
+  will-change: opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .venext-skeleton {
+    animation: none;
+    opacity: 0.85;
+  }
+}
+
+.venext-skeleton--circle {
+  border-radius: 50%;
+}
+
+.venext-skeleton--radius-xs {
+  border-radius: var(--venext-radius-xs);
+}
+.venext-skeleton--radius-sm {
+  border-radius: var(--venext-radius-sm);
+}
+.venext-skeleton--radius-md {
+  border-radius: var(--venext-radius-md);
+}
+.venext-skeleton--radius-lg {
+  border-radius: var(--venext-radius-lg);
+}
+.venext-skeleton--radius-xl {
+  border-radius: var(--venext-radius-xl);
+}
+.venext-skeleton--radius-full {
+  border-radius: 9999px;
+}
+
+.venext-skeleton-lines {
+  display: flex;
+  flex-direction: column;
+  gap: var(--venext-spacing-8);
+  width: 100%;
+}
+
+.venext-skeleton-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--venext-spacing-16);
+}
+
+.venext-skeleton-list__row {
+  display: flex;
+  gap: var(--venext-spacing-12);
+  align-items: flex-start;
+}
+
+.venext-skeleton-table__head,
+.venext-skeleton-table__row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--venext-spacing-12);
+  padding: var(--venext-spacing-12) 0;
+}
+
+.venext-skeleton-message {
+  display: flex;
+  flex-direction: column;
+  gap: var(--venext-spacing-16);
+  padding: var(--venext-spacing-16);
+}
+
+.venext-skeleton-message__bubble {
+  display: flex;
+  gap: var(--venext-spacing-8);
+  align-items: flex-end;
+}
+
+.venext-skeleton-message__bubble--right {
+  flex-direction: row-reverse;
+  margin-left: auto;
+}
+
+.venext-skeleton-dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--venext-spacing-24);
+  padding: var(--venext-spacing-16);
+}
+
+.venext-skeleton-dashboard__kpis {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: var(--venext-spacing-16);
+}
+
+.venext-skeleton-dashboard__main {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--venext-spacing-24);
+}
+
+@media (min-width: 900px) {
+  .venext-skeleton-dashboard__main {
+    grid-template-columns: 1.2fr 0.8fr;
+  }
+}
+
+.venext-skeleton-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--venext-spacing-24);
+  padding: var(--venext-spacing-16);
+  max-width: 480px;
+}
+
+.venext-skeleton-form__field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--venext-spacing-8);
+}
+
+.venext-skeleton-product {
+  display: flex;
+  flex-direction: column;
+  gap: var(--venext-spacing-16);
+  padding: var(--venext-spacing-16);
+}
+
+.venext-skeleton-product__actions {
+  display: flex;
+  gap: var(--venext-spacing-12);
+}
+
+.venext-skeleton-order__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--venext-spacing-12);
+  margin-bottom: var(--venext-spacing-12);
+}
+
+.venext-skeleton-pole {
+  display: flex;
+  flex-direction: column;
+  gap: var(--venext-spacing-24);
+  padding: var(--venext-spacing-16);
+}
+
+.venext-skeleton-pole__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--venext-spacing-16);
+}
+
+@media (min-width: 1024px) {
+  .venext-skeleton-pole__grid {
+    grid-template-columns: 1.4fr 1fr 1fr;
+  }
+}
+
+.venext-skeleton-wallet {
+  display: flex;
+  flex-direction: column;
+  gap: var(--venext-spacing-24);
+  padding: var(--venext-spacing-16);
+}
+
+.venext-skeleton-screen {
+  min-height: 120px;
+  width: 100%;
+}
+
+.venext-screen-padding-mobile {
+  padding-left: var(--venext-screen-padding-mobile, 16px);
+  padding-right: var(--venext-screen-padding-mobile, 16px);
+}
+
+.venext-screen-padding-web {
+  padding-left: var(--venext-screen-padding-web, 24px);
+  padding-right: var(--venext-screen-padding-web, 24px);
+  max-width: var(--venext-screen-max-width, 1280px);
+  margin-inline: auto;
+}
+
+
+/* EnterpriseAuthExperience — layout 55/45 (Instruction 20.87) */
+.venext-auth-enterprise {
+  display: grid;
+  min-height: 100dvh;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 960px) {
+  .venext-auth-enterprise {
+    grid-template-columns: 55fr 45fr;
+  }
+}
+.venext-auth-enterprise__visual {
+  display: none;
+  background: linear-gradient(145deg, #0f172a 0%, #1e3a5f 50%, #0d9488 100%);
+  padding: var(--venext-spacing-32);
+  color: #f8fafc;
+}
+@media (min-width: 960px) {
+  .venext-auth-enterprise__visual { display: flex; align-items: center; }
+}
+.venext-auth-enterprise__visual-title {
+  font-size: var(--venext-type-heading-size, 22px);
+  font-weight: 700;
+  margin: var(--venext-spacing-16) 0;
+  line-height: 1.25;
+}
+.venext-auth-enterprise__visual-copy,
+.venext-auth-enterprise__visual-points {
+  font-size: var(--venext-type-body-size, 15px);
+  line-height: 1.5;
+  opacity: 0.92;
+}
+.venext-auth-enterprise__panel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--venext-spacing-24);
+  background: #f8fafc;
+}
+.venext-auth-enterprise__form-wrap {
+  width: 100%;
+  max-width: 400px;
+}
+.venext-auth-enterprise__title {
+  font-size: var(--venext-type-heading-size, 22px);
+  margin: 0 0 var(--venext-spacing-8);
+}
+.venext-auth-enterprise__subtitle {
+  color: #64748b;
+  margin: 0 0 var(--venext-spacing-24);
+}
+.venext-auth-enterprise__field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--venext-spacing-8);
+  margin-bottom: var(--venext-spacing-16);
+}
+.venext-auth-enterprise__field input {
+  min-height: 48px;
+  border-radius: var(--venext-radius-md);
+  border: 1px solid #e2e8f0;
+  padding: 0 var(--venext-spacing-12);
+}
+
+.venext-auth-enterprise__visual-inner {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+}
+
+.venext-auth-visual-scene {
+  position: relative;
+  margin-bottom: var(--venext-spacing-24);
+  min-height: 140px;
+}
+
+.venext-auth-visual-scene__glow {
+  position: absolute;
+  inset: -20% 10% auto;
+  height: 60%;
+  background: radial-gradient(ellipse at center, rgba(94, 234, 212, 0.25), transparent 70%);
+  pointer-events: none;
+}
+
+.venext-auth-visual-scene__svg {
+  width: 100%;
+  max-width: 360px;
+  height: auto;
+  opacity: 0.95;
+}
+
+.venext-auth-visual-scene__badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--venext-spacing-8);
+  margin-top: var(--venext-spacing-16);
+}
+
+.venext-auth-visual-scene__badges span {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: var(--venext-radius-full, 9999px);
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.venext-auth-enterprise__eyebrow {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.85;
+  margin: 0 0 var(--venext-spacing-8);
+}
+
+.venext-auth-enterprise__visual-points {
+  margin: var(--venext-spacing-16) 0 0;
+  padding-left: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: var(--venext-spacing-8);
+}
+
+@media (max-width: 959px) {
+  .venext-auth-enterprise__visual {
+    display: flex;
+    min-height: 200px;
+    padding: var(--venext-spacing-24);
+  }
+  .venext-auth-enterprise__panel {
+    padding: var(--venext-spacing-16);
+  }
+}
+
+@media (max-width: 640px) {
+  .venext-auth-enterprise__form-wrap {
+    max-width: 100%;
+  }
+  .venext-auth-enterprise__title {
+    font-size: 20px;
+  }
+}
+
+/* Tables & lists — respiration (Instruction 20.87-A) */
+.venext-table-comfort {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+}
+
+.venext-table-comfort th,
+.venext-table-comfort td {
+  padding: var(--venext-spacing-12) var(--venext-spacing-16);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+}
+
+.venext-table-comfort tbody tr:hover {
+  background: rgba(148, 163, 184, 0.06);
+  transition: background var(--venext-transition-normal, 220ms ease);
+}
+
+.venext-icon-container {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--venext-icon-md, 20px);
+  height: var(--venext-icon-md, 20px);
+  flex-shrink: 0;
+}

@@ -1,0 +1,14 @@
+{
+  "commerce.core": {
+    "order_commit": "Valider l'engagement commercial",
+    "visibility_private": "Visible uniquement dans votre réseau commercial"
+  },
+  "commerce.relationships": {
+    "pending_partner": "Vérification partenaire en cours",
+    "trust_signal": "Indicateur de confiance réseau"
+  },
+  "roles.terminology": {
+    "WHOLESALER_A": "Partenaire de distribution principal",
+    "RETAILER": "Opérateur point de vente"
+  }
+}

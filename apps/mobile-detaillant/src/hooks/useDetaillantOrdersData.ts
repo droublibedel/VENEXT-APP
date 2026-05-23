@@ -1,0 +1,1 @@
+export { useDetaillantOrdersData } from "./useDetaillantLiveData";

@@ -1,0 +1,27 @@
+{
+  "name": "venext-v1-readiness",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "vitest run --config vitest.config.ts"
+  },
+  "dependencies": {
+    "commerce-foundation-guardrails": "file:../commerce-foundation-guardrails",
+    "commerce-performance-foundation": "file:../commerce-performance-foundation",
+    "commerce-access-control": "file:../commerce-access-control"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.2",
+    "vitest": "^3.0.5"
+  }
+}

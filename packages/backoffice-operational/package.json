@@ -1,0 +1,43 @@
+{
+  "name": "backoffice-operational",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./live": {
+      "types": "./dist/live-observability/index.d.ts",
+      "import": "./dist/live-observability/index.js"
+    },
+    "./observability": {
+      "types": "./dist/sdk/commerce-operational-observability.d.ts",
+      "import": "./dist/sdk/commerce-operational-observability.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "vitest run --config vitest.config.ts"
+  },
+  "dependencies": {
+    "@prisma/client": "6.2.1",
+    "commerce-humanized-errors": "file:../commerce-humanized-errors",
+    "enterprise-commercial-governance": "file:../enterprise-commercial-governance",
+    "commercial-location-terrain": "file:../commercial-location-terrain",
+    "terrain-commercial-audio": "file:../terrain-commercial-audio",
+    "relational-commerce-feed": "file:../relational-commerce-feed"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0 || ^19.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "react": "^19.0.0",
+    "typescript": "^5.7.2",
+    "vitest": "^3.0.5"
+  }
+}

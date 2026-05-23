@@ -1,0 +1,27 @@
+{
+  "title": "结算",
+  "balance": "余额",
+  "transaction": "流水",
+  "actor": {
+    "producer": {
+      "balance": {
+        "label": "伙伴余额"
+      }
+    },
+    "grossisteA": {
+      "balance": {
+        "label": "网络结算"
+      }
+    },
+    "grossisteB": {
+      "balance": {
+        "label": "现场结算"
+      }
+    },
+    "detaillant": {
+      "balance": {
+        "label": "付款"
+      }
+    }
+  }
+}

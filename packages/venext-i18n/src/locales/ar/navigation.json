@@ -1,0 +1,59 @@
+{
+  "tabs": {
+    "activity": "النشاط",
+    "messaging": "المراسلة",
+    "wallet": "التسويات",
+    "catalog": "الكتالوج",
+    "orders": "الطلبات",
+    "network": "الشبكة",
+    "profile": "الملف",
+    "home": "الرئيسية",
+    "products": "المنتجات",
+    "account": "الحساب"
+  },
+  "actor": {
+    "producer": {
+      "pole": {
+        "network": "الشبكة التجارية",
+        "orders": "الطلبات",
+        "mail": "بريد رسمي"
+      }
+    },
+    "grossisteA": {
+      "identity": "موزع منظم",
+      "notProducer": "توزيع منظم — ليس قيادة مصنع",
+      "workspace": {
+        "overview": "التوجيه التجاري",
+        "orders": "الطلبات والمتابعة",
+        "distribution": "التسليم والتوزيع",
+        "network": "شبكة التوزيع",
+        "territory": "الإقليم والنشاط",
+        "finance": "المالية والتسويات",
+        "networkActivity": "نشاط الشبكة",
+        "partners": "علاقات الشركاء",
+        "governance": "الأمن والحوكمة"
+      },
+      "poles": {
+        "PILOTAGE_COMMERCIAL": "قيادة تجارية",
+        "RESEAU_DISTRIBUTION": "الشبكة والتوزيع",
+        "COMMANDES_ADV": "الطلبات والمتابعة",
+        "LIVRAISON_RECEPTION": "التسليم والاستلام",
+        "FINANCE_REGLEMENTS": "المالية والتسويات",
+        "RELATIONS_PARTENAIRES": "علاقات الشركاء",
+        "SECURITE_GOUVERNANCE": "الأمن والحوكمة"
+      }
+    },
+    "grossisteB": {
+      "tab": {
+        "activity": "نشاطي",
+        "orders": "الطلبات"
+      }
+    },
+    "detaillant": {
+      "tab": {
+        "home": "الرئيسية",
+        "orders": "طلباتي"
+      }
+    }
+  }
+}

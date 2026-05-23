@@ -1,0 +1,31 @@
+{
+  "phone": {
+    "title": "Your number",
+    "hint": "To reach your field partners",
+    "cta": "Continue"
+  },
+  "otp": {
+    "title": "Code received",
+    "hint": "Enter the SMS code",
+    "cta": "Verify"
+  },
+  "identity": {
+    "title": "How to show up",
+    "pseudo": "Trade name",
+    "shop": "Shop (optional)"
+  },
+  "city": {
+    "title": "Your city",
+    "hint": "For orders around you"
+  },
+  "contacts": {
+    "title": "Contacts",
+    "allow": "Allow contacts access",
+    "skip": "Later"
+  },
+  "autoAccept": {
+    "title": "Partner requests",
+    "on": "Auto-accept",
+    "off": "Review each request"
+  }
+}

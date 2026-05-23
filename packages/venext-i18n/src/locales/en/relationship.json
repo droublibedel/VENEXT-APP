@@ -1,0 +1,22 @@
+{
+  "formal": {
+    "label": "Formal relationship",
+    "communication": "Professional mail"
+  },
+  "terrain": {
+    "label": "Field relationship",
+    "communication": "Quick messaging"
+  },
+  "hybrid": {
+    "label": "Adaptive relationship",
+    "communication": "Partner-fit exchange"
+  },
+  "contactFirst": {
+    "label": "Contact first",
+    "communication": "Exchange after contact"
+  },
+  "partnerOnly": {
+    "label": "Validated partners",
+    "communication": "Closed network"
+  }
+}

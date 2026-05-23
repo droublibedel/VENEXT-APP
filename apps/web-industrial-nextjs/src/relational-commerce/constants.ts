@@ -1,0 +1,13 @@
+/** Seed-aligned demo IDs — Instruction 9 closed relational network */
+export const DEMO_REL_ORG_RETAILER = "31111111-1111-1111-1111-111111111201";
+export const DEMO_REL_USER_RETAILER = "21111111-1111-1111-1111-111111111201";
+export const DEMO_REL_USER_WHOLESALER_B = "21111111-1111-1111-1111-111111111103";
+export const DEMO_REL_ORG_WHOLESALER_B = "31111111-1111-1111-1111-111111111103";
+export const DEMO_REL_ORG_PRODUCER = "31111111-1111-1111-1111-111111111101";
+
+/** Active edge: wholesaler A → retailer 1 */
+export const DEMO_RELATIONSHIP_WA_R1 = "41111111-1111-1111-1111-111111111003";
+
+export const DEMO_COMMERCIAL_ID_RETAILER = "8829173043";
+
+export const GRAPH_CACHE_KEY = "venext_rel_graph_snapshot_v1";

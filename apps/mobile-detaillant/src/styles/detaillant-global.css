@@ -1,0 +1,233 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  min-height: 100%;
+  height: 100%;
+}
+
+body {
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  background: #0b1412;
+  color: #f0f4f2;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+.detaillant-app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  background: linear-gradient(180deg, #0b1412 0%, #0e1a17 100%);
+}
+
+.detaillant-main {
+  flex: 1;
+  overflow-y: auto;
+  padding: 18px 16px 92px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.detaillant-card {
+  background: #162822;
+  border: 1px solid rgba(0, 168, 132, 0.12);
+  border-radius: 14px;
+  padding: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.detaillant-card + .detaillant-card {
+  margin-top: 12px;
+}
+
+.detaillant-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.detaillant-badge--ok {
+  background: rgba(0, 168, 132, 0.2);
+  color: #5ee4c4;
+}
+
+.detaillant-badge--hot {
+  background: rgba(232, 184, 74, 0.18);
+  color: #e8b84a;
+}
+
+.detaillant-badge--low {
+  background: rgba(224, 122, 106, 0.15);
+  color: #e8a89a;
+}
+
+.detaillant-tabs {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  background: rgba(11, 20, 18, 0.97);
+  border-top: 1px solid rgba(0, 168, 132, 0.18);
+  backdrop-filter: blur(12px);
+  padding-bottom: env(safe-area-inset-bottom, 0);
+  z-index: 50;
+}
+
+.detaillant-product-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.detaillant-action {
+  flex: 1;
+  min-width: calc(50% - 4px);
+  min-height: 44px;
+  padding: 0 12px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 700;
+  background: #12201c;
+  color: #f0f4f2;
+  border: 1px solid rgba(0, 168, 132, 0.2);
+}
+
+.detaillant-action--primary {
+  background: #075e54;
+  border-color: rgba(0, 168, 132, 0.35);
+  color: #f0f4f2;
+}
+
+.detaillant-action--secondary {
+  background: rgba(0, 168, 132, 0.12);
+  color: #00a884;
+}
+
+.detaillant-tab {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 58px;
+  gap: 2px;
+  color: #8fa39a;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+.detaillant-tab--active {
+  color: #00a884;
+}
+
+.detaillant-tab-icon {
+  font-size: 22px;
+  line-height: 1;
+}
+
+.detaillant-hint {
+  font-size: 13px;
+  color: #b8cdc4;
+  padding: 12px 14px;
+  border-left: 3px solid #075e54;
+  background: rgba(7, 94, 84, 0.14);
+  border-radius: 0 12px 12px 0;
+  margin-bottom: 14px;
+}
+
+.detaillant-source {
+  font-size: 11px;
+  color: #6b8078;
+  margin-bottom: 14px;
+}
+
+.detaillant-search {
+  width: 100%;
+  min-height: 52px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  border: 1px solid rgba(0, 168, 132, 0.22);
+  background: #12201c;
+  color: #f0f4f2;
+  font-size: 16px;
+  margin-bottom: 16px;
+}
+
+.detaillant-search::placeholder {
+  color: #6b8078;
+}
+
+.detaillant-chip-row {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  margin-bottom: 14px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.detaillant-chip {
+  flex-shrink: 0;
+  min-height: 40px;
+  padding: 0 16px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  background: #12201c;
+  color: #8fa39a;
+}
+
+.detaillant-chip--active {
+  background: rgba(0, 168, 132, 0.22);
+  color: #00a884;
+}
+
+.detaillant-virtual-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 440px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.detaillant-timeline-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #00a884;
+  flex-shrink: 0;
+  margin-top: 6px;
+}
+
+.detaillant-quick-return,
+.detaillant-tab {
+  min-height: var(--venext-ux-touch-min, 44px);
+}
+
+.detaillant-card .venext-empty__title,
+.detaillant-card .venext-error__title {
+  overflow-wrap: anywhere;
+}

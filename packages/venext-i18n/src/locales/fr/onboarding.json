@@ -1,0 +1,31 @@
+{
+  "phone": {
+    "title": "Votre numéro",
+    "hint": "Pour retrouver vos partenaires terrain",
+    "cta": "Continuer"
+  },
+  "otp": {
+    "title": "Code reçu",
+    "hint": "Saisissez le code SMS",
+    "cta": "Valider"
+  },
+  "identity": {
+    "title": "Comment vous présenter",
+    "pseudo": "Pseudo commercial",
+    "shop": "Boutique (optionnel)"
+  },
+  "city": {
+    "title": "Votre ville",
+    "hint": "Pour les commandes autour de vous"
+  },
+  "contacts": {
+    "title": "Contacts",
+    "allow": "Autoriser l'accès aux contacts",
+    "skip": "Plus tard"
+  },
+  "autoAccept": {
+    "title": "Demandes partenaires",
+    "on": "Accepter automatiquement",
+    "off": "Valider chaque demande"
+  }
+}

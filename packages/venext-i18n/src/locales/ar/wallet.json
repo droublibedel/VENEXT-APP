@@ -1,0 +1,27 @@
+{
+  "title": "التسويات",
+  "balance": "الرصيد",
+  "transaction": "حركة",
+  "actor": {
+    "producer": {
+      "balance": {
+        "label": "رصيد الشريك"
+      }
+    },
+    "grossisteA": {
+      "balance": {
+        "label": "تسوية الشبكة"
+      }
+    },
+    "grossisteB": {
+      "balance": {
+        "label": "تسوية ميدانية"
+      }
+    },
+    "detaillant": {
+      "balance": {
+        "label": "دفع"
+      }
+    }
+  }
+}

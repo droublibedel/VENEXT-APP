@@ -1,0 +1,13 @@
+{
+  "title": "الطلبات",
+  "status": {
+    "validated": "مؤكدة",
+    "preparation": "قيد التحضير",
+    "delivery": "قيد التسليم",
+    "done": "منتهية"
+  },
+  "quickAction": {
+    "ship": "شحن",
+    "confirm": "تأكيد التسليم"
+  }
+}

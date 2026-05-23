@@ -1,0 +1,1 @@
+export { ECONOMIC_SCENARIOS_DEMO_ORGANIZATION_ID as ECONOMIC_COORDINATION_DEMO_ORGANIZATION_ID } from "../economic-scenarios/constants";

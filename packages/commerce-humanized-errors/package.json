@@ -1,0 +1,53 @@
+{
+  "name": "commerce-humanized-errors",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./humanize": {
+      "types": "./dist/commerce-humanized-errors.d.ts",
+      "import": "./dist/commerce-humanized-errors.js"
+    },
+    "./dist/commerce-humanized-errors.types.js": {
+      "types": "./dist/commerce-humanized-errors.types.d.ts",
+      "import": "./dist/commerce-humanized-errors.types.js"
+    },
+    "./dist/commerce-humanized-errors.js": {
+      "types": "./dist/commerce-humanized-errors.d.ts",
+      "import": "./dist/commerce-humanized-errors.js"
+    },
+    "./dist/backoffice-reporter-hook.js": {
+      "types": "./dist/backoffice-reporter-hook.d.ts",
+      "import": "./dist/backoffice-reporter-hook.js"
+    },
+    "./styles.css": "./src/styles/commerce-humanized-errors.css"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "vitest run --config vitest.config.ts"
+  },
+  "dependencies": {
+    "commerce-foundation-guardrails": "file:../commerce-foundation-guardrails"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0 || ^19.0.0",
+    "react-dom": "^18.2.0 || ^19.0.0"
+  },
+  "devDependencies": {
+    "@testing-library/react": "^16.2.0",
+    "@types/node": "^20.19.41",
+    "@types/react": "^19.0.2",
+    "@types/react-dom": "^19.0.2",
+    "jsdom": "^25.0.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "typescript": "^5.7.2",
+    "vitest": "^3.0.5"
+  }
+}

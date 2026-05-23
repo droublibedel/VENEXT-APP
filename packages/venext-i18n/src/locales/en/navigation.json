@@ -1,0 +1,59 @@
+{
+  "tabs": {
+    "activity": "Activity",
+    "messaging": "Messaging",
+    "wallet": "Settlements",
+    "catalog": "Catalog",
+    "orders": "Orders",
+    "network": "Network",
+    "profile": "Profile",
+    "home": "Home",
+    "products": "Products",
+    "account": "Account"
+  },
+  "actor": {
+    "producer": {
+      "pole": {
+        "network": "Commercial network",
+        "orders": "Orders",
+        "mail": "Formal mail"
+      }
+    },
+    "grossisteA": {
+      "identity": "Structured distributor",
+      "notProducer": "Organized distribution — not a factory cockpit",
+      "workspace": {
+        "overview": "Commercial steering",
+        "orders": "Orders & follow-up",
+        "distribution": "Delivery & reception",
+        "network": "Distribution network",
+        "territory": "Territory & activity",
+        "finance": "Finance & settlements",
+        "networkActivity": "Network activity",
+        "partners": "Partner relations",
+        "governance": "Security & governance"
+      },
+      "poles": {
+        "PILOTAGE_COMMERCIAL": "Commercial steering",
+        "RESEAU_DISTRIBUTION": "Network & distribution",
+        "COMMANDES_ADV": "Orders & ADV",
+        "LIVRAISON_RECEPTION": "Delivery & reception",
+        "FINANCE_REGLEMENTS": "Finance & settlements",
+        "RELATIONS_PARTENAIRES": "Partner relations",
+        "SECURITE_GOUVERNANCE": "Security & governance"
+      }
+    },
+    "grossisteB": {
+      "tab": {
+        "activity": "My activity",
+        "orders": "Orders"
+      }
+    },
+    "detaillant": {
+      "tab": {
+        "home": "Home",
+        "orders": "My orders"
+      }
+    }
+  }
+}

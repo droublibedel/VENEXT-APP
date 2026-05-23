@@ -1,0 +1,1 @@
+export { useGrossisteAIntelligenceData } from "./useGrossisteALiveData";
