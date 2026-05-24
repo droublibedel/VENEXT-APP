@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import {
-  DETAILLANT_ORG_ID,
   mockDetaillantHome,
   mockDetaillantNetwork,
   mockDetaillantOrders,
   mockDetaillantProducts,
 } from "../mocks/detaillant-mock-data";
+import { resolveDetaillantOrganizationId } from "../session/resolveDetaillantOrganizationId";
 import type {
   DetaillantBffEndpoint,
   DetaillantDataSource,
@@ -50,7 +50,7 @@ function envelope<T>(payload: T): DetaillantEnvelope<T> {
   return {
     dataSource: "fallback",
     fallbackUsed: true,
-    organizationId: DETAILLANT_ORG_ID,
+    organizationId: resolveDetaillantOrganizationId(),
     payload,
   };
 }
@@ -59,7 +59,7 @@ function useDetaillantEndpoint<T>(
   endpoint: DetaillantBffEndpoint,
   fallback: FallbackFn<T>,
   enabled = true,
-  organizationId = DETAILLANT_ORG_ID,
+  organizationId = resolveDetaillantOrganizationId(),
 ): DetaillantLiveState<T> {
   const { flags, hydrated } = useDetaillantFeatureFlags();
   const liveEnabled =

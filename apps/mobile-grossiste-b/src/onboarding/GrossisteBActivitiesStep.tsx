@@ -18,7 +18,7 @@ export const GrossisteBActivitiesStep = memo(function GrossisteBActivitiesStep({
   return (
     <section data-testid="gb-onboarding-activities">
       <h2 style={{ margin: "0 0 8px", fontSize: 18 }}>Vos activités</h2>
-      <p style={{ margin: "0 0 16px", fontSize: 13, color: "#8fa39a" }}>
+      <p style={{ margin: "0 0 16px", fontSize: 13, color: "var(--venext-text-muted)" }}>
         Choisissez une ou plusieurs — sélection rapide.
       </p>
       <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
@@ -35,9 +35,9 @@ export const GrossisteBActivitiesStep = memo(function GrossisteBActivitiesStep({
               style={{
                 padding: "8px 12px",
                 borderRadius: 20,
-                border: `1px solid ${active ? "#00a884" : "rgba(0,168,132,0.25)"}`,
-                background: active ? "rgba(0,168,132,0.15)" : "#0e1a17",
-                color: "#f0f4f2",
+                border: `1px solid ${active ? "var(--venext-accent)" : "var(--venext-border)"}`,
+                background: active ? "var(--venext-accent-soft)" : "var(--venext-surface)",
+                color: "var(--venext-text)",
                 fontSize: 12,
               }}
             >

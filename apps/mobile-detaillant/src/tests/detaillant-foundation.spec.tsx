@@ -9,7 +9,10 @@ import {
 } from "../detaillant-intelligence";
 import { clearDetaillantDataCache } from "../hooks/useDetaillantLiveData";
 import { mockDetaillantHome, mockDetaillantProducts } from "../mocks/detaillant-mock-data";
-import { DETAILLANT_TABS } from "../navigation/detaillant-navigation.config";
+import { DETAILLANT_BOTTOM_TABS } from "../navigation/detaillant-navigation.config";
+
+const HEADER_MESSAGING = "venext-terrain-mobile-header-messaging";
+const HEADER_PROFILE = "venext-terrain-mobile-header-profile";
 
 vi.mock("../hooks/useDetaillantFeatureFlags", () => ({
   useDetaillantFeatureFlags: () => ({
@@ -38,13 +41,16 @@ describe("detaillant mobile foundation", () => {
     );
   });
 
-  it("renders six navigation tabs", () => {
+  it("renders four bottom navigation tabs and terrain header", () => {
     render(<DetaillantAppShell />);
     expect(screen.getByTestId("detaillant-bottom-tabs")).toBeTruthy();
-    expect(DETAILLANT_TABS).toHaveLength(6);
-    for (const tab of DETAILLANT_TABS) {
+    expect(DETAILLANT_BOTTOM_TABS).toHaveLength(4);
+    for (const tab of DETAILLANT_BOTTOM_TABS) {
       expect(screen.getByTestId(tab.testId)).toBeTruthy();
     }
+    expect(screen.getByTestId("venext-terrain-mobile-header")).toBeTruthy();
+    expect(screen.queryByTestId("detaillant-tab-messaging")).toBeNull();
+    expect(screen.queryByTestId("detaillant-tab-account")).toBeNull();
   });
 
   it("mounts only one screen at a time", async () => {
@@ -84,11 +90,12 @@ describe("detaillant mobile foundation", () => {
     expect(screen.getByTestId("detaillant-city-activity")).toBeTruthy();
   });
 
-  it("renders account screen", async () => {
+  it("renders account screen from header profile", async () => {
     render(<DetaillantAppShell />);
-    fireEvent.click(screen.getByTestId("detaillant-tab-account"));
+    fireEvent.click(screen.getByTestId(HEADER_PROFILE));
     await waitFor(() => expect(screen.getByTestId("detaillant-screen-account")).toBeTruthy());
     expect(screen.getByTestId("detaillant-account-identity")).toBeTruthy();
+    expect(screen.getByTestId("detaillant-account-logout")).toBeTruthy();
   });
 
   it("shows fallback demo data badge", async () => {

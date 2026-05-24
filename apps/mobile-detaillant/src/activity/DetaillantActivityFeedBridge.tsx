@@ -2,7 +2,7 @@ import { CommercialActivityFeedShell } from "commercial-activity-feed";
 import { useCommercialRouter } from "commercial-context-routing";
 
 import { useDetaillantFeatureFlags } from "../hooks/useDetaillantFeatureFlags";
-import { DETAILLANT_ORG_ID } from "../mocks/detaillant-mock-data";
+import { resolveDetaillantOrganizationId } from "../session/resolveDetaillantOrganizationId";
 
 export function DetaillantActivityFeedBridge() {
   const { flags, hydrated } = useDetaillantFeatureFlags();
@@ -10,7 +10,7 @@ export function DetaillantActivityFeedBridge() {
   return (
     <CommercialActivityFeedShell
       actorRole="DETAILLANT"
-      organizationId={DETAILLANT_ORG_ID}
+      organizationId={resolveDetaillantOrganizationId()}
       flags={flags}
       flagsHydrated={hydrated}
       router={router ?? undefined}

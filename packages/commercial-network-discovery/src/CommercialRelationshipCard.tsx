@@ -49,24 +49,24 @@ export const CommercialRelationshipCard = memo(function CommercialRelationshipCa
           </p>
           <p
             data-testid={`cnd-partner-role-${suggestion.id}`}
-            style={{ margin: "2px 0 0", fontSize: 10, color: "#00a884" }}
+            style={{ margin: "2px 0 0", fontSize: 10, color: "var(--venext-accent, #008f73)" }}
           >
             {roleLabel}
           </p>
           {subtitle ? (
             <p
-              style={{ margin: "4px 0 0", fontSize: 11, color: "#8fa39a", lineHeight: 1.35 }}
+              style={{ margin: "4px 0 0", fontSize: 11, color: "var(--venext-text-secondary, #526059)", lineHeight: 1.35 }}
               data-testid={`cnd-secondary-name-${suggestion.id}`}
             >
               {subtitle}
             </p>
           ) : null}
           {suggestion.recentActivity ? (
-            <p style={{ margin: "4px 0 0", fontSize: 10, color: "#00a884" }}>{suggestion.recentActivity}</p>
+            <p style={{ margin: "4px 0 0", fontSize: 10, color: "var(--venext-accent, #008f73)" }}>{suggestion.recentActivity}</p>
           ) : null}
           {suggestion.recognitionHint ? (
             <p
-              style={{ margin: "6px 0 0", fontSize: 10, color: "#6b7f76" }}
+              style={{ margin: "6px 0 0", fontSize: 10, color: "#66746d" }}
               data-testid={`cnd-recognition-hint-${suggestion.id}`}
             >
               {suggestion.recognitionHint}

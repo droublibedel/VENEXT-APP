@@ -1,14 +1,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
 
 :root {
-  --vx-primary: #075e54;
-  --vx-secondary: #00a884;
+  --vx-primary: #00a884;
+  --vx-secondary: #14b89a;
   --vx-accent: #ffc107;
-  --vx-graphite: #0f1a17;
-  --vx-graphite-muted: #1b2a26;
+  --vx-graphite: #17201c;
+  --vx-graphite-muted: #526059;
   --vx-panel: #e8eeec;
   --vx-panel-warm: #f2f5f4;
-  --vx-white: #fafbfa;
+  --vx-white: #ffffff;
+  --vx-legacy-dark-green-surface: #075e54;
   --vx-line: rgba(15, 26, 23, 0.08);
   --vx-line-strong: rgba(15, 26, 23, 0.14);
   --vx-signal-demand-up: #0e7490;
@@ -38,10 +39,5 @@
 [data-vx-backoffice="command"] {
   font-family: var(--vx-font-sans);
   color: var(--vx-graphite);
-  background: radial-gradient(
-      circle at 20% 20%,
-      rgba(0, 168, 132, 0.08),
-      transparent 40%
-    ),
-    var(--vx-graphite-muted);
+  background: var(--vx-white);
 }

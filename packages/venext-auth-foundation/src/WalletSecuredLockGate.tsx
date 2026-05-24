@@ -58,8 +58,8 @@ export const WalletSecuredLockGate = memo(function WalletSecuredLockGate({
         style={{
           padding: 24,
           borderRadius: 12,
-          border: "1px solid #2a3530",
-          background: "#121816",
+          border: "1px solid rgba(23, 32, 28, 0.14)",
+          background: "#ffffff",
           maxWidth: 360,
           margin: "16px auto",
         }}
@@ -68,7 +68,7 @@ export const WalletSecuredLockGate = memo(function WalletSecuredLockGate({
           {title}
         </h2>
         <p
-          style={{ fontSize: 14, color: "#8fa39a", margin: "0 0 16px" }}
+          style={{ fontSize: 14, color: "#526059", margin: "0 0 16px" }}
           data-testid="wallet-lock-subtitle"
         >
           {subtitle}

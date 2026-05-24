@@ -3,9 +3,11 @@ export type DetaillantOnboardingStep = "phone" | "identity" | "activities" | "ci
 export type DetaillantOnboardingProfile = {
   phone: string;
   otpVerified: boolean;
+  registrationToken?: string;
   displayName: string;
   activities: string[];
   city: string;
+  organizationId?: string;
   completedAt?: string;
 };
 

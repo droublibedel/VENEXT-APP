@@ -14,6 +14,7 @@
     "@nestjs/core": "^10.4.15",
     "@nestjs/platform-express": "^10.4.15",
     "@nestjs/platform-ws": "^10.4.15",
+    "@nestjs/swagger": "^7.4.2",
     "@nestjs/websockets": "^10.4.15",
     "@venext/shared-contracts": "workspace:*",
     "@venext/shared-types": "workspace:*",
@@ -22,13 +23,13 @@
     "ws": "^8.18.0"
   },
   "devDependencies": {
-    "vitest": "^3.0.5",
     "@nestjs/cli": "^10.4.9",
     "@nestjs/schematics": "^10.2.3",
     "@types/express": "^5.0.0",
     "@types/node": "^22.10.2",
     "@types/ws": "^8.5.13",
     "eslint": "^9.17.0",
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.2",
+    "vitest": "^3.0.5"
   }
 }

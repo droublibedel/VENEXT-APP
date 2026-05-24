@@ -44,6 +44,9 @@ import { RelationalEconomicArbitrationScenarioService } from "./relational-econo
     RelationalEconomicArbitrationIngestionService,
     RelationalEconomicArbitrationGuard,
   ],
-  exports: [RelationalEconomicArbitrationIngestionService],
+  exports: [
+    RelationalEconomicArbitrationIngestionService,
+    RelationalEconomicArbitrationCorridorContextService,
+  ],
 })
 export class RelationalEconomicArbitrationModule {}

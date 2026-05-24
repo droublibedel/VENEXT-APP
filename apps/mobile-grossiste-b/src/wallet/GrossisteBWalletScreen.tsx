@@ -79,7 +79,7 @@ export const GrossisteBWalletScreen = memo(function GrossisteBWalletScreen({
     return (
       <section data-testid="grossiste-wallet-disabled">
         <GrossisteScreenHeader title="Règlements" subtitle="Optionnel — bientôt disponible" />
-        <p style={{ padding: 16, color: "#8fa39a", fontSize: 14 }}>
+        <p style={{ padding: 16, color: "var(--venext-text-muted)", fontSize: 14 }}>
           Vos commandes et votre catalogue restent disponibles sans wallet.
         </p>
       </section>

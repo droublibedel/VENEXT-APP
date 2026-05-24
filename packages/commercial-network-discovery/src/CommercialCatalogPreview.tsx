@@ -19,10 +19,10 @@ export const CommercialCatalogPreview = memo(function CommercialCatalogPreview({
     <section className="cnd-card" data-testid="cnd-catalog-preview">
       <h3 style={{ margin: "0 0 4px", fontSize: 13 }}>Catalogue — {catalog.partnerName}</h3>
       {catalog.popularLabel ? (
-        <p style={{ margin: "0 0 8px", fontSize: 10, color: "#00a884" }}>{catalog.popularLabel}</p>
+        <p style={{ margin: "0 0 8px", fontSize: 10, color: "var(--venext-accent, #008f73)" }}>{catalog.popularLabel}</p>
       ) : null}
       {catalog.promotionLabel ? (
-        <p style={{ margin: "0 0 8px", fontSize: 10, color: "#8fa39a" }}>{catalog.promotionLabel}</p>
+        <p style={{ margin: "0 0 8px", fontSize: 10, color: "var(--venext-text-secondary, #526059)" }}>{catalog.promotionLabel}</p>
       ) : null}
       <ul style={{ margin: 0, padding: 0, listStyle: "none" }}>
         {catalog.products.map((p) => (
@@ -36,7 +36,7 @@ export const CommercialCatalogPreview = memo(function CommercialCatalogPreview({
             data-testid={`cnd-catalog-product-${p.id}`}
           >
             <span style={{ fontWeight: 600 }}>{p.name}</span>
-            <span style={{ display: "block", fontSize: 10, color: "#8fa39a", marginTop: 2 }}>
+            <span style={{ display: "block", fontSize: 10, color: "var(--venext-text-secondary, #526059)", marginTop: 2 }}>
               {p.priceLabel} · {p.availability === "available" ? "Disponible" : p.availability === "limited" ? "Stock limité" : "Indisponible"}
               {p.badge ? ` · ${p.badge}` : ""}
             </span>

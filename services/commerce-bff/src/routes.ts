@@ -15,6 +15,7 @@ import {
   FALLBACK_PRODUCER_CATALOG,
   FALLBACK_WALLET_BALANCE,
   fallbackEnvelope,
+  fallbackDetaillantEndpoint,
   liveEnvelope,
 } from "./fallback-envelopes.js";
 import { registerBackofficeRoutes } from "./backoffice-routes.js";
@@ -28,6 +29,9 @@ import {
   bffGetTerrainAudio,
   bffPartnerSuggestions,
 } from "./terrain-audio/terrain-audio-store.js";
+import { registerDetaillantOnboardingRoutes } from "./detaillant-onboarding/detaillant-onboarding.routes.js";
+import { registerTerrainSearchRoutes } from "./terrain-search/terrain-search.routes.js";
+import { registerTerrainOtpRoutes } from "./terrain-otp/terrain-otp.routes.js";
 
 function maybeShapeListEnvelope(body: unknown, maxItems?: number): unknown {
   if (!maxItems || !body || typeof body !== "object") return body;
@@ -38,6 +42,12 @@ function maybeShapeListEnvelope(body: unknown, maxItems?: number): unknown {
     maxItems,
   });
   return { ...row, ...shaped };
+}
+
+function hasUsablePayload(body: unknown): boolean {
+  if (!body || typeof body !== "object") return false;
+  if (!("payload" in body)) return true;
+  return (body as { payload?: unknown }).payload !== null && (body as { payload?: unknown }).payload !== undefined;
 }
 
 async function proxyCore<T>(
@@ -62,12 +72,12 @@ async function proxyCore<T>(
     persistence,
   });
 
-  if (mode === "LIVE" && upstream.ok && upstream.data) {
+  if (mode === "LIVE" && upstream.ok && upstream.data && hasUsablePayload(upstream.data)) {
     res.json(maybeShapeListEnvelope(upstream.data, opts.maxListItems));
     return;
   }
 
-  if (mode === "HYBRID" && upstream.ok && upstream.data) {
+  if (mode === "HYBRID" && upstream.ok && upstream.data && hasUsablePayload(upstream.data)) {
     res.json(
       maybeShapeListEnvelope(
         {
@@ -97,6 +107,10 @@ export function registerRoutes(app: Express) {
     });
   });
 
+  registerTerrainOtpRoutes(app);
+  registerDetaillantOnboardingRoutes(app);
+  registerTerrainSearchRoutes(app);
+
   app.get("/api/feature-flags", async (_req, res) => {
     await proxyCore(res, "/commerce-foundation/feature-flags", () => [
       { key: "venext_backend_persistence_enabled", enabled: true, environment: "development" },
@@ -110,7 +124,7 @@ export function registerRoutes(app: Express) {
 
   app.get("/api/grossiste-b/:endpoint", guardActorEndpoint, async (req, res) => {
     const org = String(req.query.organizationId ?? "org-grossiste-b-demo");
-    const endpoint = req.params.endpoint;
+    const endpoint = String(req.params.endpoint);
     await proxyCore(
       res,
       `/commerce-foundation/grossiste-b/${endpoint}?organizationId=${encodeURIComponent(org)}`,
@@ -120,7 +134,7 @@ export function registerRoutes(app: Express) {
 
   app.get("/api/grossiste-a/:endpoint", guardGrossisteASeparation, guardActorEndpoint, async (req, res) => {
     const org = String(req.query.organizationId ?? "org-grossiste-a-nord-plus");
-    const endpoint = req.params.endpoint;
+    const endpoint = String(req.params.endpoint);
     await proxyCore(
       res,
       `/commerce-foundation/grossiste-a/${endpoint}?organizationId=${encodeURIComponent(org)}`,
@@ -138,13 +152,13 @@ export function registerRoutes(app: Express) {
     );
   });
 
-  app.get("/api/detaillant/:endpoint", guardActorEndpoint, async (req, res) => {
+  app.get("/api/detaillant/:endpoint", async (req, res) => {
     const org = String(req.query.organizationId ?? "org-detaillant-yopougon");
-    const endpoint = req.params.endpoint;
+    const endpoint = String(req.params.endpoint);
     await proxyCore(
       res,
       `/commerce-foundation/detaillant/${endpoint}?organizationId=${encodeURIComponent(org)}`,
-      () => ({ organizationId: org }),
+      () => fallbackDetaillantEndpoint(endpoint, org),
     );
   });
 

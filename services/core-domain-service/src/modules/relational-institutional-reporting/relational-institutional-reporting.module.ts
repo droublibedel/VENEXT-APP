@@ -44,6 +44,9 @@ import { RelationalInstitutionalReportingRiskService } from "./relational-instit
     RelationalInstitutionalReportingIngestionService,
     RelationalInstitutionalReportingGuard,
   ],
-  exports: [RelationalInstitutionalReportingIngestionService],
+  exports: [
+    RelationalInstitutionalReportingIngestionService,
+    RelationalInstitutionalReportingCorridorContextService,
+  ],
 })
 export class RelationalInstitutionalReportingModule {}

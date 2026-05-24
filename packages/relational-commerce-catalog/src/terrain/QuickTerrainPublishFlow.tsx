@@ -118,7 +118,7 @@ export const QuickTerrainPublishFlow = memo(function QuickTerrainPublishFlow({
         Publier maintenant
       </button>
       {dispatchMode === "same_article" && imageUrls.length > 1 ? (
-        <p data-testid="rcc-gallery-hint" style={{ fontSize: 11, color: "#8fa39a" }}>
+        <p data-testid="rcc-gallery-hint" style={{ fontSize: 11, color: "#526059" }}>
           Galerie {imageUrls.length} images
         </p>
       ) : null}

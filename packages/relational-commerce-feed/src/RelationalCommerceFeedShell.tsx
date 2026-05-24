@@ -51,7 +51,7 @@ export const RelationalCommerceFeedShell = memo(function RelationalCommerceFeedS
   if (!feed.entries.length) {
     return (
       <section data-testid="rcf-fallback-loading" className="rcf-shell">
-        <p style={{ color: "#8fa39a", fontSize: 13 }}>Chargement du réseau commercial…</p>
+        <p style={{ color: "var(--venext-text-secondary, #526059)", fontSize: 13 }}>Chargement du réseau commercial…</p>
       </section>
     );
   }

@@ -1,0 +1,88 @@
+.vtmh-root {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px 10px;
+  background: var(--venext-surface, #fff);
+  border-bottom: 1px solid var(--venext-border, #e8ece9);
+  position: sticky;
+  top: 0;
+  z-index: 80;
+}
+
+.vtmh-left,
+.vtmh-right {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.vtmh-center {
+  text-align: center;
+  min-width: 0;
+}
+
+.vtmh-brand {
+  display: block;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--venext-accent, #008f73);
+  margin-bottom: 2px;
+}
+
+.vtmh-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--venext-text, #17201c);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.vtmh-icon-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--venext-text, #17201c);
+  cursor: pointer;
+}
+
+.vtmh-icon-btn:active {
+  background: var(--venext-surface-muted, #f4f6f5);
+}
+
+.vtmh-badge {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  border-radius: 999px;
+  background: #e5484d;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 16px;
+  text-align: center;
+}
+
+.vtmh-notifications :global(.cn-bell) {
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  padding: 0;
+  border-radius: 10px;
+  background: transparent;
+  box-shadow: none;
+}

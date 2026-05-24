@@ -3,6 +3,7 @@ import { lazy, Suspense, useCallback, useState } from "react";
 import { CommercialRouterProvider } from "commercial-context-routing";
 
 import { GrossisteBBottomTabs } from "../navigation/GrossisteBBottomTabs";
+import { GrossisteBTerrainHeader } from "../navigation/GrossisteBTerrainHeader";
 import type { GrossisteBTabId } from "../navigation/grossiste-b-navigation.config";
 import { useGrossisteBCommercialRouter } from "../routing/useGrossisteBCommercialRouter";
 import { GrossisteActivityScreen } from "../screens/GrossisteActivityScreen";
@@ -13,7 +14,6 @@ import { GrossisteProfileScreen } from "../screens/GrossisteProfileScreen";
 import { useVenextAuthOptional } from "venext-auth-foundation";
 
 import { useGrossisteFeatureFlags } from "../hooks/useGrossisteFeatureFlags";
-import { GrossisteBNotificationsBridge } from "../notifications/GrossisteBNotificationsBridge";
 import { GrossisteBOfflineBridge } from "../offline/GrossisteBOfflineBridge";
 import { GrossisteBHumanizedErrorsBridge } from "../errors/GrossisteBHumanizedErrorsBridge";
 import { GrossisteBLiveObservabilityBridge } from "../observability/GrossisteBLiveObservabilityBridge";
@@ -65,9 +65,9 @@ function GrossisteBQuickReturnBar({
         margin: "8px 12px",
         padding: "8px 12px",
         borderRadius: 8,
-        border: "1px solid #2a3530",
-        background: "#121816",
-        color: "#b8c9c0",
+        border: "1px solid var(--venext-border)",
+        background: "var(--venext-surface)",
+        color: "var(--venext-text-secondary)",
         fontSize: 13,
         width: "calc(100% - 24px)",
       }}
@@ -84,6 +84,7 @@ function GrossisteBAppContent({
   focusReference,
   canGoBack,
   goBack,
+  onOpenWallet,
 }: {
   activeTab: GrossisteBTabId;
   enabled: boolean;
@@ -91,6 +92,7 @@ function GrossisteBAppContent({
   focusReference: ReturnType<typeof useGrossisteBCommercialRouter>["focusReference"];
   canGoBack: boolean;
   goBack: () => void;
+  onOpenWallet: () => void;
 }) {
   return (
     <>
@@ -122,7 +124,9 @@ function GrossisteBAppContent({
           <GrossisteOrdersScreen enabled routingInput={routingInput} focusReference={focusReference} />
         ) : null}
         {activeTab === "network" ? <GrossisteNetworkScreen enabled /> : null}
-        {activeTab === "profile" ? <GrossisteProfileScreen enabled /> : null}
+        {activeTab === "profile" ? (
+          <GrossisteProfileScreen enabled onOpenWallet={onOpenWallet} />
+        ) : null}
       </main>
     </>
   );
@@ -162,7 +166,7 @@ export function GrossisteBAppShell() {
     return (
       <div className="grossiste-b-app" data-testid="grossiste-mobile-disabled">
         <main className="grossiste-b-main">
-          <p style={{ padding: 24, color: "#8fa39a", fontSize: 14 }}>
+          <p style={{ padding: 24, color: "var(--venext-text-muted)", fontSize: 14 }}>
             Application grossiste B — bientôt disponible sur votre compte.
           </p>
         </main>
@@ -181,9 +185,11 @@ export function GrossisteBAppShell() {
   return (
     <CommercialRouterProvider router={router} flags={routingInput.flags}>
       <div className="grossiste-b-app" data-testid="grossiste-mobile-app">
-        <div style={{ position: "fixed", top: 8, right: 8, zIndex: 100 }}>
-          <GrossisteBNotificationsBridge />
-        </div>
+        <GrossisteBTerrainHeader
+          activeTab={activeTab}
+          onMessaging={() => setActiveTab("messaging")}
+          onProfile={() => setActiveTab("profile")}
+        />
         <GrossisteBAppContent
           activeTab={activeTab}
           enabled={enabled}
@@ -191,6 +197,7 @@ export function GrossisteBAppShell() {
           focusReference={focusReference}
           canGoBack={canGoBack}
           goBack={goBack}
+          onOpenWallet={() => setActiveTab("wallet")}
         />
         <GrossisteBBottomTabs activeTab={activeTab} onSelect={setActiveTab} />
       </div>

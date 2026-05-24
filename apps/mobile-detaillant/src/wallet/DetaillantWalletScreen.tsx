@@ -55,14 +55,14 @@ export const DetaillantWalletScreen = memo(function DetaillantWalletScreen({
       {hints.map((h) => (
         <p
           key={h.id}
-          style={{ margin: "0 16px 8px", fontSize: 13, color: "#7dd3b0" }}
+          style={{ margin: "0 16px 8px", fontSize: 13, color: "var(--venext-text-secondary)" }}
           data-testid="detaillant-wallet-hint"
         >
           {h.text}
         </p>
       ))}
       <p
-        style={{ margin: "0 16px 12px", fontSize: 12, color: "#8fa39a" }}
+        style={{ margin: "0 16px 12px", fontSize: 12, color: "var(--venext-text-muted)" }}
         data-testid="detaillant-wallet-optional"
       >
         Vous pouvez commander sans ouvrir cette section.

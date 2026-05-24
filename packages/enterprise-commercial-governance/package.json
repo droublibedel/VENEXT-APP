@@ -13,30 +13,38 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
+      "import": "./dist/index.js",
+      "require": "./dist/cjs/index.js",
+      "default": "./dist/index.js"
     },
     "./separation": {
       "types": "./dist/separation.d.ts",
       "import": "./dist/separation.js",
-      "require": "./dist/separation.js",
+      "require": "./dist/cjs/separation.js",
       "default": "./dist/separation.js"
     },
     "./storage": {
       "types": "./dist/enterprise-governance-storage.d.ts",
-      "import": "./dist/enterprise-governance-storage.js"
+      "import": "./dist/enterprise-governance-storage.js",
+      "require": "./dist/cjs/enterprise-governance-storage.js",
+      "default": "./dist/enterprise-governance-storage.js"
     },
     "./history": {
       "types": "./dist/enterprise-governance-history.d.ts",
-      "import": "./dist/enterprise-governance-history.js"
+      "import": "./dist/enterprise-governance-history.js",
+      "require": "./dist/cjs/enterprise-governance-history.js",
+      "default": "./dist/enterprise-governance-history.js"
     },
     "./security-alerts": {
       "types": "./dist/enterprise-security-alerts.d.ts",
-      "import": "./dist/enterprise-security-alerts.js"
+      "import": "./dist/enterprise-security-alerts.js",
+      "require": "./dist/cjs/enterprise-security-alerts.js",
+      "default": "./dist/enterprise-security-alerts.js"
     },
     "./styles.css": "./src/enterprise-governance.css"
   },
   "scripts": {
-    "build": "tsc -p tsconfig.json",
+    "build": "tsc -p tsconfig.json && tsc -p tsconfig.cjs.json && node -e \"require('fs').writeFileSync('dist/cjs/package.json', '{\\\"type\\\":\\\"commonjs\\\"}')\"",
     "test": "vitest run --config vitest.config.ts"
   },
   "dependencies": {

@@ -1,9 +1,13 @@
-import { lazy, memo, Suspense, useState } from "react";
+import { lazy, memo, Suspense, useMemo, useState } from "react";
 import { VenextScreenLoader } from "../ux/VenextScreenLoader";
 
+import { useVenextAuthOptional } from "venext-auth-foundation";
 import { VenextLanguageSelector, useVenextT } from "venext-i18n";
 
 import { useDetaillantFeatureFlags } from "../hooks/useDetaillantFeatureFlags";
+import { formatLocalCiPhoneDisplay } from "../onboarding/detaillant-phone";
+import { loadDetaillantOnboardingProfile } from "../onboarding/detaillant-onboarding.viewmodel";
+import { performDetaillantLogout } from "../session/detaillant-session";
 import { mockDetaillantAccount } from "../mocks/detaillant-mock-data";
 
 const DetaillantWalletScreen = lazy(() =>
@@ -19,20 +23,32 @@ export const DetaillantAccountScreen = memo(function DetaillantAccountScreen({
   routingInput?: import("commercial-context-routing").CommercialContextRoutingInput;
 }) {
   const { flags, hydrated } = useDetaillantFeatureFlags();
+  const auth = useVenextAuthOptional();
   const walletFlag = hydrated && flags.detaillant_wallet_enabled !== false;
   const [showWallet, setShowWallet] = useState(false);
-  const account = mockDetaillantAccount();
+  const fallbackAccount = mockDetaillantAccount();
+  const profile = loadDetaillantOnboardingProfile();
+  const account = useMemo(
+    () => ({
+      ...fallbackAccount,
+      shopName: profile?.displayName || fallbackAccount.shopName,
+      phone: profile?.phone ? formatLocalCiPhoneDisplay(profile.phone) : auth?.profileLabel || fallbackAccount.phone,
+      city: profile?.city || fallbackAccount.city,
+      organizationId: profile?.organizationId || fallbackAccount.organizationId,
+    }),
+    [auth?.profileLabel, fallbackAccount, profile],
+  );
   const t = useVenextT();
 
   return (
     <section data-testid="detaillant-screen-account">
       <header style={{ marginBottom: 18 }}>
         <h1 style={{ margin: 0, fontSize: 22, fontWeight: 800 }}>{t("navigation.tabs.account")}</h1>
-        <p style={{ margin: "8px 0 0", fontSize: 14, color: "#8fa39a" }}>{t("profile.subtitle")}</p>
+        <p style={{ margin: "8px 0 0", fontSize: 14, color: "var(--venext-text-muted)" }}>{t("profile.subtitle")}</p>
       </header>
 
       <article className="detaillant-card" data-testid="detaillant-account-identity">
-        <p style={{ margin: 0, fontSize: 12, color: "#8fa39a" }}>Boutique</p>
+        <p style={{ margin: 0, fontSize: 12, color: "var(--venext-text-muted)" }}>Boutique</p>
         <p style={{ margin: "10px 0 0", fontSize: 20, fontWeight: 800 }}>{account.shopName}</p>
         <span className="detaillant-badge detaillant-badge--ok" style={{ marginTop: 12, display: "inline-flex" }}>
           {account.city}
@@ -40,16 +56,16 @@ export const DetaillantAccountScreen = memo(function DetaillantAccountScreen({
       </article>
 
       <article className="detaillant-card">
-        <p style={{ margin: 0, fontSize: 13, color: "#8fa39a" }}>Téléphone</p>
+        <p style={{ margin: 0, fontSize: 13, color: "var(--venext-text-muted)" }}>Téléphone</p>
         <p style={{ margin: "8px 0 0", fontSize: 16, fontWeight: 600 }}>{account.phone}</p>
       </article>
 
       <article className="detaillant-card">
-        <p style={{ margin: 0, fontSize: 13, color: "#8fa39a" }}>Activité récente</p>
+        <p style={{ margin: 0, fontSize: 13, color: "var(--venext-text-muted)" }}>Activité récente</p>
         <p style={{ margin: "8px 0 0", fontSize: 15 }}>{account.recentActivity}</p>
       </article>
 
-      <h2 style={{ fontSize: 15, margin: "16px 0 10px", color: "#8fa39a", fontWeight: 600 }}>{t("settings")}</h2>
+      <h2 style={{ fontSize: 15, margin: "16px 0 10px", color: "var(--venext-text-muted)", fontWeight: 600 }}>{t("settings")}</h2>
       {walletFlag ? (
         <>
           <button
@@ -89,6 +105,21 @@ export const DetaillantAccountScreen = memo(function DetaillantAccountScreen({
         <p style={{ margin: 0, fontSize: 14 }}>
           Disponibilité : <strong>{account.availability}</strong>
         </p>
+        <button
+          type="button"
+          className="detaillant-action"
+          data-testid="detaillant-account-logout"
+          onClick={() => performDetaillantLogout(auth)}
+          style={{
+            marginTop: 16,
+            width: "100%",
+            minHeight: 44,
+            borderColor: "var(--venext-danger, #b42318)",
+            color: "var(--venext-danger, #b42318)",
+          }}
+        >
+          {t("logout")}
+        </button>
       </article>
     </section>
   );

@@ -25,12 +25,12 @@ const OrderCard = memo(function OrderCard({ order }: { order: DetaillantOrderRow
         <div className="detaillant-timeline-dot" aria-hidden />
         <div style={{ flex: 1 }}>
           <p style={{ margin: 0, fontWeight: 700, fontSize: 15 }}>{order.partner}</p>
-          <p style={{ margin: "6px 0 0", fontSize: 13, color: "#8fa39a" }}>
+          <p style={{ margin: "6px 0 0", fontSize: 13, color: "var(--venext-text-muted)" }}>
             {order.city} · {order.items} articles
           </p>
-          <p style={{ margin: "8px 0 0", fontSize: 14, color: "#00a884" }}>{STATUS_LABEL[order.status]}</p>
+          <p style={{ margin: "8px 0 0", fontSize: 14, color: "var(--venext-accent)" }}>{STATUS_LABEL[order.status]}</p>
           <p style={{ margin: "6px 0 0", fontSize: 16, fontWeight: 800 }}>{order.amountLabel}</p>
-          <p style={{ margin: "4px 0 0", fontSize: 12, color: "#6b8078" }}>{order.updatedAt}</p>
+          <p style={{ margin: "4px 0 0", fontSize: 12, color: "var(--venext-text-muted)" }}>{order.updatedAt}</p>
         </div>
       </div>
     </article>

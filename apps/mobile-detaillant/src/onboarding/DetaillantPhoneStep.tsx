@@ -1,6 +1,13 @@
-import { memo, useState } from "react";
+import { memo, useCallback, useState } from "react";
 
-import { MOCK_OTP_CODE, validateDetaillantOtp, validateDetaillantPhone } from "./detaillant-onboarding.viewmodel";
+import { requestDetaillantOtp, verifyDetaillantOtp, isValidOtpInput } from "./detaillant-otp-api";
+import {
+  formatLocalCiPhoneDisplay,
+  sanitizeLocalCiPhoneInput,
+} from "./detaillant-phone";
+import { MOCK_OTP_CODE, validateDetaillantPhone } from "./detaillant-onboarding.viewmodel";
+
+const DEV_MOCK_OTP = import.meta.env.DEV;
 
 export const DetaillantPhoneStep = memo(function DetaillantPhoneStep({
   phone,
@@ -12,59 +19,152 @@ export const DetaillantPhoneStep = memo(function DetaillantPhoneStep({
   phone: string;
   otpVerified: boolean;
   onPhoneChange: (v: string) => void;
-  onOtpVerified: () => void;
+  onOtpVerified: (registrationToken?: string) => void;
   onNext: () => void;
 }) {
   const [otp, setOtp] = useState("");
+  const [otpSent, setOtpSent] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [destinationHint, setDestinationHint] = useState<string | null>(null);
+
   const phoneOk = validateDetaillantPhone(phone);
-  const otpOk = validateDetaillantOtp(otp) || otpVerified;
+  const otpOk = otpVerified || isValidOtpInput(otp);
+
+  const sendOtp = useCallback(async () => {
+    if (!phoneOk || busy) return;
+    setBusy(true);
+    setError(null);
+    const result = await requestDetaillantOtp(phone);
+    setBusy(false);
+    if (!result.ok) {
+      setError(result.userMessage);
+      return;
+    }
+    setOtpSent(true);
+    setDestinationHint(result.destinationHint);
+  }, [busy, phone, phoneOk]);
+
+  const verifyOtp = useCallback(async () => {
+    if (!phoneOk || !isValidOtpInput(otp) || busy || otpVerified) return;
+    setBusy(true);
+    setError(null);
+    const result = await verifyDetaillantOtp(phone, otp);
+    setBusy(false);
+    if (!result.ok) {
+      setError(result.userMessage);
+      return;
+    }
+    onOtpVerified(result.registrationToken);
+  }, [busy, onOtpVerified, otp, otpVerified, phone, phoneOk]);
+
+  const simulateDevOtp = useCallback(() => {
+    setOtp(MOCK_OTP_CODE);
+    onOtpVerified(undefined);
+  }, [onOtpVerified]);
 
   return (
     <section data-testid="dt-onboarding-phone">
       <h2 style={{ margin: "0 0 8px", fontSize: 18 }}>Votre numéro</h2>
-      <p style={{ margin: "0 0 16px", fontSize: 13, color: "#8fa39a" }}>
-        Téléphone-first — comme WhatsApp.
+      <p style={{ margin: "0 0 16px", fontSize: 13, color: "var(--venext-text-muted)" }}>
+        Saisissez votre numéro mobile ivoirien (10 chiffres).
       </p>
       <label style={{ display: "block", marginBottom: 12 }}>
-        <span style={{ fontSize: 12, color: "#8fa39a" }}>Numéro de téléphone</span>
+        <span style={{ fontSize: 12, color: "var(--venext-text-muted)" }}>Numéro de téléphone</span>
         <input
           className="detaillant-search"
           type="tel"
-          value={phone}
-          onChange={(e) => onPhoneChange(e.target.value)}
-          placeholder="+225 07 00 00 00 00"
+          inputMode="numeric"
+          autoComplete="tel-national"
+          value={formatLocalCiPhoneDisplay(phone)}
+          onChange={(e) => {
+            onPhoneChange(sanitizeLocalCiPhoneInput(e.target.value));
+            setOtpSent(false);
+            setDestinationHint(null);
+            setError(null);
+          }}
+          placeholder="07 00 00 00 00"
+          maxLength={14}
           data-testid="dt-onboarding-phone-input"
         />
       </label>
-      {phoneOk ? (
+
+      {phoneOk && !otpVerified ? (
         <>
-          <label style={{ display: "block", marginBottom: 8 }}>
-            <span style={{ fontSize: 12, color: "#8fa39a" }}>Code reçu par SMS</span>
-            <input
-              className="detaillant-search"
-              type="text"
-              inputMode="numeric"
-              maxLength={6}
-              value={otp}
-              onChange={(e) => setOtp(e.target.value.replace(/\D/g, "").slice(0, 6))}
-              placeholder="6 chiffres"
-              data-testid="dt-onboarding-otp-input"
-            />
-          </label>
-          <button
-            type="button"
-            className="detaillant-action"
-            onClick={() => {
-              setOtp(MOCK_OTP_CODE);
-              onOtpVerified();
-            }}
-            data-testid="dt-onboarding-otp-auto"
-            style={{ width: "100%", marginBottom: 12 }}
-          >
-            Simuler lecture OTP automatique
-          </button>
+          {!otpSent ? (
+            <button
+              type="button"
+              className="detaillant-action detaillant-action--primary"
+              disabled={busy}
+              onClick={() => void sendOtp()}
+              data-testid="dt-onboarding-send-otp"
+              style={{ width: "100%", marginBottom: 12 }}
+            >
+              {busy ? "Envoi…" : "Recevoir le code par SMS"}
+            </button>
+          ) : (
+            <>
+              {destinationHint ? (
+                <p style={{ fontSize: 12, color: "var(--venext-text-muted)", margin: "0 0 8px" }}>
+                  Code envoyé au {destinationHint}
+                </p>
+              ) : null}
+              <label style={{ display: "block", marginBottom: 8 }}>
+                <span style={{ fontSize: 12, color: "var(--venext-text-muted)" }}>Code reçu par SMS</span>
+                <input
+                  className="detaillant-search"
+                  type="text"
+                  inputMode="numeric"
+                  maxLength={6}
+                  value={otp}
+                  onChange={(e) => setOtp(e.target.value.replace(/\D/g, "").slice(0, 6))}
+                  placeholder="6 chiffres"
+                  data-testid="dt-onboarding-otp-input"
+                />
+              </label>
+              <button
+                type="button"
+                className="detaillant-action detaillant-action--primary"
+                disabled={busy || !isValidOtpInput(otp)}
+                onClick={() => void verifyOtp()}
+                data-testid="dt-onboarding-verify-otp"
+                style={{ width: "100%", marginBottom: 8 }}
+              >
+                {busy ? "Vérification…" : "Vérifier le code"}
+              </button>
+              <button
+                type="button"
+                className="detaillant-action"
+                disabled={busy}
+                onClick={() => void sendOtp()}
+                data-testid="dt-onboarding-resend-otp"
+                style={{ width: "100%", marginBottom: 12 }}
+              >
+                Renvoyer le code
+              </button>
+            </>
+          )}
+
+          {DEV_MOCK_OTP ? (
+            <button
+              type="button"
+              className="detaillant-action"
+              onClick={simulateDevOtp}
+              data-testid="dt-onboarding-otp-auto"
+              style={{ width: "100%", marginBottom: 12 }}
+            >
+              Mode démo — simuler OTP validé
+            </button>
+          ) : null}
         </>
       ) : null}
+
+      {error ? (
+        <p role="alert" style={{ color: "var(--venext-danger, #b42318)", fontSize: 13, marginBottom: 12 }}>
+          {error}
+        </p>
+      ) : null}
+
       <button
         type="button"
         className="detaillant-action detaillant-action--primary"

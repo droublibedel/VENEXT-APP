@@ -93,6 +93,24 @@ describe("commerce-bff routes (20.79)", () => {
     vi.spyOn(coreClient, "persistenceEnabled").mockReturnValue(false);
     const res = await request(createApp()).get("/api/detaillant/home?organizationId=org-detaillant-yopougon");
     expect(res.body.fallbackUsed).toBe(true);
+    expect(res.body.payload.organizationId).toBe("org-detaillant-yopougon");
+    expect(res.body.payload.popularProducts.length).toBeGreaterThan(0);
+  });
+
+  it("detaillant endpoint falls back when core returns null payload", async () => {
+    vi.spyOn(coreClient, "persistenceEnabled").mockReturnValue(true);
+    vi.spyOn(coreClient, "fetchCore").mockResolvedValue({
+      ok: true,
+      status: 200,
+      data: {
+        dataSource: "live",
+        fallbackUsed: false,
+        payload: null,
+      },
+    });
+    const res = await request(createApp()).get("/api/detaillant/products?organizationId=org-detaillant-yopougon");
+    expect(res.body.dataSource).toBe("fallback");
+    expect(res.body.payload.products.length).toBeGreaterThan(0);
   });
 
   it("actors me fallback", async () => {

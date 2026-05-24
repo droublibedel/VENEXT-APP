@@ -12,7 +12,7 @@ type Props = {
 export function NetworkVitalityPanel({ activeOrganizations, governanceSuspendedOrgs, relationshipExpansion }: Props) {
   const rel = relationshipExpansion;
   return (
-    <section className="rounded-lg border border-white/10 p-3" style={{ backgroundColor: "rgba(7,94,84,0.12)" }}>
+    <section className="rounded-lg border border-white/10 p-3" style={{ backgroundColor: "rgba(0,168,132,0.08)" }}>
       <p className="mb-2 text-[10px] font-semibold uppercase tracking-[0.2em]" style={{ color: vx.mint }}>
         Network vitality
       </p>

@@ -10,4 +10,5 @@ export * from "./commercial-location-audits.js";
 export * from "./commercial-location-service.js";
 export * from "./soft-location-prompt-policy.js";
 export * from "./SoftCommercialLocationCompletion.js";
+export * from "./TransientLocationOptimizationHint.js";
 export * from "./commercial-location-api.js";

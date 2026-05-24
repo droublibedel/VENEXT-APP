@@ -109,7 +109,7 @@ export const GrossisteBQuickOnboarding = memo(function GrossisteBQuickOnboarding
   return (
     <div className="grossiste-b-app" data-testid="gb-quick-onboarding">
       <main className="grossiste-b-main" style={{ padding: 16 }}>
-        <p style={{ fontSize: 11, color: "#00a884", margin: "0 0 12px" }} data-testid="gb-onboarding-progress">
+        <p style={{ fontSize: 11, color: "var(--venext-accent)", margin: "0 0 12px" }} data-testid="gb-onboarding-progress">
           Étape {stepIndex} / 4 — inscription terrain rapide
         </p>
         <Suspense fallback={<VenextScreenLoader variant="form" />}>

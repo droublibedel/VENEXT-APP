@@ -14,7 +14,7 @@ export const CommercialInstantConnection = memo(function CommercialInstantConnec
   return (
     <section className="cnd-card" data-testid="cnd-instant-connection">
       <p style={{ margin: 0, fontSize: 12, fontWeight: 600 }}>Connexion terrain immédiate</p>
-      <p style={{ margin: "6px 0 10px", fontSize: 11, color: "#8fa39a" }}>
+      <p style={{ margin: "6px 0 10px", fontSize: 11, color: "var(--venext-text-secondary, #526059)" }}>
         Un clic crée la relation commerciale — sans validation administrative.
       </p>
       <button

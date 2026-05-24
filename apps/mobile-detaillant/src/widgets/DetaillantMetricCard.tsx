@@ -10,9 +10,9 @@ export const DetaillantMetricCard = memo(function DetaillantMetricCard({
   testId?: string;
 }) {
   return (
-    <article className="detaillant-card" data-testid={testId}>
-      <p style={{ margin: 0, fontSize: 12, color: "#8fa39a", fontWeight: 600 }}>{label}</p>
-      <p style={{ margin: "10px 0 0", fontSize: 24, fontWeight: 800, color: "#00a884" }}>{value}</p>
+    <article className="detaillant-card detaillant-kpi-card" data-testid={testId}>
+      <p className="detaillant-kpi-label">{label}</p>
+      <p className="detaillant-kpi-value">{value}</p>
     </article>
   );
 });

@@ -44,6 +44,9 @@ import { RelationalEconomicMonitoringRiskService } from "./relational-economic-m
     RelationalEconomicMonitoringIngestionService,
     RelationalEconomicMonitoringGuard,
   ],
-  exports: [RelationalEconomicMonitoringIngestionService],
+  exports: [
+    RelationalEconomicMonitoringIngestionService,
+    RelationalEconomicMonitoringCorridorContextService,
+  ],
 })
 export class RelationalEconomicMonitoringModule {}

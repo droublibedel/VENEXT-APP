@@ -4,6 +4,7 @@ import { PrismaModule } from "../../prisma/prisma.module";
 import { RelationshipModule } from "../../graph/relationship/relationship.module";
 import { PlatformAuthzModule } from "../../platform-authz/platform-authz.module";
 import { ProductCommerceModule } from "../product-commerce/product-commerce.module";
+import { CatalogVisibilityModule } from "../catalog-visibility/catalog-visibility.module";
 import { CommercialIdentityService } from "./commercial-identity.service";
 import { RelationalCommerceNetworkTraverserService } from "./relational-commerce-network-traverser.service";
 import { ContactGraphAnalyzerService } from "./contact-graph-analyzer.service";
@@ -20,6 +21,7 @@ import { WholesalerDualCatalogService } from "./wholesaler-dual-catalog.service"
     RelationshipModule,
     PlatformAuthzModule,
     FeatureFlagsModule,
+    CatalogVisibilityModule,
     forwardRef(() => ProductCommerceModule),
   ],
   controllers: [RelationalCommerceController],

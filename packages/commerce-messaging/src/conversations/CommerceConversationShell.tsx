@@ -288,7 +288,7 @@ export const CommerceConversationShell = memo(function CommerceConversationShell
   if (!enabled) {
     return (
       <div className="cm-shell" data-testid="commerce-messaging-disabled" style={{ padding: 24 }}>
-        <p style={{ color: "#8fa39a" }}>Messagerie commerciale — bientôt disponible.</p>
+        <p style={{ color: "#526059" }}>Messagerie commerciale — bientôt disponible.</p>
       </div>
     );
   }
@@ -361,7 +361,7 @@ export const CommerceConversationShell = memo(function CommerceConversationShell
                   />
                 ) : null}
               </div>
-              <p style={{ margin: "4px 0 0", fontSize: 12, color: "#8fa39a" }}>
+              <p style={{ margin: "4px 0 0", fontSize: 12, color: "#526059" }}>
                 {activeConv.partnerRole} · {activeConv.city}
                 {activeConv.corridor ? ` · ${activeConv.corridor}` : ""}
               </p>
@@ -445,7 +445,7 @@ export const CommerceConversationShell = memo(function CommerceConversationShell
             />
           </>
         ) : (
-          <p style={{ padding: 24, color: "#8fa39a" }}>
+          <p style={{ padding: 24, color: "#526059" }}>
             {isMobileLayout ? "Choisissez une conversation dans la liste." : "Sélectionnez une conversation."}
           </p>
         )}

@@ -73,10 +73,10 @@ export const GrossisteACatalogWorkspace = memo(function GrossisteACatalogWorkspa
         renderItem={(p) => (
           <article className="ga-card" data-testid={`ga-product-${p.id}`}>
             <strong>{p.name}</strong>
-            <p style={{ margin: "6px 0 0", fontSize: 13, color: "#8fa39a" }}>
+            <p style={{ margin: "6px 0 0", fontSize: 13, color: "#526059" }}>
               {p.category} · {p.availability} · rotation {p.rotation}
             </p>
-            <p style={{ margin: "6px 0 0", color: p.demand === "high" ? "#00a884" : p.demand === "slow" ? "#e8b84a" : "#b8cdc4" }}>
+            <p style={{ margin: "6px 0 0", color: p.demand === "high" ? "#00a884" : p.demand === "slow" ? "#e8b84a" : "#526059" }}>
               {p.demand === "high" ? "Forte demande" : p.demand === "slow" ? "Ralentit" : "Demande normale"}
             </p>
           </article>

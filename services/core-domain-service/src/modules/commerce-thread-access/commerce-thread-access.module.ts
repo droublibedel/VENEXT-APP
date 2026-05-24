@@ -18,6 +18,7 @@ import { SponsoredNegotiationAccessService } from "./sponsored-negotiation-acces
     SponsoredNegotiationAccessService,
   ],
   exports: [
+    PlatformAuthzModule,
     CommerceThreadActorResolver,
     CommerceThreadParticipantGuard,
     CommerceMessagingActorGuard,

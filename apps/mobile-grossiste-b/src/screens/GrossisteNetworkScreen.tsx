@@ -54,36 +54,36 @@ export const GrossisteNetworkScreen = memo(function GrossisteNetworkScreen({
           <GrossisteDataSourceBadge dataSource={dataSource} fallbackUsed={fallbackUsed} loading={loading} />
           <GrossisteHintStrip hints={hints} testId="grossiste-network-hints" />
 
-          <h2 style={{ fontSize: 14, margin: "0 0 8px", color: "#8fa39a" }}>Partenaires récents</h2>
+          <h2 style={{ fontSize: 14, margin: "0 0 8px", color: "var(--venext-text-muted)" }}>Partenaires récents</h2>
           {data?.recentPartners.map((p) => (
             <article key={p.id} className="grossiste-b-card" data-testid={`grossiste-partner-${p.id}`}>
               <p style={{ margin: 0, fontWeight: 600 }}>{p.name}</p>
-              <p style={{ margin: "4px 0 0", fontSize: 12, color: "#8fa39a" }}>
+              <p style={{ margin: "4px 0 0", fontSize: 12, color: "var(--venext-text-muted)" }}>
                 {p.type} · {p.city} · {p.lastActive}
               </p>
             </article>
           ))}
 
-          <h2 style={{ fontSize: 14, margin: "16px 0 8px", color: "#8fa39a" }}>Partenaires actifs</h2>
+          <h2 style={{ fontSize: 14, margin: "16px 0 8px", color: "var(--venext-text-muted)" }}>Partenaires actifs</h2>
           {data?.activePartners.map((p) => (
             <article key={p.id} className="grossiste-b-card">
               <p style={{ margin: 0, fontWeight: 600 }}>{p.name}</p>
-              <p style={{ margin: "4px 0 0", fontSize: 12, color: "#00a884" }}>
+              <p style={{ margin: "4px 0 0", fontSize: 12, color: "var(--venext-accent)" }}>
                 {p.city} — {p.orders7d} commandes / 7j
               </p>
             </article>
           ))}
 
-          <h2 style={{ fontSize: 14, margin: "16px 0 8px", color: "#8fa39a" }}>Villes actives</h2>
-          <p style={{ fontSize: 13, color: "#f0f4f2" }} data-testid="grossiste-active-cities">
+          <h2 style={{ fontSize: 14, margin: "16px 0 8px", color: "var(--venext-text-muted)" }}>Villes actives</h2>
+          <p style={{ fontSize: 13, color: "var(--venext-text)" }} data-testid="grossiste-active-cities">
             {(data?.activeCities ?? []).join(" · ")}
           </p>
 
-          <h2 style={{ fontSize: 14, margin: "16px 0 8px", color: "#8fa39a" }}>Corridors</h2>
+          <h2 style={{ fontSize: 14, margin: "16px 0 8px", color: "var(--venext-text-muted)" }}>Corridors</h2>
           {data?.corridorActivity.map((c) => (
             <article key={c.id} className="grossiste-b-card" data-testid={`grossiste-corridor-${c.id}`}>
               <p style={{ margin: 0, fontSize: 13 }}>{c.label}</p>
-              <p style={{ margin: "4px 0 0", fontSize: 12, color: "#00a884" }}>
+              <p style={{ margin: "4px 0 0", fontSize: 12, color: "var(--venext-accent)" }}>
                 {c.level === "active" ? "Actif" : c.level === "moderate" ? "Modéré" : "Calme"}
               </p>
             </article>

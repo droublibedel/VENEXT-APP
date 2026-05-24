@@ -22,8 +22,8 @@ export const CommercialActivityCard = memo(function CommercialActivityCard({
       data-testid={`caf-card-${item.id}`}
     >
       <div style={{ display: "flex", justifyContent: "space-between", gap: 8 }}>
-        <strong style={{ fontSize: 14, color: "#f0f4f2" }}>{label}</strong>
-        <span style={{ fontSize: 11, color: "#6b7f76" }}>
+        <strong style={{ fontSize: 14, color: "#17201c" }}>{label}</strong>
+        <span style={{ fontSize: 11, color: "#66746d" }}>
           {new Date(item.occurredAt).toLocaleTimeString(locale, { hour: "2-digit", minute: "2-digit" })}
         </span>
       </div>

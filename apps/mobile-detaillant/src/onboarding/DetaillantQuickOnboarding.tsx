@@ -2,6 +2,8 @@ import { lazy, memo, Suspense, useCallback, useMemo, useState } from "react";
 import { VenextScreenLoader } from "../ux/VenextScreenLoader";
 
 import type { DetaillantOnboardingProfile, DetaillantOnboardingStep } from "./detaillant-onboarding.types";
+import { completeDetaillantRegistration } from "./detaillant-onboarding-api";
+import { toInternationalCiPhone } from "./detaillant-phone";
 import { createEmptyDetaillantProfile, saveDetaillantOnboardingProfile } from "./detaillant-onboarding.viewmodel";
 
 const DetaillantPhoneStep = lazy(() =>
@@ -24,6 +26,8 @@ export const DetaillantQuickOnboarding = memo(function DetaillantQuickOnboarding
 }) {
   const [step, setStep] = useState<DetaillantOnboardingStep>("phone");
   const [profile, setProfile] = useState<DetaillantOnboardingProfile>(createEmptyDetaillantProfile);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const patch = useCallback((partial: Partial<DetaillantOnboardingProfile>) => {
     setProfile((p) => ({ ...p, ...partial }));
@@ -39,8 +43,27 @@ export const DetaillantQuickOnboarding = memo(function DetaillantQuickOnboarding
     });
   }, []);
 
-  const finish = useCallback(() => {
-    const done = { ...profile, completedAt: new Date().toISOString() };
+  const finish = useCallback(async () => {
+    setSubmitting(true);
+    setSubmitError(null);
+    const result = await completeDetaillantRegistration({
+      phone: toInternationalCiPhone(profile.phone),
+      registrationToken: profile.registrationToken,
+      displayName: profile.displayName,
+      activities: profile.activities,
+      city: profile.city || "Abidjan",
+      devBypassOtp: import.meta.env.DEV && profile.otpVerified && !profile.registrationToken,
+    });
+    setSubmitting(false);
+    if (!result.ok) {
+      setSubmitError(result.userMessage);
+      return;
+    }
+    const done = {
+      ...profile,
+      organizationId: result.organizationId,
+      completedAt: new Date().toISOString(),
+    };
     saveDetaillantOnboardingProfile(done);
     onComplete();
   }, [profile, onComplete]);
@@ -53,7 +76,7 @@ export const DetaillantQuickOnboarding = memo(function DetaillantQuickOnboarding
   return (
     <div className="detaillant-app" data-testid="dt-quick-onboarding">
       <main className="detaillant-main" style={{ padding: 16 }}>
-        <p style={{ fontSize: 11, color: "#00a884", margin: "0 0 12px" }} data-testid="dt-onboarding-progress">
+        <p style={{ fontSize: 11, color: "var(--venext-accent)", margin: "0 0 12px" }} data-testid="dt-onboarding-progress">
           Étape {stepIndex} / 4 — inscription terrain rapide
         </p>
         <Suspense fallback={<VenextScreenLoader variant="form" />}>
@@ -62,7 +85,9 @@ export const DetaillantQuickOnboarding = memo(function DetaillantQuickOnboarding
               phone={profile.phone}
               otpVerified={profile.otpVerified}
               onPhoneChange={(phone) => patch({ phone })}
-              onOtpVerified={() => patch({ otpVerified: true })}
+              onOtpVerified={(registrationToken) =>
+                patch({ otpVerified: true, registrationToken })
+              }
               onNext={() => setStep("identity")}
             />
           ) : null}
@@ -81,12 +106,20 @@ export const DetaillantQuickOnboarding = memo(function DetaillantQuickOnboarding
             />
           ) : null}
           {step === "city" ? (
-            <DetaillantCityStep
-              city={profile.city}
-              onCityChange={(city) => patch({ city })}
-              onFinish={finish}
-              onSkip={finish}
-            />
+            <>
+              {submitError ? (
+                <p role="alert" style={{ color: "var(--venext-danger, #b42318)", fontSize: 13, marginBottom: 12 }}>
+                  {submitError}
+                </p>
+              ) : null}
+              <DetaillantCityStep
+                city={profile.city}
+                onCityChange={(city) => patch({ city })}
+                onFinish={() => void finish()}
+                onSkip={() => void finish()}
+                submitting={submitting}
+              />
+            </>
           ) : null}
         </Suspense>
       </main>

@@ -76,7 +76,7 @@ export const CommerceMessageThread = memo(function CommerceMessageThread({
           />
         ) : null}
         {isCard ? (
-          <p style={{ margin: "0 0 4px", fontSize: 10, textTransform: "uppercase", color: "#8fa39a" }}>
+          <p style={{ margin: "0 0 4px", fontSize: 10, textTransform: "uppercase", color: "#526059" }}>
             {m.kind === "product"
               ? "Produit"
               : m.kind === "order"
@@ -95,7 +95,7 @@ export const CommerceMessageThread = memo(function CommerceMessageThread({
         {m.documentName ? (
           <p style={{ margin: "4px 0 0", fontSize: 12 }}>{m.documentName}</p>
         ) : null}
-        <p style={{ margin: "6px 0 0", fontSize: 10, color: "#6b8078", textAlign: "right" }}>
+        <p style={{ margin: "6px 0 0", fontSize: 10, color: "#66746d", textAlign: "right" }}>
           {m.displayTime ?? m.at}
         </p>
         {isSelf && onDeleteMessage ? (
@@ -103,7 +103,7 @@ export const CommerceMessageThread = memo(function CommerceMessageThread({
             type="button"
             data-testid="cm-msg-delete"
             onClick={() => onDeleteMessage(m.id)}
-            style={{ fontSize: 10, color: "#8fa39a", background: "none", border: "none", marginTop: 4 }}
+            style={{ fontSize: 10, color: "#526059", background: "none", border: "none", marginTop: 4 }}
           >
             Supprimer
           </button>
@@ -128,7 +128,7 @@ export const CommerceMessageThread = memo(function CommerceMessageThread({
             fontSize: 13,
             background: "transparent",
             border: "1px dashed #2a3530",
-            color: "#8fa39a",
+            color: "#526059",
             borderRadius: 8,
           }}
         >
@@ -144,7 +144,7 @@ export const CommerceMessageThread = memo(function CommerceMessageThread({
                 style={{
                   textAlign: "center",
                   fontSize: 11,
-                  color: "#8fa39a",
+                  color: "#526059",
                   margin: "12px 0",
                   padding: "4px 12px",
                   background: "rgba(0,0,0,0.2)",

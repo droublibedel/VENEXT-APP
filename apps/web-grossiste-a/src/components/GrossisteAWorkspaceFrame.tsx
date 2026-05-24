@@ -32,7 +32,7 @@ export const GrossisteAWorkspaceFrame = memo(function GrossisteAWorkspaceFrame({
       <header style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 8 }}>
         <div>
           <h1 style={{ margin: 0, fontSize: 24, fontWeight: 700 }}>{title}</h1>
-          {subtitle ? <p style={{ margin: "8px 0 0", fontSize: 14, color: "#8fa39a" }}>{subtitle}</p> : null}
+          {subtitle ? <p style={{ margin: "8px 0 0", fontSize: 14, color: "#526059" }}>{subtitle}</p> : null}
         </div>
         {onRefresh ? (
           <button

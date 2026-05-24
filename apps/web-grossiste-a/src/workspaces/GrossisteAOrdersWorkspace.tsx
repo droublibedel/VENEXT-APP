@@ -53,11 +53,11 @@ export const GrossisteAOrdersWorkspace = memo(function GrossisteAOrdersWorkspace
             <div style={{ width: 10, height: 10, borderRadius: "50%", background: "#00a884", marginTop: 6 }} />
             <div>
               <strong>{o.partner}</strong>
-              <p style={{ margin: "4px 0", fontSize: 13, color: "#8fa39a" }}>
+              <p style={{ margin: "4px 0", fontSize: 13, color: "#526059" }}>
                 {o.city} · {STATUS[o.status]}
               </p>
               <p style={{ margin: 0, fontWeight: 700 }}>{o.amountLabel}</p>
-              <p style={{ margin: "4px 0 0", fontSize: 12, color: "#6b8078" }}>{o.updatedAt}</p>
+              <p style={{ margin: "4px 0 0", fontSize: 12, color: "#66746d" }}>{o.updatedAt}</p>
             </div>
           </article>
         )}

@@ -11,22 +11,23 @@ import {
 } from "commerce-performance-foundation";
 
 import { useDetaillantFeatureFlags } from "../hooks/useDetaillantFeatureFlags";
-import { DETAILLANT_ORG_ID } from "../mocks/detaillant-mock-data";
+import { resolveDetaillantOrganizationId } from "../session/resolveDetaillantOrganizationId";
 
 export function DetaillantPerformanceBridge() {
   const { flags, hydrated } = useDetaillantFeatureFlags();
+  const organizationId = resolveDetaillantOrganizationId();
 
   useEffect(() => {
     if (!hydrated || !isCommercePerformanceEnabled(flags)) return;
-    runCommerceStorageCleanup(DETAILLANT_ORG_ID);
-  }, [flags, hydrated]);
+    runCommerceStorageCleanup(organizationId);
+  }, [flags, hydrated, organizationId]);
 
   useEffect(() => {
     if (!hydrated || !isCommerceSecureCleanupEnabled(flags)) return;
 
     const unsubSession = subscribeCommerceSessionCleanup((detail) => {
       runFullCommerceSessionCleanup({
-        organizationId: detail.organizationId || DETAILLANT_ORG_ID,
+        organizationId: detail.organizationId || organizationId,
         reason: detail.reason,
       });
     });
@@ -41,7 +42,7 @@ export function DetaillantPerformanceBridge() {
       unsubSession();
       unsubLock();
     };
-  }, [flags, hydrated]);
+  }, [flags, hydrated, organizationId]);
 
   return null;
 }

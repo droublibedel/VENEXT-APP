@@ -36,10 +36,10 @@ export const RelationalFeedCard = memo(function RelationalFeedCard({
             {title}
           </p>
           {entry.partnerRoleLabel ? (
-            <span style={{ fontSize: 10, color: "#00a884" }}>{entry.partnerRoleLabel}</span>
+            <span style={{ fontSize: 10, color: "var(--venext-accent, #008f73)" }}>{entry.partnerRoleLabel}</span>
           ) : null}
           {entry.city ? (
-            <p style={{ margin: "4px 0 0", fontSize: 11, color: "#8fa39a" }}>{entry.city}</p>
+            <p style={{ margin: "4px 0 0", fontSize: 11, color: "var(--venext-text-secondary, #526059)" }}>{entry.city}</p>
           ) : null}
         </div>
         {entry.businessAudioUrl ? (

@@ -16,6 +16,7 @@ export type TerrainActorProfile = {
   city: string;
   otpVerified: boolean;
   onboardingComplete: boolean;
+  organizationId?: string;
 };
 
 export type FormalActorProfile = {

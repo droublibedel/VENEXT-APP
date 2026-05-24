@@ -39,7 +39,7 @@ export const TerrainPartnerSuggestions = memo(function TerrainPartnerSuggestions
   if (!list.length) {
     return (
       <section data-testid="terrain-partner-suggestions-empty">
-        <p style={{ fontSize: 13, color: "#8fa39a" }}>
+        <p style={{ fontSize: 13, color: "var(--venext-text-secondary, #526059)" }}>
           Découvrez des grossistes, détaillants et producteurs près de vous.
         </p>
       </section>
@@ -49,7 +49,7 @@ export const TerrainPartnerSuggestions = memo(function TerrainPartnerSuggestions
   return (
     <section data-testid="terrain-partner-suggestions">
       <h2 style={{ fontSize: 15, margin: "0 0 8px" }}>Suggestions partenaires</h2>
-      <p style={{ fontSize: 11, color: "#6b8078", margin: "0 0 12px" }}>
+      <p style={{ fontSize: 11, color: "#66746d", margin: "0 0 12px" }}>
         Grossistes · Détaillants · Producteurs selon contacts, ville et proximité réseau
       </p>
       <ul style={{ listStyle: "none", padding: 0, margin: "0 0 12px" }}>
@@ -57,7 +57,7 @@ export const TerrainPartnerSuggestions = memo(function TerrainPartnerSuggestions
           <li
             key={s.id}
             data-testid={`terrain-partner-role-${s.id}`}
-            style={{ fontSize: 10, color: "#8fa39a", marginBottom: 4 }}
+            style={{ fontSize: 10, color: "var(--venext-text-secondary, #526059)", marginBottom: 4 }}
           >
             {resolvePartnerRoleLabel(s)}
           </li>

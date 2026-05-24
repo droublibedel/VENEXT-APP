@@ -91,7 +91,7 @@ export const WalletBceaoActivationFlow = memo(function WalletBceaoActivationFlow
       {step === "activation" ? (
         <>
           <h2 style={{ fontSize: 18, margin: "0 0 8px" }}>Activer les règlements</h2>
-          <p style={{ fontSize: 14, color: "#8fa39a", margin: "0 0 16px" }}>
+          <p style={{ fontSize: 14, color: "#526059", margin: "0 0 16px" }}>
             Vos commandes et messages restent accessibles. L&apos;identité n&apos;est demandée que pour
             recevoir ou payer via wallet.
           </p>
@@ -199,7 +199,7 @@ export const WalletBceaoActivationFlow = memo(function WalletBceaoActivationFlow
       {step === "biometric" ? (
         <>
           <h2 style={{ fontSize: 18, margin: "0 0 12px" }}>Déverrouillage rapide (optionnel)</h2>
-          <p style={{ fontSize: 14, color: "#8fa39a" }}>
+          <p style={{ fontSize: 14, color: "#526059" }}>
             Empreinte ou reconnaissance faciale — vous pouvez passer cette étape.
           </p>
           <button type="button" data-testid="wallet-biometric-enable" onClick={enableBiometric}>

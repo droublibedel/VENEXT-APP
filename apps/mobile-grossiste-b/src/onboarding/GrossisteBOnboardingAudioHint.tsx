@@ -15,10 +15,10 @@ export const GrossisteBOnboardingAudioHint = memo(function GrossisteBOnboardingA
       data-testid="gb-onboarding-audio-hint"
       style={{ marginTop: 16 }}
     >
-      <p style={{ margin: "0 0 8px", fontSize: 13, color: "#00a884" }}>
+      <p style={{ margin: "0 0 8px", fontSize: 13, color: "var(--venext-accent)" }}>
         Présentez votre activité en audio
       </p>
-      <p style={{ margin: "0 0 12px", fontSize: 11, color: "#8fa39a" }}>
+      <p style={{ margin: "0 0 12px", fontSize: 11, color: "var(--venext-text-muted)" }}>
         Optionnel — vous pourrez aussi le faire plus tard dans votre profil.
       </p>
       <BusinessProfileAudioSection ownerActorId={ownerActorId} />
@@ -27,7 +27,7 @@ export const GrossisteBOnboardingAudioHint = memo(function GrossisteBOnboardingA
           type="button"
           data-testid="gb-onboarding-audio-skip"
           onClick={onDismiss}
-          style={{ marginTop: 12, fontSize: 12, color: "#8fa39a", background: "none", border: "none" }}
+          style={{ marginTop: 12, fontSize: 12, color: "var(--venext-text-muted)", background: "none", border: "none" }}
         >
           Plus tard
         </button>

@@ -1,11 +1,23 @@
 import { memo } from "react";
+import { Activity, Network, PackageSearch, ReceiptText } from "lucide-react";
 
-import { GROSSISTE_B_TABS, type GrossisteBTabId } from "./grossiste-b-navigation.config";
+import {
+  GROSSISTE_B_BOTTOM_TABS,
+  isGrossisteBBottomTab,
+  type GrossisteBTabId,
+} from "./grossiste-b-navigation.config";
 
 type Props = {
   activeTab: GrossisteBTabId;
   onSelect: (tab: GrossisteBTabId) => void;
 };
+
+const icons = {
+  activity: Activity,
+  catalog: PackageSearch,
+  orders: ReceiptText,
+  network: Network,
+} as const;
 
 export const GrossisteBBottomTabs = memo(function GrossisteBBottomTabs({
   activeTab,
@@ -13,8 +25,9 @@ export const GrossisteBBottomTabs = memo(function GrossisteBBottomTabs({
 }: Props) {
   return (
     <nav className="grossiste-b-tabs" data-testid="grossiste-bottom-tabs" aria-label="Navigation">
-      {GROSSISTE_B_TABS.map((tab) => {
-        const active = tab.id === activeTab;
+      {GROSSISTE_B_BOTTOM_TABS.map((tab) => {
+        const active = isGrossisteBBottomTab(activeTab) && tab.id === activeTab;
+        const Icon = icons[tab.icon];
         return (
           <button
             key={tab.id}
@@ -25,7 +38,7 @@ export const GrossisteBBottomTabs = memo(function GrossisteBBottomTabs({
             onClick={() => onSelect(tab.id)}
           >
             <span className="grossiste-b-tab-icon" aria-hidden>
-              {tab.icon === "messages" ? "✉" : tab.icon}
+              <Icon size={active ? 22 : 21} strokeWidth={1.85} />
             </span>
             <span>{tab.label}</span>
           </button>

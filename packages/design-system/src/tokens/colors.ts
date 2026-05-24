@@ -3,17 +3,20 @@
  * Primary/secondary/accent per Instruction 2; neutrals are industrial, warm, muted.
  */
 export const venextPalette = {
-  primary: "#075E54",
-  secondary: "#00A884",
+  primary: "#00A884",
+  secondary: "#14B89A",
   accent: "#FFC107",
   neutral: {
-    graphite: "#0F1A17",
-    graphiteMuted: "#1B2A26",
+    graphite: "#17201C",
+    graphiteMuted: "#526059",
     panel: "#E8EEEC",
     panelWarm: "#F2F5F4",
-    white: "#FAFBFA",
+    white: "#FFFFFF",
     line: "rgba(15, 26, 23, 0.08)",
     lineStrong: "rgba(15, 26, 23, 0.14)",
+  },
+  legacy: {
+    darkGreenSurface: "#075E54",
   },
   signal: {
     demandUp: "#0E7490",

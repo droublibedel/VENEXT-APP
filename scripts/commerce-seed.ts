@@ -13,32 +13,33 @@ async function main() {
   const existing = await prisma.commerceFoundationRecord.count({
     where: { entityType: "ActorProfile", deletedAt: null },
   });
-  if (existing > 0) {
+  if (existing === 0) {
+    const seed = buildCommerceFoundationDemoSeed();
+    for (const row of seed) {
+      await prisma.commerceFoundationRecord.upsert({
+        where: { entityType_entityKey: { entityType: row.entityType, entityKey: row.entityKey } },
+        create: {
+          entityType: row.entityType,
+          entityKey: row.entityKey,
+          organizationId: row.organizationId ?? null,
+          relationshipId: row.relationshipId ?? null,
+          actorRole: row.actorRole ?? null,
+          payload: row.payload as object,
+        },
+        update: {
+          payload: row.payload as object,
+          organizationId: row.organizationId ?? undefined,
+          relationshipId: row.relationshipId ?? undefined,
+          actorRole: row.actorRole ?? undefined,
+          deletedAt: null,
+        },
+      });
+    }
+    console.log(`[commerce:seed] ${seed.length} enregistrements insérés`);
+  } else {
     console.log(`[commerce:seed] déjà ${existing} profils — skip (utilisez commerce:reset)`);
-    return;
   }
-  const seed = buildCommerceFoundationDemoSeed();
-  for (const row of seed) {
-    await prisma.commerceFoundationRecord.upsert({
-      where: { entityType_entityKey: { entityType: row.entityType, entityKey: row.entityKey } },
-      create: {
-        entityType: row.entityType,
-        entityKey: row.entityKey,
-        organizationId: row.organizationId ?? null,
-        relationshipId: row.relationshipId ?? null,
-        actorRole: row.actorRole ?? null,
-        payload: row.payload as object,
-      },
-      update: {
-        payload: row.payload as object,
-        organizationId: row.organizationId ?? undefined,
-        relationshipId: row.relationshipId ?? undefined,
-        actorRole: row.actorRole ?? undefined,
-        deletedAt: null,
-      },
-    });
-  }
-  console.log(`[commerce:seed] ${seed.length} enregistrements insérés`);
+
   const govN = await seedEnterpriseGovernanceLive(prisma);
   if (govN > 0) {
     console.log(`[commerce:seed] ${govN} enregistrements gouvernance grands comptes LIVE`);

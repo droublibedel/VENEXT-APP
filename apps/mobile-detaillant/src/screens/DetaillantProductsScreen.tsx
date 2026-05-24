@@ -86,7 +86,7 @@ export const DetaillantProductsScreen = memo(function DetaillantProductsScreen({
       {cartCount > 0 || lastOrderId ? (
         <p
           className="detaillant-card"
-          style={{ marginBottom: 12, fontSize: 13, color: "#00a884" }}
+          style={{ marginBottom: 12, fontSize: 13, color: "var(--venext-accent)" }}
           data-testid="detaillant-cart-status"
         >
           {cartCount > 0 ? `Panier : ${cartCount} article${cartCount > 1 ? "s" : ""}` : null}
@@ -106,7 +106,7 @@ export const DetaillantProductsScreen = memo(function DetaillantProductsScreen({
 
       {popular.length > 0 ? (
         <>
-          <h2 style={{ fontSize: 15, margin: "0 0 10px", color: "#8fa39a", fontWeight: 600 }}>Populaires</h2>
+          <h2 style={{ fontSize: 15, margin: "0 0 10px", color: "var(--venext-text-muted)", fontWeight: 600 }}>Populaires</h2>
           {popular.map((p) => (
             <DetaillantProductCard
               key={`pop-${p.id}`}
@@ -120,16 +120,16 @@ export const DetaillantProductsScreen = memo(function DetaillantProductsScreen({
 
       {data?.promotions?.length ? (
         <>
-          <h2 style={{ fontSize: 15, margin: "16px 0 10px", color: "#8fa39a", fontWeight: 600 }}>Promotions</h2>
+          <h2 style={{ fontSize: 15, margin: "16px 0 10px", color: "var(--venext-text-muted)", fontWeight: 600 }}>Promotions</h2>
           {data.promotions.map((promo) => (
             <article key={promo.id} className="detaillant-card" data-testid={`detaillant-promo-${promo.id}`}>
-              <p style={{ margin: 0, fontSize: 14, color: "#00a884" }}>{promo.label}</p>
+              <p style={{ margin: 0, fontSize: 14, color: "var(--venext-accent)" }}>{promo.label}</p>
             </article>
           ))}
         </>
       ) : null}
 
-      <h2 style={{ fontSize: 15, margin: "16px 0 10px", color: "#8fa39a", fontWeight: 600 }}>Tous les produits</h2>
+      <h2 style={{ fontSize: 15, margin: "16px 0 10px", color: "var(--venext-text-muted)", fontWeight: 600 }}>Tous les produits</h2>
       <DetaillantVirtualList
         items={filtered}
         keyExtractor={(p) => p.id}

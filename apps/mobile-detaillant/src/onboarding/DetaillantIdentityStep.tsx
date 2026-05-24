@@ -14,11 +14,11 @@ export const DetaillantIdentityStep = memo(function DetaillantIdentityStep({
   return (
     <section data-testid="dt-onboarding-identity">
       <h2 style={{ margin: "0 0 8px", fontSize: 18 }}>Votre identité</h2>
-      <p style={{ margin: "0 0 16px", fontSize: 13, color: "#8fa39a" }}>
+      <p style={{ margin: "0 0 16px", fontSize: 13, color: "var(--venext-text-muted)" }}>
         Un seul nom — pas de fiche entreprise.
       </p>
       <label style={{ display: "block", marginBottom: 16 }}>
-        <span style={{ fontSize: 12, color: "#8fa39a" }}>Nom, prénom ou pseudonyme</span>
+        <span style={{ fontSize: 12, color: "var(--venext-text-muted)" }}>Nom, prénom ou pseudonyme</span>
         <input
           className="detaillant-search"
           type="text"
@@ -29,7 +29,7 @@ export const DetaillantIdentityStep = memo(function DetaillantIdentityStep({
           autoComplete="nickname"
         />
       </label>
-      <p style={{ fontSize: 11, color: "#6b7f76", margin: "0 0 12px" }}>
+      <p style={{ fontSize: 11, color: "var(--venext-text-muted)", margin: "0 0 12px" }}>
         Photo et logo non requis.
       </p>
       <button

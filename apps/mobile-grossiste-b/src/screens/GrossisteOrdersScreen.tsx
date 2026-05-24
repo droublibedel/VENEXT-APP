@@ -24,14 +24,14 @@ const OrderCard = memo(function OrderCard({ order }: { order: GrossisteOrderRow 
         <div className="grossiste-b-timeline-dot" aria-hidden />
         <div style={{ flex: 1 }}>
           <p style={{ margin: 0, fontWeight: 600, fontSize: 14 }}>{order.partner}</p>
-          <p style={{ margin: "4px 0 0", fontSize: 12, color: "#8fa39a" }}>
+          <p style={{ margin: "4px 0 0", fontSize: 12, color: "var(--venext-text-muted)" }}>
             {order.city} · {order.items} articles
           </p>
-          <p style={{ margin: "8px 0 0", fontSize: 13, color: "#00a884" }}>{STATUS_LABEL[order.status]}</p>
+          <p style={{ margin: "8px 0 0", fontSize: 13, color: "var(--venext-accent)" }}>{STATUS_LABEL[order.status]}</p>
           <p style={{ margin: "4px 0 0", fontSize: 15, fontWeight: 700 }}>{order.amountLabel}</p>
-          <p style={{ margin: "4px 0 0", fontSize: 11, color: "#6b8078" }}>{order.updatedAt}</p>
+          <p style={{ margin: "4px 0 0", fontSize: 11, color: "var(--venext-text-muted)" }}>{order.updatedAt}</p>
           {order.late ? (
-            <p style={{ margin: "6px 0 0", fontSize: 12, color: "#e8b84a" }}>Légèrement en retard</p>
+            <p style={{ margin: "6px 0 0", fontSize: 12, color: "var(--venext-warning)" }}>Légèrement en retard</p>
           ) : null}
         </div>
       </div>

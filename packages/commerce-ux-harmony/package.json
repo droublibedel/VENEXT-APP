@@ -5,13 +5,19 @@
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "src/styles"
+  ],
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
     "./styles.css": "./src/styles/commerce-ux-harmony.css",
-    "./skeleton.css": "./src/styles/venext-skeleton.css"
+    "./skeleton.css": "./src/styles/venext-skeleton.css",
+    "./terrain-header.css": "./src/venext-terrain-mobile-header.css",
+    "./terrain-search.css": "./src/venext-terrain-global-search.css"
   },
   "scripts": {
     "build": "tsc -p tsconfig.json",

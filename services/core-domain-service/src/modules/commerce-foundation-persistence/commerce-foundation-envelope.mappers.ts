@@ -66,16 +66,62 @@ export class CommerceFoundationEnvelopeMappers {
 
   async mapDetaillant(endpoint: string, organizationId: string) {
     if (endpoint === "home") {
-      return envelope({ organizationId, headline: "Vos partenaires proches", highlights: [] });
+      const rels = await this.foundation.relationships.listForOrganization(organizationId);
+      const orders = await this.foundation.orders.listOrders({ organizationId, limit: 5 });
+      return envelope({
+        organizationId,
+        activityToday: rels.length * 2,
+        salesTodayLabel: "—",
+        popularProducts: [],
+        recentOrders: orders.slice(0, 3).map((o) => ({
+          id: String(o.id),
+          partner: String(o.sellerActorId === organizationId ? o.buyerActorId : o.sellerActorId),
+          amountLabel: `${o.totalAmount ?? 0} FCFA`,
+          status: String(o.status ?? "en-cours"),
+        })),
+        simpleAlerts: [],
+        activePartners: rels.length,
+        discreetSuggestions: [],
+      });
     }
     if (endpoint === "products") {
       const catalogs = await this.foundation.catalogs.listCatalogs({ organizationId, limit: 5 });
       const products = catalogs.flatMap((c) => (Array.isArray(c.products) ? c.products : []));
-      return envelope({ organizationId, products, popularIds: [] });
+      return envelope({ organizationId, products, popularIds: [], promotions: [] });
     }
     if (endpoint === "orders") {
       const orders = await this.foundation.orders.listOrders({ organizationId, limit: 20 });
-      return envelope({ organizationId, orders });
+      const rows = orders.map((o) => ({
+        id: String(o.id),
+        partner: String(o.sellerActorId === organizationId ? o.buyerActorId : o.sellerActorId),
+        city: "Abidjan",
+        status: o.status === "in_delivery" ? "livraison" : o.status === "completed" ? "terminee" : "en-cours",
+        items: Array.isArray(o.lines) ? o.lines.length : 0,
+        amountLabel: `${o.totalAmount ?? 0} FCFA`,
+        updatedAt: String(o.updatedAt ?? new Date().toISOString()),
+      }));
+      return envelope({
+        organizationId,
+        enCours: rows.filter((r) => r.status === "en-cours" || r.status === "livraison"),
+        recues: rows.filter((r) => r.status === "recue"),
+        terminees: rows.filter((r) => r.status === "terminee"),
+      });
+    }
+    if (endpoint === "network") {
+      const rels = await this.foundation.relationships.listForOrganization(organizationId);
+      return envelope({
+        organizationId,
+        activeSuppliers: rels.map((r) => ({
+          id: String(r.id),
+          name: String(r.actorAId === organizationId ? r.actorBId : r.actorAId),
+          type: String(r.relationshipType ?? "partenaire"),
+          city: "Abidjan",
+        })),
+        newPartners: [],
+        cityActivity: [],
+        trendingProducts: [],
+        networkSuggestions: [],
+      });
     }
     throw new NotFoundException(commerceFoundationUxError("contextUnavailable"));
   }

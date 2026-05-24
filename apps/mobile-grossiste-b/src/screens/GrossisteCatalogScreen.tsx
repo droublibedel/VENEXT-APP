@@ -73,7 +73,7 @@ export const GrossisteCatalogScreen = memo(function GrossisteCatalogScreen({
 
       {popular.length > 0 ? (
         <>
-          <h2 style={{ fontSize: 14, margin: "0 0 8px", color: "#8fa39a" }}>Populaires</h2>
+          <h2 style={{ fontSize: 14, margin: "0 0 8px", color: "var(--venext-text-muted)" }}>Populaires</h2>
           {popular.map((p) => (
             <GrossisteProductCard key={`pop-${p.id}`} product={p} />
           ))}
@@ -82,16 +82,16 @@ export const GrossisteCatalogScreen = memo(function GrossisteCatalogScreen({
 
       {data?.promotions?.length ? (
         <>
-          <h2 style={{ fontSize: 14, margin: "16px 0 8px", color: "#8fa39a" }}>Promotions</h2>
+          <h2 style={{ fontSize: 14, margin: "16px 0 8px", color: "var(--venext-text-muted)" }}>Promotions</h2>
           {data.promotions.map((promo) => (
             <article key={promo.id} className="grossiste-b-card" data-testid={`grossiste-promo-${promo.id}`}>
-              <p style={{ margin: 0, fontSize: 13, color: "#00a884" }}>{promo.label}</p>
+              <p style={{ margin: 0, fontSize: 13, color: "var(--venext-accent)" }}>{promo.label}</p>
             </article>
           ))}
         </>
       ) : null}
 
-      <h2 style={{ fontSize: 14, margin: "16px 0 8px", color: "#8fa39a" }}>Tous les produits</h2>
+      <h2 style={{ fontSize: 14, margin: "16px 0 8px", color: "var(--venext-text-muted)" }}>Tous les produits</h2>
       <GrossisteVirtualList
         items={filtered}
         keyExtractor={(p) => p.id}

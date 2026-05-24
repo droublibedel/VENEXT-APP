@@ -7,11 +7,13 @@ export const DetaillantCityStep = memo(function DetaillantCityStep({
   onCityChange,
   onFinish,
   onSkip,
+  submitting = false,
 }: {
   city: string;
   onCityChange: (v: string) => void;
   onFinish: () => void;
   onSkip?: () => void;
+  submitting?: boolean;
 }) {
   const [query, setQuery] = useState("");
   const filtered = useMemo(() => {
@@ -23,7 +25,7 @@ export const DetaillantCityStep = memo(function DetaillantCityStep({
   return (
     <section data-testid="dt-onboarding-city">
       <h2 style={{ margin: "0 0 8px", fontSize: 18 }}>Votre ville (optionnel)</h2>
-      <p style={{ margin: "0 0 12px", fontSize: 13, color: "#8fa39a" }}>
+      <p style={{ margin: "0 0 12px", fontSize: 13, color: "var(--venext-text-muted)" }}>
         Vous pourrez aussi l&apos;ajouter plus tard dans l&apos;application.
       </p>
       <input
@@ -48,9 +50,9 @@ export const DetaillantCityStep = memo(function DetaillantCityStep({
                 padding: "10px 12px",
                 marginBottom: 4,
                 borderRadius: 8,
-                border: city === c ? "1px solid #00a884" : "1px solid transparent",
-                background: city === c ? "rgba(0,168,132,0.12)" : "#0e1a17",
-                color: "#f0f4f2",
+                border: city === c ? "1px solid var(--venext-accent)" : "1px solid transparent",
+                background: city === c ? "var(--venext-accent-soft)" : "var(--venext-surface)",
+                color: "var(--venext-text)",
               }}
             >
               {c}
@@ -62,12 +64,12 @@ export const DetaillantCityStep = memo(function DetaillantCityStep({
         <button
           type="button"
           className="detaillant-action detaillant-action--primary"
-          disabled={!city}
+          disabled={!city || submitting}
           onClick={onFinish}
           data-testid="dt-onboarding-finish"
           style={{ width: "100%" }}
         >
-          Commencer
+          {submitting ? "Enregistrement…" : "Commencer"}
         </button>
         {onSkip ? (
           <button type="button" className="detaillant-action" onClick={onSkip} data-testid="dt-onboarding-city-skip" style={{ width: "100%" }}>

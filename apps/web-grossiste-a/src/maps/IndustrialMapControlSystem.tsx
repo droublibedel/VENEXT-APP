@@ -43,14 +43,14 @@ export function IndustrialMapControlSystem(props: {
   if (!cells.length) {
     return (
       <div className="ga-card" style={{ height, display: "flex", alignItems: "center", justifyContent: "center" }} data-testid={testId ?? "grossiste-a-map"}>
-        <span style={{ fontSize: 12, color: "#8fa39a" }}>Aucune zone cartographiée.</span>
+        <span style={{ fontSize: 12, color: "#526059" }}>Aucune zone cartographiée.</span>
       </div>
     );
   }
 
   return (
     <div className="ga-card" style={{ position: "relative", overflow: "hidden", height }} data-testid={testId ?? "grossiste-a-map"} data-map-source={props.dataSource ?? "fallback"}>
-      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, #0b1412, #0e1a17 50%, rgba(0,168,132,0.08))" }} />
+      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, #ffffff, #f6f7f5 58%, rgba(0,168,132,0.08))" }} />
       <svg style={{ position: "absolute", inset: 0, width: "100%", height: "100%", opacity: 0.9 }} viewBox="0 0 400 220" aria-hidden>
         <path d="M 80 160 Q 160 80 220 100 T 340 60" fill="none" stroke="rgba(0,168,132,0.4)" strokeWidth="2" strokeDasharray="6 4" />
         {cells.map((c, i) => {
@@ -69,13 +69,13 @@ export function IndustrialMapControlSystem(props: {
         })}
       </svg>
       <div style={{ position: "relative", zIndex: 1, padding: 12, display: "flex", flexDirection: "column", justifyContent: "space-between", height: "100%" }}>
-        <p style={{ margin: 0, fontSize: 10, fontWeight: 600, letterSpacing: "0.2em", color: "#8fa39a", textTransform: "uppercase" }}>
+        <p style={{ margin: 0, fontSize: 10, fontWeight: 600, letterSpacing: "0.2em", color: "#526059", textTransform: "uppercase" }}>
           Carte distribution · {layer}
           {corridors.length > 0 ? ` · ${corridors.length} corridor(s)` : ""}
         </p>
         <ul style={{ display: "flex", flexWrap: "wrap", gap: 8, margin: 0, padding: 0, listStyle: "none" }}>
           {cells.map((c) => (
-            <li key={c.id} style={{ fontSize: 10, padding: "4px 8px", borderRadius: 6, background: "rgba(11,20,18,0.85)", border: "1px solid rgba(0,168,132,0.15)", color: "#b8cdc4" }}>
+            <li key={c.id} style={{ fontSize: 10, padding: "4px 8px", borderRadius: 6, background: "#ffffff", border: "1px solid rgba(0,168,132,0.15)", color: "#526059" }}>
               {c.name}
               <span style={{ marginLeft: 6, color: "#00a884" }}>
                 {layer === "activeCities" || layer === "grossisteDistribution"

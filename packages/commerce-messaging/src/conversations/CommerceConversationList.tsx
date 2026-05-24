@@ -78,7 +78,7 @@ export const CommerceConversationList = memo(function CommerceConversationList({
                 ) : null}
               </div>
             </div>
-            <p style={{ margin: "4px 0 0", fontSize: 12, color: "#8fa39a" }}>
+            <p style={{ margin: "4px 0 0", fontSize: 12, color: "#526059" }}>
               {c.partnerRole} · {c.city}
             </p>
             <p style={{ margin: "4px 0 0", fontSize: 13 }}>{c.recentActivity}</p>
@@ -86,9 +86,9 @@ export const CommerceConversationList = memo(function CommerceConversationList({
               <p style={{ margin: "4px 0 0", fontSize: 12, color: "#00a884" }}>Produit : {c.productName}</p>
             ) : null}
             {c.linkedOrderLabel ? (
-              <p style={{ margin: "2px 0 0", fontSize: 11, color: "#6b8078" }}>Commande : {c.linkedOrderLabel}</p>
+              <p style={{ margin: "2px 0 0", fontSize: 11, color: "#66746d" }}>Commande : {c.linkedOrderLabel}</p>
             ) : null}
-            <p style={{ margin: "4px 0 0", fontSize: 11, color: "#6b8078" }}>{c.activityStatus}</p>
+            <p style={{ margin: "4px 0 0", fontSize: 11, color: "#66746d" }}>{c.activityStatus}</p>
           </button>
         )}
       />

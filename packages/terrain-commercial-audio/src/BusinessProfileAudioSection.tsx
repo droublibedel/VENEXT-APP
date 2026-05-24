@@ -36,7 +36,7 @@ export const BusinessProfileAudioSection = memo(function BusinessProfileAudioSec
   return (
     <section data-testid={testId} className="tca-business-audio">
       <h3 style={{ margin: "0 0 8px", fontSize: 14 }}>{tTerrainAudio("businessSection", locale)}</h3>
-      <p style={{ margin: "0 0 12px", fontSize: 11, color: "#8fa39a" }}>
+      <p style={{ margin: "0 0 12px", fontSize: 11, color: "var(--venext-text-secondary, #526059)" }}>
         {tTerrainAudio("audioPresentation", locale)} — {tTerrainAudio("maxDuration", locale)}
       </p>
       {record && !record.deletedAt ? (

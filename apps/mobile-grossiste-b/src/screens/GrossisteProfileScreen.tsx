@@ -9,8 +9,10 @@ import { mockGrossisteProfile } from "../mocks/grossiste-b-mock-data";
 
 export const GrossisteProfileScreen = memo(function GrossisteProfileScreen({
   enabled: _enabled,
+  onOpenWallet,
 }: {
   enabled: boolean;
+  onOpenWallet?: () => void;
 }) {
   const profile = mockGrossisteProfile();
   const auth = useVenextAuthOptional();
@@ -20,11 +22,11 @@ export const GrossisteProfileScreen = memo(function GrossisteProfileScreen({
     <section data-testid="grossiste-screen-profile">
       <header style={{ marginBottom: 16 }}>
         <h1 style={{ margin: 0, fontSize: 20, fontWeight: 700 }}>{t("profile.title")}</h1>
-        <p style={{ margin: "6px 0 0", fontSize: 13, color: "#8fa39a" }}>{t("profile.subtitle")}</p>
+        <p style={{ margin: "6px 0 0", fontSize: 13, color: "var(--venext-text-muted)" }}>{t("profile.subtitle")}</p>
       </header>
 
       <article className="grossiste-b-card" data-testid="grossiste-profile-identity">
-        <p style={{ margin: 0, fontSize: 11, color: "#8fa39a", textTransform: "uppercase" }}>Identité</p>
+        <p style={{ margin: 0, fontSize: 11, color: "var(--venext-text-muted)", textTransform: "uppercase" }}>Identité</p>
         <p style={{ margin: "8px 0 0", fontSize: 18, fontWeight: 700 }}>{profile.commercialName}</p>
         <span
           className="grossiste-b-badge grossiste-b-badge--demand"
@@ -34,28 +36,48 @@ export const GrossisteProfileScreen = memo(function GrossisteProfileScreen({
         </span>
       </article>
 
+      {onOpenWallet ? (
+        <button
+          type="button"
+          className="grossiste-b-card"
+          data-testid="grossiste-profile-open-wallet"
+          onClick={onOpenWallet}
+          style={{
+            width: "100%",
+            textAlign: "left",
+            cursor: "pointer",
+            border: "1px solid var(--venext-border)",
+          }}
+        >
+          <p style={{ margin: 0, fontSize: 11, color: "var(--venext-text-muted)", textTransform: "uppercase" }}>
+            Règlements
+          </p>
+          <p style={{ margin: "8px 0 0", fontSize: 15, fontWeight: 600 }}>Portefeuille & encaissements</p>
+        </button>
+      ) : null}
+
       <article className="grossiste-b-card" data-testid="grossiste-profile-business-audio">
         <BusinessProfileAudioSection ownerActorId="org-grossiste-b-demo" />
       </article>
 
       <article className="grossiste-b-card">
-        <p style={{ margin: 0, fontSize: 13, color: "#8fa39a" }}>Activité récente</p>
+        <p style={{ margin: 0, fontSize: 13, color: "var(--venext-text-muted)" }}>Activité récente</p>
         <p style={{ margin: "6px 0 0", fontSize: 14 }}>{profile.recentActivity}</p>
       </article>
 
       <article className="grossiste-b-card">
-        <p style={{ margin: 0, fontSize: 13, color: "#8fa39a" }}>Couverture villes</p>
+        <p style={{ margin: 0, fontSize: 13, color: "var(--venext-text-muted)" }}>Couverture villes</p>
         <p style={{ margin: "6px 0 0", fontSize: 14 }} data-testid="grossiste-profile-cities">
           {profile.cityCoverage.join(" · ")}
         </p>
       </article>
 
       <article className="grossiste-b-card">
-        <p style={{ margin: 0, fontSize: 13, color: "#8fa39a" }}>{t("phone")}</p>
+        <p style={{ margin: 0, fontSize: 13, color: "var(--venext-text-muted)" }}>{t("phone")}</p>
         <p style={{ margin: "6px 0 0", fontSize: 14 }}>{profile.phone}</p>
       </article>
 
-      <h2 style={{ fontSize: 14, margin: "16px 0 8px", color: "#8fa39a" }}>{t("settings")}</h2>
+      <h2 style={{ fontSize: 14, margin: "16px 0 8px", color: "var(--venext-text-muted)" }}>{t("settings")}</h2>
       <article
         className="grossiste-b-card"
         data-testid="grossiste-profile-settings"
@@ -83,9 +105,9 @@ export const GrossisteProfileScreen = memo(function GrossisteProfileScreen({
               width: "100%",
               padding: "10px 12px",
               borderRadius: 8,
-              border: "1px solid #2a3530",
+              border: "1px solid var(--venext-border)",
               background: "transparent",
-              color: "#e8a090",
+              color: "var(--venext-danger)",
               fontSize: 14,
             }}
           >

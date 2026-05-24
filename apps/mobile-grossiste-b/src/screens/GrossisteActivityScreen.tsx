@@ -67,11 +67,11 @@ export const GrossisteActivityScreen = memo(function GrossisteActivityScreen({
 
       {data?.movingProducts?.length ? (
         <>
-          <h2 style={{ fontSize: 14, margin: "16px 0 8px", color: "#8fa39a" }}>Produits qui bougent</h2>
+          <h2 className="grossiste-b-section-title">Produits qui bougent</h2>
           {data.movingProducts.map((p) => (
             <article key={p.id} className="grossiste-b-card" data-testid={`grossiste-moving-${p.id}`}>
               <strong>{p.name}</strong>
-              <span style={{ float: "right", fontSize: 12, color: "#00a884" }}>
+              <span style={{ float: "right", fontSize: 12, color: "var(--venext-accent)" }}>
                 {p.momentum === "up" ? "↑" : "→"}
               </span>
             </article>
@@ -81,7 +81,7 @@ export const GrossisteActivityScreen = memo(function GrossisteActivityScreen({
 
       {data?.simpleAlerts?.length ? (
         <>
-          <h2 style={{ fontSize: 14, margin: "16px 0 8px", color: "#8fa39a" }}>À noter</h2>
+          <h2 className="grossiste-b-section-title">À noter</h2>
           {data.simpleAlerts.map((a) => (
             <article key={a.id} className="grossiste-b-card">
               <p style={{ margin: 0, fontSize: 13 }}>{a.text}</p>
@@ -92,14 +92,14 @@ export const GrossisteActivityScreen = memo(function GrossisteActivityScreen({
 
       {feedEnabled ? (
         <>
-          <h2 style={{ fontSize: 14, margin: "16px 0 8px", color: "#8fa39a" }}>Fil relationnel</h2>
+          <h2 className="grossiste-b-section-title">Fil relationnel</h2>
           <GrossisteBRelationalFeedBridge />
         </>
       ) : null}
 
       {data?.discreetTrends?.length ? (
         <>
-          <h2 style={{ fontSize: 14, margin: "16px 0 8px", color: "#8fa39a" }}>Tendances discrètes</h2>
+          <h2 className="grossiste-b-section-title">Tendances discrètes</h2>
           {data.discreetTrends.map((t) => (
             <article key={t.id} className="grossiste-b-card">
               <p style={{ margin: 0, fontSize: 13 }}>{t.label}</p>

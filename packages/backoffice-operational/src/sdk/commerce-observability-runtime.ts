@@ -64,7 +64,8 @@ export function readAppVersionFromEnv(env: Record<string, string | undefined> = 
 }
 
 export function inferNetworkQuality(): CommerceObservabilityRuntime["networkQuality"] {
-  if (typeof navigator !== "undefined" && navigator.onLine === false) return "offline";
+  if (typeof navigator === "undefined") return "unknown";
+  if (navigator.onLine === false) return "offline";
   const conn = (navigator as Navigator & { connection?: { effectiveType?: string } }).connection;
   const t = conn?.effectiveType;
   if (t === "4g") return "good";

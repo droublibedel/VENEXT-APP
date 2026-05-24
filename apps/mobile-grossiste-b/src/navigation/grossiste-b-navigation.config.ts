@@ -1,39 +1,36 @@
-export type GrossisteBTabId =
-  | "activity"
-  | "messaging"
-  | "wallet"
-  | "catalog"
-  | "orders"
-  | "network"
-  | "profile";
+export type GrossisteBBottomTabId = "activity" | "catalog" | "orders" | "network";
+
+export type GrossisteBTabId = GrossisteBBottomTabId | "messaging" | "profile" | "wallet";
 
 export type GrossisteBTabConfig = {
-  id: GrossisteBTabId;
-  key: GrossisteBTabId;
+  id: GrossisteBBottomTabId;
+  key: GrossisteBBottomTabId;
   label: string;
-  icon: string;
+  icon: "activity" | "catalog" | "orders" | "network";
   testId: string;
 };
 
-/** Six onglets — Messagerie après Activité (Instructions 20.55 + 20.61). */
-export const GROSSISTE_B_TABS: GrossisteBTabConfig[] = [
-  { id: "activity", key: "activity", label: "Activité", icon: "◉", testId: "grossiste-tab-activity" },
-  {
-    id: "messaging",
-    key: "messaging",
-    label: "Messagerie",
-    icon: "messages",
-    testId: "grossiste-tab-messaging",
-  },
-  {
-    id: "wallet",
-    key: "wallet",
-    label: "Règlements",
-    icon: "wallet",
-    testId: "grossiste-tab-wallet",
-  },
-  { id: "catalog", key: "catalog", label: "Catalogue", icon: "▣", testId: "grossiste-tab-catalog" },
-  { id: "orders", key: "orders", label: "Commandes", icon: "☰", testId: "grossiste-tab-orders" },
-  { id: "network", key: "network", label: "Réseau", icon: "◎", testId: "grossiste-tab-network" },
-  { id: "profile", key: "profile", label: "Profil", icon: "◈", testId: "grossiste-tab-profile" },
+/** Quatre onglets premium — Messagerie & Profil dans le header (VENEXT-MOBILE-NAVIGATION-02). */
+export const GROSSISTE_B_BOTTOM_TABS: GrossisteBTabConfig[] = [
+  { id: "activity", key: "activity", label: "Activité", icon: "activity", testId: "grossiste-tab-activity" },
+  { id: "catalog", key: "catalog", label: "Catalogue", icon: "catalog", testId: "grossiste-tab-catalog" },
+  { id: "orders", key: "orders", label: "Commandes", icon: "orders", testId: "grossiste-tab-orders" },
+  { id: "network", key: "network", label: "Réseau", icon: "network", testId: "grossiste-tab-network" },
 ];
+
+export const GROSSISTE_B_TAB_TITLES: Record<GrossisteBTabId, string> = {
+  activity: "Activité",
+  catalog: "Catalogue",
+  orders: "Commandes",
+  network: "Réseau",
+  messaging: "Messagerie",
+  profile: "Profil",
+  wallet: "Règlements",
+};
+
+/** @deprecated Utiliser GROSSISTE_B_BOTTOM_TABS */
+export const GROSSISTE_B_TABS = GROSSISTE_B_BOTTOM_TABS;
+
+export function isGrossisteBBottomTab(tab: GrossisteBTabId): tab is GrossisteBBottomTabId {
+  return tab === "activity" || tab === "catalog" || tab === "orders" || tab === "network";
+}

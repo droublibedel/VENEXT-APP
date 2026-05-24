@@ -16,7 +16,7 @@ export const CommercialPartnerPreview = memo(function CommercialPartnerPreview({
   if (!partner) {
     return (
       <section className="cnd-card cnd-panel-hidden" data-testid="cnd-partner-preview-empty">
-        <p style={{ margin: 0, fontSize: 11, color: "#8fa39a" }}>Sélectionnez un contact pour l&apos;aperçu.</p>
+        <p style={{ margin: 0, fontSize: 11, color: "var(--venext-text-secondary, #526059)" }}>Sélectionnez un contact pour l&apos;aperçu.</p>
       </section>
     );
   }
@@ -32,17 +32,17 @@ export const CommercialPartnerPreview = memo(function CommercialPartnerPreview({
           >
             {partner.displayName}
           </p>
-          <p style={{ margin: "4px 0 0", fontSize: 11, color: "#8fa39a", lineHeight: 1.35 }}>
+          <p style={{ margin: "4px 0 0", fontSize: 11, color: "var(--venext-text-secondary, #526059)", lineHeight: 1.35 }}>
             {partner.secondaryName ?? `${partner.city} · ${partner.activityLabel}`}
           </p>
           {partner.recognitionHint ? (
-            <p style={{ margin: "4px 0 0", fontSize: 10, color: "#6b7f76" }}>{partner.recognitionHint}</p>
+            <p style={{ margin: "4px 0 0", fontSize: 10, color: "#66746d" }}>{partner.recognitionHint}</p>
           ) : null}
         </div>
       </div>
 
       {catalog ? (
-        <p style={{ margin: "10px 0 0", fontSize: 10, color: "#00a884" }}>
+        <p style={{ margin: "10px 0 0", fontSize: 10, color: "var(--venext-accent, #008f73)" }}>
           {catalog.products.length} produits · mis à jour {catalog.updatedAt}
         </p>
       ) : null}

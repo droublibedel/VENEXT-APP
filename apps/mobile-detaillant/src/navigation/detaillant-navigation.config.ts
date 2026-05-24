@@ -1,25 +1,35 @@
-export type DetaillantTabId = "home" | "messaging" | "products" | "orders" | "network" | "account";
+export type DetaillantBottomTabId = "home" | "products" | "orders" | "network";
+
+export type DetaillantTabId = DetaillantBottomTabId | "messaging" | "account";
 
 export type DetaillantTabConfig = {
-  id: DetaillantTabId;
-  key: DetaillantTabId;
+  id: DetaillantBottomTabId;
+  key: DetaillantBottomTabId;
   label: string;
-  icon: string;
+  icon: "home" | "catalog" | "orders" | "network";
   testId: string;
 };
 
-/** Six onglets — Messagerie après Accueil (Instructions 20.56 + 20.62). */
-export const DETAILLANT_TABS: DetaillantTabConfig[] = [
-  { id: "home", key: "home", label: "Accueil", icon: "⌂", testId: "detaillant-tab-home" },
-  {
-    id: "messaging",
-    key: "messaging",
-    label: "Messagerie",
-    icon: "messages",
-    testId: "detaillant-tab-messaging",
-  },
-  { id: "products", key: "products", label: "Catalogue", icon: "▣", testId: "detaillant-tab-products" },
-  { id: "orders", key: "orders", label: "Commandes", icon: "☰", testId: "detaillant-tab-orders" },
-  { id: "network", key: "network", label: "Réseau", icon: "◎", testId: "detaillant-tab-network" },
-  { id: "account", key: "account", label: "Profil", icon: "◈", testId: "detaillant-tab-account" },
+/** Quatre onglets premium — Messagerie & Profil dans le header (VENEXT-MOBILE-NAVIGATION-02). */
+export const DETAILLANT_BOTTOM_TABS: DetaillantTabConfig[] = [
+  { id: "home", key: "home", label: "Accueil", icon: "home", testId: "detaillant-tab-home" },
+  { id: "products", key: "products", label: "Catalogue", icon: "catalog", testId: "detaillant-tab-products" },
+  { id: "orders", key: "orders", label: "Commandes", icon: "orders", testId: "detaillant-tab-orders" },
+  { id: "network", key: "network", label: "Réseau", icon: "network", testId: "detaillant-tab-network" },
 ];
+
+export const DETAILLANT_TAB_TITLES: Record<DetaillantTabId, string> = {
+  home: "Accueil",
+  products: "Catalogue",
+  orders: "Commandes",
+  network: "Réseau",
+  messaging: "Messagerie",
+  account: "Profil",
+};
+
+/** @deprecated Utiliser DETAILLANT_BOTTOM_TABS */
+export const DETAILLANT_TABS = DETAILLANT_BOTTOM_TABS;
+
+export function isDetaillantBottomTab(tab: DetaillantTabId): tab is DetaillantBottomTabId {
+  return tab === "home" || tab === "products" || tab === "orders" || tab === "network";
+}

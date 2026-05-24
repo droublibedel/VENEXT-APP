@@ -31,6 +31,7 @@ import { RelationalEconomicContinuityStabilityService } from "./relational-econo
     CommerceThreadAccessModule,
     RelationshipGovernanceModule,
     forwardRef(() => RelationalMacroEconomicModule),
+    forwardRef(() => RelationalEconomicSovereigntyModule),
   ],
   controllers: [RelationalEconomicContinuityController],
   providers: [

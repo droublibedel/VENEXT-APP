@@ -44,6 +44,9 @@ import { RelationalStrategicIntelligenceSynthesisService } from "./relational-st
     RelationalStrategicIntelligenceIngestionService,
     RelationalStrategicIntelligenceGuard,
   ],
-  exports: [RelationalStrategicIntelligenceIngestionService],
+  exports: [
+    RelationalStrategicIntelligenceIngestionService,
+    RelationalStrategicIntelligenceCorridorContextService,
+  ],
 })
 export class RelationalStrategicIntelligenceModule {}

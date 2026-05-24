@@ -34,7 +34,7 @@ export const VenextVoiceMessageBubble = memo(function VenextVoiceMessageBubble({
           height: 36,
           borderRadius: "50%",
           border: "none",
-          background: isSelf ? "#005c4b" : "#1f2c29",
+          background: isSelf ? "rgba(0, 168, 132, 0.1)" : "#ffffff",
           color: "#00a884",
           fontSize: 14,
           flexShrink: 0,
@@ -44,10 +44,10 @@ export const VenextVoiceMessageBubble = memo(function VenextVoiceMessageBubble({
       </button>
       <div style={{ flex: 1, minWidth: 0 }}>
         <VenextVoiceWaveform peaks={peaks} progress={playback.progress} active={playback.playing} />
-        <span style={{ fontSize: 11, color: "#8fa39a" }}>{formatDuration(duration)}</span>
+        <span style={{ fontSize: 11, color: "#526059" }}>{formatDuration(duration)}</span>
       </div>
       {message.status === "sending" ? (
-        <span data-testid="cm-voice-status" style={{ fontSize: 10, color: "#8fa39a" }}>
+        <span data-testid="cm-voice-status" style={{ fontSize: 10, color: "#526059" }}>
           …
         </span>
       ) : null}
@@ -57,13 +57,13 @@ export const VenextVoiceMessageBubble = memo(function VenextVoiceMessageBubble({
           data-testid="cm-msg-delete"
           onClick={() => onDelete(message.id)}
           aria-label="Supprimer le message"
-          style={{ fontSize: 10, color: "#8fa39a", background: "none", border: "none" }}
+          style={{ fontSize: 10, color: "#526059", background: "none", border: "none" }}
         >
           Supprimer
         </button>
       ) : null}
       {message.displayTime ? (
-        <p style={{ margin: "4px 0 0", fontSize: 10, color: "#6b8078", textAlign: "right", width: "100%" }}>
+        <p style={{ margin: "4px 0 0", fontSize: 10, color: "#66746D", textAlign: "right", width: "100%" }}>
           {message.displayTime}
         </p>
       ) : null}

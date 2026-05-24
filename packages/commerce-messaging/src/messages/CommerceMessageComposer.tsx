@@ -29,7 +29,7 @@ export const CommerceMessageComposer = memo(function CommerceMessageComposer({
     return (
       <p
         data-testid="cm-composer-hidden"
-        style={{ padding: "12px 16px", margin: 0, fontSize: 12, color: "#8fa39a" }}
+        style={{ padding: "12px 16px", margin: 0, fontSize: 12, color: "#526059" }}
       >
         {governance.mode === "PARTNER_ONLY" && !governance.partnerAuthorized
           ? "Conversation réservée aux partenaires autorisés."
@@ -102,8 +102,8 @@ export const CommerceMessageComposer = memo(function CommerceMessageComposer({
             minWidth: 44,
             padding: "0 16px",
             borderRadius: 12,
-            background: "#075E54",
-            color: "#f0f4f2",
+            background: "#00A884",
+            color: "#ffffff",
             fontWeight: 600,
             fontSize: 13,
           }}
@@ -112,7 +112,7 @@ export const CommerceMessageComposer = memo(function CommerceMessageComposer({
         </button>
       </div>
       {!isMobile ? (
-        <p style={{ margin: "8px 0 0", fontSize: 10, color: "#6b8078" }}>
+        <p style={{ margin: "8px 0 0", fontSize: 10, color: "#66746D" }}>
           Attacher produit · commande · activité (fondation)
         </p>
       ) : null}

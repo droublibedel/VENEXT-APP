@@ -56,6 +56,9 @@ import { RelationalEconomicSovereigntyRetentionService } from "./relational-econ
     RelationalEconomicSovereigntyIngestionService,
     RelationalEconomicSovereigntyGuard,
   ],
-  exports: [RelationalEconomicSovereigntyIngestionService],
+  exports: [
+    RelationalEconomicSovereigntyIngestionService,
+    RelationalEconomicSovereigntyCorridorContextService,
+  ],
 })
 export class RelationalEconomicSovereigntyModule {}

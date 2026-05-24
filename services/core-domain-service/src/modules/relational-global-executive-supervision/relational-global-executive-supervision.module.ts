@@ -44,6 +44,9 @@ import { RelationalGlobalExecutiveSupervisionRiskService } from "./relational-gl
     RelationalGlobalExecutiveSupervisionIngestionService,
     RelationalGlobalExecutiveSupervisionGuard,
   ],
-  exports: [RelationalGlobalExecutiveSupervisionIngestionService],
+  exports: [
+    RelationalGlobalExecutiveSupervisionIngestionService,
+    RelationalGlobalExecutiveSupervisionCorridorContextService,
+  ],
 })
 export class RelationalGlobalExecutiveSupervisionModule {}

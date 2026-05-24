@@ -44,6 +44,9 @@ import { RelationalStrategicObservatoryRiskService } from "./relational-strategi
     RelationalStrategicObservatoryIngestionService,
     RelationalStrategicObservatoryGuard,
   ],
-  exports: [RelationalStrategicObservatoryIngestionService],
+  exports: [
+    RelationalStrategicObservatoryIngestionService,
+    RelationalStrategicObservatoryCorridorContextService,
+  ],
 })
 export class RelationalStrategicObservatoryModule {}

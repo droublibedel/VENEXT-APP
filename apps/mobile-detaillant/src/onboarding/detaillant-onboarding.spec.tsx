@@ -10,13 +10,14 @@ import {
   loadDetaillantOnboardingProfile,
   MOCK_OTP_CODE,
   saveDetaillantOnboardingProfile,
+  clearDetaillantOnboardingProfile,
   validateDetaillantOtp,
   validateDetaillantPhone,
 } from "./detaillant-onboarding.viewmodel";
 
 async function completeDetaillantOnboarding() {
   fireEvent.change(screen.getByTestId("dt-onboarding-phone-input"), {
-    target: { value: "+2250700000002" },
+    target: { value: "0700000002" },
   });
   fireEvent.click(screen.getByTestId("dt-onboarding-otp-auto"));
   fireEvent.click(screen.getByTestId("dt-onboarding-phone-next"));
@@ -39,7 +40,7 @@ afterEach(() => {
 describe("detaillant onboarding viewmodel", () => {
   it("validates phone", () => {
     expect(validateDetaillantPhone("07")).toBe(false);
-    expect(validateDetaillantPhone("+2250701020304")).toBe(true);
+    expect(validateDetaillantPhone("0701020304")).toBe(true);
   });
 
   it("validates OTP mock", () => {
@@ -49,7 +50,7 @@ describe("detaillant onboarding viewmodel", () => {
   it("saves and loads profile", () => {
     saveDetaillantOnboardingProfile({
       ...createEmptyDetaillantProfile(),
-      phone: "+22507",
+      phone: "0700000007",
       otpVerified: true,
       displayName: "Aminata",
       activities: ["Boissons"],
@@ -57,10 +58,43 @@ describe("detaillant onboarding viewmodel", () => {
     });
     expect(loadDetaillantOnboardingProfile()?.displayName).toBe("Aminata");
   });
+
+  it("clears profile on logout", () => {
+    saveDetaillantOnboardingProfile({
+      ...createEmptyDetaillantProfile(),
+      phone: "0700000007",
+      otpVerified: true,
+      displayName: "Aminata",
+      activities: ["Boissons"],
+      city: "Abidjan",
+    });
+    clearDetaillantOnboardingProfile();
+    expect(loadDetaillantOnboardingProfile()).toBeNull();
+    expect(isDetaillantOnboardingComplete()).toBe(false);
+  });
 });
 
 describe("detaillant quick onboarding flow", () => {
-  beforeEach(() => localStorage.removeItem(DETAILLANT_ONBOARDING_STORAGE_KEY));
+  beforeEach(() => {
+    localStorage.removeItem(DETAILLANT_ONBOARDING_STORAGE_KEY);
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async (input: RequestInfo) => {
+        const url = String(input);
+        if (url.includes("/api/detaillant/onboarding/complete")) {
+          return new Response(
+            JSON.stringify({
+              ok: true,
+              organizationId: "org-detaillant-7000000002",
+              profile: { displayName: "François" },
+            }),
+            { status: 200, headers: { "Content-Type": "application/json" } },
+          );
+        }
+        return new Response(JSON.stringify({ ok: false }), { status: 404 });
+      }),
+    );
+  });
 
   it("starts phone-first", async () => {
     render(<DetaillantQuickOnboarding onComplete={vi.fn()} />);
@@ -70,7 +104,7 @@ describe("detaillant quick onboarding flow", () => {
   it("OTP auto simulation", async () => {
     render(<DetaillantQuickOnboarding onComplete={vi.fn()} />);
     fireEvent.change(screen.getByTestId("dt-onboarding-phone-input"), {
-      target: { value: "+2250700000000" },
+      target: { value: "0700000000" },
     });
     fireEvent.click(screen.getByTestId("dt-onboarding-otp-auto"));
     fireEvent.click(screen.getByTestId("dt-onboarding-phone-next"));
@@ -80,7 +114,7 @@ describe("detaillant quick onboarding flow", () => {
   it("single identity field only", async () => {
     render(<DetaillantQuickOnboarding onComplete={vi.fn()} />);
     fireEvent.change(screen.getByTestId("dt-onboarding-phone-input"), {
-      target: { value: "+2250700000000" },
+      target: { value: "0700000000" },
     });
     fireEvent.click(screen.getByTestId("dt-onboarding-otp-auto"));
     fireEvent.click(screen.getByTestId("dt-onboarding-phone-next"));
@@ -91,7 +125,7 @@ describe("detaillant quick onboarding flow", () => {
   it("pseudo Sarah grossiste", async () => {
     render(<DetaillantQuickOnboarding onComplete={vi.fn()} />);
     fireEvent.change(screen.getByTestId("dt-onboarding-phone-input"), {
-      target: { value: "+2250700000000" },
+      target: { value: "0700000000" },
     });
     fireEvent.click(screen.getByTestId("dt-onboarding-otp-auto"));
     fireEvent.click(screen.getByTestId("dt-onboarding-phone-next"));
@@ -105,7 +139,7 @@ describe("detaillant quick onboarding flow", () => {
   it("multi activities", async () => {
     render(<DetaillantQuickOnboarding onComplete={vi.fn()} />);
     fireEvent.change(screen.getByTestId("dt-onboarding-phone-input"), {
-      target: { value: "+2250700000000" },
+      target: { value: "0700000000" },
     });
     fireEvent.click(screen.getByTestId("dt-onboarding-otp-auto"));
     fireEvent.click(screen.getByTestId("dt-onboarding-phone-next"));
@@ -122,7 +156,7 @@ describe("detaillant quick onboarding flow", () => {
   it("city selection", async () => {
     render(<DetaillantQuickOnboarding onComplete={vi.fn()} />);
     fireEvent.change(screen.getByTestId("dt-onboarding-phone-input"), {
-      target: { value: "+2250700000000" },
+      target: { value: "0700000000" },
     });
     fireEvent.click(screen.getByTestId("dt-onboarding-otp-auto"));
     fireEvent.click(screen.getByTestId("dt-onboarding-phone-next"));
@@ -149,5 +183,6 @@ describe("detaillant quick onboarding flow", () => {
     await completeDetaillantOnboarding();
     await waitFor(() => expect(onComplete).toHaveBeenCalled());
     expect(isDetaillantOnboardingComplete()).toBe(true);
+    expect(loadDetaillantOnboardingProfile()?.organizationId).toBe("org-detaillant-7000000002");
   });
 });

@@ -6,6 +6,8 @@ import { CommerceFoundationApiController } from "./commerce-foundation-api.contr
 import { CommerceFoundationRepository } from "./commerce-foundation.repository";
 import { CommerceFoundationService } from "./commerce-foundation.service";
 import { CommerceFoundationEnvelopeMappers } from "./commerce-foundation-envelope.mappers";
+import { DetaillantRegistrationService } from "./detaillant-registration.service";
+import { TerrainSearchService } from "./terrain-search.service";
 import { ActorProfilePersistenceService } from "./services/actor-profile-persistence.service";
 import { CommercialContextPersistenceService } from "./services/commercial-context-persistence.service";
 import { CommerceActivityFeedPersistenceService } from "./services/commerce-activity-feed-persistence.service";
@@ -40,6 +42,8 @@ import { RelationalCatalogPersistenceService } from "./services/relational-catal
     EnterpriseGovernancePersistenceService,
     CommerceFoundationService,
     CommerceFoundationEnvelopeMappers,
+    DetaillantRegistrationService,
+    TerrainSearchService,
   ],
   exports: [CommerceFoundationService, CommerceFoundationRepository],
 })

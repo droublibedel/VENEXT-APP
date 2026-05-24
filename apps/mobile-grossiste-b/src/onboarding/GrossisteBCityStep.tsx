@@ -23,7 +23,7 @@ export const GrossisteBCityStep = memo(function GrossisteBCityStep({
   return (
     <section data-testid="gb-onboarding-city">
       <h2 style={{ margin: "0 0 8px", fontSize: 18 }}>Votre ville (optionnel)</h2>
-      <p style={{ margin: "0 0 12px", fontSize: 13, color: "#8fa39a" }}>
+      <p style={{ margin: "0 0 12px", fontSize: 13, color: "var(--venext-text-muted)" }}>
         Vous pourrez aussi l&apos;ajouter plus tard dans l&apos;application.
       </p>
       <input
@@ -48,9 +48,9 @@ export const GrossisteBCityStep = memo(function GrossisteBCityStep({
                 padding: "10px 12px",
                 marginBottom: 4,
                 borderRadius: 8,
-                border: city === c ? "1px solid #00a884" : "1px solid transparent",
-                background: city === c ? "rgba(0,168,132,0.12)" : "#0e1a17",
-                color: "#f0f4f2",
+                border: city === c ? "1px solid var(--venext-accent)" : "1px solid transparent",
+                background: city === c ? "var(--venext-accent-soft)" : "var(--venext-surface)",
+                color: "var(--venext-text)",
               }}
             >
               {c}

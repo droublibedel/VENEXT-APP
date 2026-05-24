@@ -44,6 +44,9 @@ import { RelationalStrategicCommandRiskService } from "./relational-strategic-co
     RelationalStrategicCommandIngestionService,
     RelationalStrategicCommandGuard,
   ],
-  exports: [RelationalStrategicCommandIngestionService],
+  exports: [
+    RelationalStrategicCommandIngestionService,
+    RelationalStrategicCommandCorridorContextService,
+  ],
 })
 export class RelationalStrategicCommandModule {}

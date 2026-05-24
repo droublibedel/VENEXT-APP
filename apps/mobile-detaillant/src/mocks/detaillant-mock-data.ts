@@ -14,7 +14,7 @@ export const DETAILLANT_CITIES = [
   "San Pedro",
 ] as const;
 
-export const DETAILLANT_ORG_ID = "org-detaillant-demo";
+export const DETAILLANT_ORG_ID = "org-detaillant-yopougon";
 
 export function mockDetaillantHome(): DetaillantHomeDto {
   return {

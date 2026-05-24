@@ -64,7 +64,7 @@ export const GrossisteAOverviewWorkspace = memo(function GrossisteAOverviewWorks
       <p className="ga-section-title">Produits en mouvement</p>
       {(data?.movingProducts ?? []).map((p) => (
         <article key={p.id} className="ga-card">
-          <strong>{p.name}</strong> <span style={{ color: "#8fa39a" }}>{p.category}</span>
+          <strong>{p.name}</strong> <span style={{ color: "#526059" }}>{p.category}</span>
         </article>
       ))}
       <p className="ga-section-title">Alertes</p>

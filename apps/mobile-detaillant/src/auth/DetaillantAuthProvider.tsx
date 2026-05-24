@@ -27,6 +27,7 @@ function DetaillantLegacySessionSync({ children }: { children: ReactNode }) {
       activities: legacy.activities ?? [],
       city: legacy.city,
       otpVerified: true,
+      organizationId: legacy.organizationId,
     });
   }, [isAuthenticated, establishTerrainSession]);
 

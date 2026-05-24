@@ -1,5 +1,6 @@
 import type { DetaillantOnboardingProfile } from "./detaillant-onboarding.types";
 import { DETAILLANT_ONBOARDING_STORAGE_KEY } from "./detaillant-onboarding.types";
+import { isValidLocalCiPhone, sanitizeLocalCiPhoneInput } from "./detaillant-phone";
 
 export const MOCK_OTP_CODE = "123456";
 
@@ -30,14 +31,21 @@ export function saveDetaillantOnboardingProfile(profile: DetaillantOnboardingPro
   );
 }
 
+export function clearDetaillantOnboardingProfile(): void {
+  localStorage.removeItem(DETAILLANT_ONBOARDING_STORAGE_KEY);
+}
+
 export function isDetaillantOnboardingComplete(): boolean {
   const p = loadDetaillantOnboardingProfile();
   return Boolean(p?.completedAt && p.otpVerified && p.displayName.trim() && p.city);
 }
 
 export function validateDetaillantPhone(phone: string): boolean {
-  const digits = phone.replace(/\D/g, "");
-  return digits.length >= 8;
+  return isValidLocalCiPhone(phone);
+}
+
+export function normalizeDetaillantPhoneForStorage(phone: string): string {
+  return sanitizeLocalCiPhoneInput(phone);
 }
 
 export function validateDetaillantOtp(otp: string): boolean {

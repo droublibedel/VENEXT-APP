@@ -6,5 +6,6 @@
   "phone": "Téléphone",
   "settings": "Paramètres",
   "notifications": "Notifications",
-  "availability": "Disponibilité"
+  "availability": "Disponibilité",
+  "logout": "Se déconnecter"
 }

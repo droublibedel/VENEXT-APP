@@ -13,23 +13,25 @@
 .rcf-card {
   padding: 12px;
   border-radius: 12px;
-  background: #121816;
-  border: 1px solid rgba(0, 168, 132, 0.12);
+  background: var(--venext-surface, #ffffff);
+  color: var(--venext-text, #17201c);
+  border: 1px solid var(--venext-border, rgba(23, 32, 28, 0.1));
+  box-shadow: var(--venext-card-shadow, 0 10px 28px rgba(23, 32, 28, 0.08));
 }
 
 .rcf-sponsored-badge {
   display: inline-block;
   margin-top: 6px;
   font-size: 10px;
-  color: #8fa39a;
+  color: var(--venext-accent, #008f73);
   padding: 2px 8px;
   border-radius: 6px;
-  background: rgba(0, 168, 132, 0.08);
+  background: var(--venext-accent-soft, rgba(0, 143, 115, 0.08));
 }
 
 .rcf-invite-btn {
-  background: #075e54;
-  color: #f0f4f2;
+  background: var(--venext-accent-strong, #00785f);
+  color: #ffffff;
   border: none;
   border-radius: 10px;
   font-weight: 600;

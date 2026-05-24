@@ -18,7 +18,7 @@ export function CommercialActivityFeed({ feed, locale = "fr-CI", onOpen }: Props
   return (
     <section className="caf-feed" data-testid="caf-feed">
       <header style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-        <h2 style={{ margin: 0, fontSize: 17, color: "#f0f4f2" }}>
+        <h2 style={{ margin: 0, fontSize: 17, color: "#17201c" }}>
           {getActivityTranslation("activity.title", locale)}
           {fallbackUsed ? <span className="caf-dev-badge">DEV</span> : null}
         </h2>

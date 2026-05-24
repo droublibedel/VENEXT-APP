@@ -2,12 +2,12 @@
   display: flex;
   min-height: 420px;
   max-height: 90vh;
-  background: #0b1412;
+  background: #ffffff;
   border: 1px solid rgba(0, 168, 132, 0.14);
   border-radius: 14px;
   overflow: hidden;
   font-family: system-ui, sans-serif;
-  color: #f0f4f2;
+  color: #17201c;
 }
 
 .cw-shell--mobile {
@@ -19,14 +19,14 @@
 
 .cw-shell--disabled {
   padding: 24px;
-  color: #8fa39a;
+  color: #526059;
 }
 
 .cw-sidebar {
   width: 220px;
   flex-shrink: 0;
   border-right: 1px solid rgba(0, 168, 132, 0.12);
-  background: #0e1a17;
+  background: #ffffff;
   padding: 12px 0;
 }
 
@@ -41,7 +41,7 @@
 
 .cw-source {
   font-size: 10px;
-  color: #6b8078;
+  color: #66746d;
   padding: 6px 14px 12px;
   margin: 0;
 }
@@ -57,7 +57,7 @@
   text-align: left;
   padding: 10px 12px;
   border-radius: 10px;
-  color: #8fa39a;
+  color: #526059;
   font-size: 13px;
   font-weight: 600;
   background: transparent;
@@ -81,7 +81,7 @@
   min-height: 44px;
   font-size: 11px;
   font-weight: 700;
-  color: #8fa39a;
+  color: #526059;
   background: transparent;
   border: none;
   cursor: pointer;
@@ -121,16 +121,16 @@
 
 .cw-hint {
   font-size: 12px;
-  color: #b8cdc4;
+  color: #526059;
   padding: 8px 12px;
-  border-left: 2px solid #075e54;
+  border-left: 2px solid #00a884;
   margin: 0 0 10px;
 }
 
 .cw-balance-card {
   padding: 16px;
   border-radius: 12px;
-  background: #162822;
+  background: #ffffff;
   border: 1px solid rgba(0, 168, 132, 0.12);
   margin-bottom: 12px;
 }
@@ -138,7 +138,7 @@
 .cw-balance-label {
   margin: 0;
   font-size: 11px;
-  color: #8fa39a;
+  color: #526059;
   text-transform: uppercase;
   letter-spacing: 0.06em;
 }
@@ -147,7 +147,7 @@
   margin: 8px 0 0;
   font-size: 26px;
   font-weight: 800;
-  color: #f0f4f2;
+  color: #17201c;
 }
 
 .cw-balance-pending {
@@ -159,7 +159,7 @@
 .cw-balance-stability {
   margin: 10px 0 0;
   font-size: 12px;
-  color: #8fa39a;
+  color: #526059;
 }
 
 .cw-activity-strip {
@@ -173,8 +173,8 @@
   font-size: 11px;
   padding: 6px 10px;
   border-radius: 8px;
-  background: rgba(7, 94, 84, 0.2);
-  color: #b8cdc4;
+  background: rgba(0, 168, 132, 0.08);
+  color: #526059;
 }
 
 .cw-activity-pill--success {
@@ -199,7 +199,7 @@
   text-align: left;
   padding: 12px;
   border-radius: 10px;
-  background: #12201c;
+  background: #ffffff;
   border: 1px solid transparent;
   color: inherit;
   cursor: pointer;
@@ -224,7 +224,7 @@
 .cw-tx-meta {
   margin: 6px 0 0;
   font-size: 11px;
-  color: #8fa39a;
+  color: #526059;
 }
 
 .cw-tx-status {
@@ -232,14 +232,14 @@
   margin-top: 6px;
   font-size: 10px;
   font-weight: 700;
-  color: #b8cdc4;
+  color: #526059;
 }
 
 .cw-status-card,
 .cw-partner-card {
   padding: 14px;
   border-radius: 10px;
-  background: #162822;
+  background: #ffffff;
   border: 1px solid rgba(0, 168, 132, 0.1);
   margin-bottom: 10px;
 }
@@ -261,13 +261,13 @@
 .cw-status-meta {
   margin: 8px 0 0;
   font-size: 12px;
-  color: #8fa39a;
+  color: #526059;
 }
 
 .cw-status-notice {
   margin: 10px 0 0;
   font-size: 12px;
-  color: #b8cdc4;
+  color: #526059;
 }
 
 .cw-partner-row {
@@ -285,7 +285,7 @@
 .cw-partner-note {
   margin: 6px 0 0;
   font-size: 12px;
-  color: #8fa39a;
+  color: #526059;
 }
 
 .cw-partner-list {
@@ -340,8 +340,8 @@
   padding: 10px 12px;
   border-radius: 10px;
   border: 1px solid rgba(0, 168, 132, 0.2);
-  background: #12201c;
-  color: #f0f4f2;
+  background: #ffffff;
+  color: #17201c;
   font-size: 14px;
 }
 
@@ -349,8 +349,8 @@
   min-height: 44px;
   padding: 0 16px;
   border-radius: 10px;
-  background: #075e54;
-  color: #f0f4f2;
+  background: #00a884;
+  color: #17201c;
   font-weight: 600;
   border: none;
   cursor: pointer;
@@ -358,7 +358,7 @@
 
 .cw-composer-hidden {
   font-size: 12px;
-  color: #8fa39a;
+  color: #526059;
   padding: 12px 0;
   margin: 0;
 }
@@ -368,7 +368,7 @@
   font-weight: 700;
   padding: 4px 8px;
   border-radius: 6px;
-  background: rgba(7, 94, 84, 0.25);
+  background: rgba(0, 168, 132, 0.10);
   color: #00a884;
 }
 
@@ -393,7 +393,7 @@
   margin: 12px 0;
   padding: 12px 14px;
   border-radius: 12px;
-  background: rgba(7, 94, 84, 0.12);
+  background: rgba(0, 168, 132, 0.08);
   border: 1px solid rgba(0, 168, 132, 0.15);
 }
 
@@ -409,14 +409,14 @@
   font-size: 18px;
   font-weight: 700;
   margin: 8px 0 4px;
-  color: #f0f4f2;
+  color: #17201c;
 }
 
 .cw-settlement-meta,
 .cw-settlement-ref,
 .cw-settlement-note {
   font-size: 12px;
-  color: #8fa39a;
+  color: #526059;
   margin: 4px 0;
 }
 
@@ -453,7 +453,7 @@
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background: #075e54;
+  background: #00a884;
   flex-shrink: 0;
   margin-top: 4px;
 }
@@ -476,7 +476,7 @@
 
 .cw-timeline-at {
   font-size: 11px;
-  color: #8fa39a;
+  color: #526059;
 }
 
 .cw-partner-notice {
@@ -498,12 +498,12 @@
   font-size: 14px;
   font-weight: 700;
   margin: 0 0 8px;
-  color: #f0f4f2;
+  color: #17201c;
 }
 
 .cw-confirmation-hint {
   font-size: 12px;
-  color: #8fa39a;
+  color: #526059;
   margin: 0 0 10px;
 }
 
@@ -511,7 +511,7 @@
   display: block;
   font-size: 11px;
   font-weight: 600;
-  color: #8fa39a;
+  color: #526059;
   margin: 8px 0 4px;
 }
 
@@ -523,8 +523,8 @@
   padding: 8px 12px;
   border-radius: 10px;
   border: 1px solid rgba(0, 168, 132, 0.2);
-  background: #12201c;
-  color: #f0f4f2;
+  background: #ffffff;
+  color: #17201c;
   font-size: 13px;
   margin-bottom: 4px;
 }

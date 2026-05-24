@@ -57,6 +57,7 @@ export function normalizeTerrainProfile(
     city: partial.city?.trim() ?? "",
     otpVerified: partial.otpVerified ?? false,
     onboardingComplete: partial.onboardingComplete ?? false,
+    organizationId: partial.organizationId?.trim() || undefined,
   };
 }
 

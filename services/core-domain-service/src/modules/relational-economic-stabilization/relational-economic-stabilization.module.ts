@@ -46,6 +46,9 @@ import { RelationalEconomicStabilizationRiskService } from "./relational-economi
     RelationalEconomicStabilizationIngestionService,
     RelationalEconomicStabilizationGuard,
   ],
-  exports: [RelationalEconomicStabilizationIngestionService],
+  exports: [
+    RelationalEconomicStabilizationIngestionService,
+    RelationalEconomicStabilizationCorridorContextService,
+  ],
 })
 export class RelationalEconomicStabilizationModule {}

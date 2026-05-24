@@ -28,10 +28,10 @@ export function CommerceNotificationsCenter({
   return (
     <section data-testid="cn-center" className="cn-center">
       <header style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-        <h2 style={{ margin: 0, fontSize: 17, color: "#f0f4f2" }}>
+        <h2 style={{ margin: 0, fontSize: 17, color: "var(--venext-text, #17201c)" }}>
           {getNotificationTranslation("notifications.title", locale)}
           {unreadCount > 0 ? (
-            <span style={{ marginLeft: 8, fontSize: 13, color: "#00a884" }}>{unreadCount}</span>
+            <span style={{ marginLeft: 8, fontSize: 13, color: "var(--venext-accent, #008f73)" }}>{unreadCount}</span>
           ) : null}
           {fallbackUsed ? (
             <span className="cn-dev-badge">{getNotificationTranslation("notifications.devBadge", locale)}</span>
@@ -44,7 +44,7 @@ export function CommerceNotificationsCenter({
             </button>
           ) : null}
           {onMarkAllRead && unreadCount > 0 ? (
-            <button type="button" onClick={onMarkAllRead} style={{ fontSize: 12, color: "#8fa39a" }}>
+            <button type="button" onClick={onMarkAllRead} style={{ fontSize: 12, color: "var(--venext-text-secondary, #526059)" }}>
               {getNotificationTranslation("notifications.markAllRead", locale)}
             </button>
           ) : null}

@@ -101,7 +101,7 @@ export const TerrainAudioHoldRecorder = memo(function TerrainAudioHoldRecorder({
           }}
           onPointerUp={finish}
           onPointerCancel={finish}
-          style={{ minHeight: 44, minWidth: 44, borderRadius: 22, border: "none", background: "#075E54", color: "#fff" }}
+          style={{ minHeight: 44, minWidth: 44, borderRadius: 22, border: "none", background: "#00A884", color: "#fff" }}
         >
           🎤
         </button>
@@ -111,7 +111,7 @@ export const TerrainAudioHoldRecorder = memo(function TerrainAudioHoldRecorder({
           {warn}
         </p>
       ) : null}
-      <p style={{ fontSize: 10, color: "#6b8078", margin: "4px 0 0" }}>{tTerrainAudio("maxDuration", locale)}</p>
+      <p style={{ fontSize: 10, color: "#66746D", margin: "4px 0 0" }}>{tTerrainAudio("maxDuration", locale)}</p>
     </div>
   );
 });

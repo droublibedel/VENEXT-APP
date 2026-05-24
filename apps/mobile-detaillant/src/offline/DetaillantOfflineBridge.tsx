@@ -1,13 +1,13 @@
 import { CommerceOfflineShell } from "commerce-offline-foundation";
 
 import { useDetaillantFeatureFlags } from "../hooks/useDetaillantFeatureFlags";
-import { DETAILLANT_ORG_ID } from "../mocks/detaillant-mock-data";
+import { resolveDetaillantOrganizationId } from "../session/resolveDetaillantOrganizationId";
 
 export function DetaillantOfflineBridge() {
   const { flags, hydrated } = useDetaillantFeatureFlags();
   return (
     <CommerceOfflineShell
-      organizationId={DETAILLANT_ORG_ID}
+      organizationId={resolveDetaillantOrganizationId()}
       actorRole="DETAILLANT"
       flags={flags}
       flagsHydrated={hydrated}

@@ -93,7 +93,7 @@ export const GrossisteAMessagingWorkspace = memo(function GrossisteAMessagingWor
   if (!messagingEnabled) {
     return (
       <section data-testid="ga-workspace-messaging-disabled" className="ga-card" style={{ padding: 24 }}>
-        <p style={{ color: "#8fa39a" }}>Messagerie commerciale — bientôt disponible sur votre compte.</p>
+        <p style={{ color: "#526059" }}>Messagerie commerciale — bientôt disponible sur votre compte.</p>
       </section>
     );
   }
@@ -102,7 +102,7 @@ export const GrossisteAMessagingWorkspace = memo(function GrossisteAMessagingWor
     <section data-testid="ga-workspace-messaging" style={{ minHeight: 480 }}>
       <header style={{ marginBottom: 16 }}>
         <h1 style={{ margin: 0, fontSize: 22, fontWeight: 700 }}>Messagerie</h1>
-        <p style={{ margin: "8px 0 0", fontSize: 14, color: "#8fa39a" }}>
+        <p style={{ margin: "8px 0 0", fontSize: 14, color: "#526059" }}>
           Discussions efficaces autour de votre activité commerciale
         </p>
       </header>

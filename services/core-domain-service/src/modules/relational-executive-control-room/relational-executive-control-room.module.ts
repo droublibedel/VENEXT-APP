@@ -44,6 +44,9 @@ import { RelationalExecutiveControlRoomRiskService } from "./relational-executiv
     RelationalExecutiveControlRoomIngestionService,
     RelationalExecutiveControlRoomGuard,
   ],
-  exports: [RelationalExecutiveControlRoomIngestionService],
+  exports: [
+    RelationalExecutiveControlRoomIngestionService,
+    RelationalExecutiveControlRoomCorridorContextService,
+  ],
 })
 export class RelationalExecutiveControlRoomModule {}

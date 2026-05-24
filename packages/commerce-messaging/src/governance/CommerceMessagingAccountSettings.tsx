@@ -30,7 +30,7 @@ export const CommerceMessagingAccountSettingsPanel = memo(
         data-testid={testId}
         style={{ margin: "8px 16px", padding: 12 }}
       >
-        <p style={{ margin: 0, fontSize: 11, color: "#8fa39a", textTransform: "uppercase" }}>
+        <p style={{ margin: 0, fontSize: 11, color: "#526059", textTransform: "uppercase" }}>
           Messagerie commerciale
         </p>
         <label style={{ display: "flex", alignItems: "center", gap: 8, marginTop: 10, fontSize: 13 }}>
@@ -83,12 +83,12 @@ export const CommerceMessagingAccountSettingsPanel = memo(
           Partenaires autorisés uniquement
         </label>
         {settings.messagingEnabled ? (
-          <p style={{ margin: "8px 0 0", fontSize: 11, color: "#6b8078" }}>
+          <p style={{ margin: "8px 0 0", fontSize: 11, color: "#66746d" }}>
             Mode actuel :{" "}
             {MODE_OPTIONS.find((o) => o.value === settings.defaultMode)?.label ?? settings.defaultMode}
           </p>
         ) : (
-          <p style={{ margin: "8px 0 0", fontSize: 11, color: "#6b8078" }}>
+          <p style={{ margin: "8px 0 0", fontSize: 11, color: "#66746d" }}>
             Les commandes restent possibles sans discussion.
           </p>
         )}

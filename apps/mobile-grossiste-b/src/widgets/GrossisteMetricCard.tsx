@@ -10,11 +10,9 @@ export const GrossisteMetricCard = memo(function GrossisteMetricCard({
   testId?: string;
 }) {
   return (
-    <article className="grossiste-b-card" data-testid={testId}>
-      <p style={{ margin: 0, fontSize: 11, color: "#8fa39a", textTransform: "uppercase", letterSpacing: "0.06em" }}>
-        {label}
-      </p>
-      <p style={{ margin: "8px 0 0", fontSize: 22, fontWeight: 700, color: "#00a884" }}>{value}</p>
+    <article className="grossiste-b-card grossiste-b-kpi-card" data-testid={testId}>
+      <p className="grossiste-b-kpi-label">{label}</p>
+      <p className="grossiste-b-kpi-value">{value}</p>
     </article>
   );
 });

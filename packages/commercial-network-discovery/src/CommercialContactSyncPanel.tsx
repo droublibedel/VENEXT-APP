@@ -12,13 +12,13 @@ export const CommercialContactSyncPanel = memo(function CommercialContactSyncPan
   return (
     <section className="cnd-card" data-testid="cnd-contact-sync-panel">
       <h3 style={{ margin: "0 0 6px", fontSize: 13 }}>Contacts téléphone</h3>
-      <p style={{ margin: 0, fontSize: 11, color: "#8fa39a" }}>
+      <p style={{ margin: 0, fontSize: 11, color: "var(--venext-text-secondary, #526059)" }}>
         VENEXT compare vos numéros enregistrés pour retrouver un réseau commercial déjà existant — sans
         marketplace publique.
       </p>
       {granted ? (
         <p
-          style={{ margin: "10px 0 0", fontSize: 11, color: "#00a884" }}
+          style={{ margin: "10px 0 0", fontSize: 11, color: "var(--venext-accent, #008f73)" }}
           data-testid="cnd-contact-sync-granted"
         >
           {localContactsCount} contacts analysés (lecture locale, pas de scan permanent).

@@ -25,7 +25,7 @@ export const CommerceProductConversationSettingsCard = memo(
           gap: 6,
           padding: "4px 16px",
           fontSize: 11,
-          color: "#8fa39a",
+          color: "#526059",
         }}
       >
         {productName ? <span>{productName}</span> : null}

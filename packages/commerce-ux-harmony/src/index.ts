@@ -56,6 +56,19 @@ export {
 export type { VenextRadiusToken, VenextSpacingToken } from "./design-system/venext-design-tokens";
 
 export {
+  VenextColorHierarchy,
+  VenextSurfaceTokens,
+  VenextEconomicAccentRules,
+  VenextNavigationIconSystem,
+  auditVenextColorOveruse,
+  venextMobileIdentityCssVariables,
+} from "./design-system/venext-mobile-identity";
+export type {
+  VenextColorOveruseInput,
+  VenextColorOveruseIssue,
+} from "./design-system/venext-mobile-identity";
+
+export {
   VenextSkeletonBase,
   VenextSkeletonText,
   VenextSkeletonCard,
@@ -82,6 +95,21 @@ export {
   validateVenextDesignTokenIntegrity,
 } from "./audit/venext-visual-audit";
 export type { VenextVisualAuditIssue } from "./audit/venext-visual-audit";
+export {
+  VenextColorTokens,
+  legacyDarkGreenSurface,
+  auditVenextForbiddenDarkGreenUsage,
+  auditVenextTextContrast,
+  auditVenextDemoDataIntegrity,
+} from "./audit/venext-global-correction-audit";
+export type {
+  VenextDemoDataIntegrityIssue,
+  VenextDemoDataSnapshot,
+  VenextForbiddenColorIssue,
+  VenextSourceMap,
+  VenextTextContrastCheck,
+  VenextTextContrastIssue,
+} from "./audit/venext-global-correction-audit";
 export { auditVisualFatigueRisk } from "./audit/venext-fatigue-audit";
 export type { VenextFatigueAuditIssue } from "./audit/venext-fatigue-audit";
 export { auditVenextUiPolish } from "./audit/venext-ui-polish-audit";
@@ -89,6 +117,15 @@ export type { VenextUiPolishIssue } from "./audit/venext-ui-polish-audit";
 
 export { VenextUnifiedDesignSystem } from "./design-system/venext-unified-design-system";
 export { VenextSkeletonSystem } from "./skeleton/venext-skeleton-system-facade";
+
+export { VenextTerrainMobileHeader } from "./VenextTerrainMobileHeader";
+export type { VenextTerrainMobileHeaderProps } from "./VenextTerrainMobileHeader";
+export { VenextTerrainGlobalSearch } from "./VenextTerrainGlobalSearch";
+export type {
+  TerrainSearchResult,
+  TerrainSearchResponse,
+  VenextTerrainGlobalSearchProps,
+} from "./VenextTerrainGlobalSearch";
 
 export { EnterpriseAuthExperience } from "./auth/EnterpriseAuthExperience";
 export { EnterpriseAuthVisual } from "./auth/EnterpriseAuthVisual";

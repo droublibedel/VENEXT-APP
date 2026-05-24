@@ -44,18 +44,18 @@ export const DetaillantHomeScreen = memo(function DetaillantHomeScreen({
 
       {feedEnabled ? (
         <>
-          <h2 style={{ fontSize: 15, margin: "16px 0 10px", color: "#8fa39a", fontWeight: 600 }}>Réseau commercial</h2>
+          <h2 className="detaillant-section-title">Réseau commercial</h2>
           <DetaillantRelationalFeedBridge />
         </>
       ) : null}
 
       {data?.popularProducts?.length ? (
         <>
-          <h2 style={{ fontSize: 15, margin: "0 0 10px", color: "#8fa39a", fontWeight: 600 }}>Produits populaires</h2>
+          <h2 className="detaillant-section-title">Produits populaires</h2>
           {data.popularProducts.map((p) => (
             <article key={p.id} className="detaillant-card" data-testid={`detaillant-popular-${p.id}`}>
               <strong style={{ fontSize: 15 }}>{p.name}</strong>
-              <span style={{ float: "right", fontSize: 12, color: "#00a884" }}>{p.category}</span>
+              <span style={{ float: "right", fontSize: 12, color: "var(--venext-accent)" }}>{p.category}</span>
             </article>
           ))}
         </>
@@ -63,11 +63,11 @@ export const DetaillantHomeScreen = memo(function DetaillantHomeScreen({
 
       {data?.recentOrders?.length ? (
         <>
-          <h2 style={{ fontSize: 15, margin: "16px 0 10px", color: "#8fa39a", fontWeight: 600 }}>Commandes récentes</h2>
+          <h2 className="detaillant-section-title">Commandes récentes</h2>
           {data.recentOrders.map((o) => (
             <article key={o.id} className="detaillant-card" data-testid={`detaillant-recent-order-${o.id}`}>
               <p style={{ margin: 0, fontWeight: 600 }}>{o.partner}</p>
-              <p style={{ margin: "6px 0 0", fontSize: 14, color: "#00a884" }}>
+              <p style={{ margin: "8px 0 0", fontSize: 14, color: "var(--venext-accent)" }}>
                 {o.amountLabel} · {o.status}
               </p>
             </article>
@@ -77,7 +77,7 @@ export const DetaillantHomeScreen = memo(function DetaillantHomeScreen({
 
       {data?.simpleAlerts?.length ? (
         <>
-          <h2 style={{ fontSize: 15, margin: "16px 0 10px", color: "#8fa39a", fontWeight: 600 }}>À noter</h2>
+          <h2 className="detaillant-section-title">À noter</h2>
           {data.simpleAlerts.map((a) => (
             <article key={a.id} className="detaillant-card">
               <p style={{ margin: 0, fontSize: 14 }}>{a.text}</p>

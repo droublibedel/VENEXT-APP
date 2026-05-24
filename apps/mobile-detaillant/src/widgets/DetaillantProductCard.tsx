@@ -38,7 +38,7 @@ export const DetaillantProductCard = memo(function DetaillantProductCard({
       <div style={{ display: "flex", justifyContent: "space-between", gap: 10 }}>
         <div>
           <h3 style={{ margin: 0, fontSize: 16, fontWeight: 700 }}>{product.name}</h3>
-          <p style={{ margin: "6px 0 0", fontSize: 13, color: "#8fa39a" }}>
+          <p style={{ margin: "6px 0 0", fontSize: 13, color: "var(--venext-text-muted)" }}>
             {product.category} · {product.city}
           </p>
         </div>
@@ -46,7 +46,7 @@ export const DetaillantProductCard = memo(function DetaillantProductCard({
       </div>
       <p style={{ margin: "12px 0 0", fontSize: 18, fontWeight: 800 }}>{product.priceLabel}</p>
       {product.promotion ? (
-        <p style={{ margin: "8px 0 0", fontSize: 13, color: "#00a884" }}>{product.promotion}</p>
+        <p style={{ margin: "8px 0 0", fontSize: 13, color: "var(--venext-accent)" }}>{product.promotion}</p>
       ) : null}
 
       {!disabled ? (
@@ -97,7 +97,7 @@ export const DetaillantProductCard = memo(function DetaillantProductCard({
           ) : null}
         </div>
       ) : (
-        <p style={{ margin: "12px 0 0", fontSize: 12, color: "#6b8078" }}>Indisponible</p>
+        <p style={{ margin: "12px 0 0", fontSize: 12, color: "var(--venext-text-muted)" }}>Indisponible</p>
       )}
     </article>
   );

@@ -4,7 +4,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { GrossisteBAppShell } from "../app-shell/GrossisteBAppShell";
 import { clearGrossisteDataCache } from "../hooks/useGrossisteLiveData";
-import { GROSSISTE_B_TABS } from "../navigation/grossiste-b-navigation.config";
+import { GROSSISTE_B_BOTTOM_TABS } from "../navigation/grossiste-b-navigation.config";
 import {
   mockGrossisteActivity,
   mockGrossisteCatalog,
@@ -45,24 +45,20 @@ describe("grossiste B commerce messaging", () => {
     vi.stubGlobal("fetch", vi.fn(() => Promise.reject(new Error("offline"))));
   });
 
-  it("exposes Messagerie tab after Activité and before Catalogue", () => {
-    const keys = GROSSISTE_B_TABS.map((t) => t.key);
-    expect(keys.indexOf("activity")).toBeLessThan(keys.indexOf("messaging"));
-    expect(keys.indexOf("messaging")).toBeLessThan(keys.indexOf("catalog"));
-    const tab = GROSSISTE_B_TABS.find((t) => t.key === "messaging");
-    expect(tab?.label).toBe("Messagerie");
-    expect(tab?.icon).toBe("messages");
+  it("exposes Messagerie in terrain header, not bottom tabs", () => {
+    expect(GROSSISTE_B_BOTTOM_TABS).toHaveLength(4);
+    expect(GROSSISTE_B_BOTTOM_TABS.find((t) => t.id === "network")).toBeTruthy();
   });
 
-  it("renders six navigation tabs including messaging", () => {
+  it("renders terrain header with messaging action", () => {
     render(<GrossisteBAppShell />);
-    expect(GROSSISTE_B_TABS).toHaveLength(7);
-    expect(screen.getByTestId("grossiste-tab-messaging")).toBeTruthy();
+    expect(screen.getByTestId("venext-terrain-mobile-header-messaging")).toBeTruthy();
+    expect(screen.queryByTestId("grossiste-tab-messaging")).toBeNull();
   });
 
-  it("navigates to messaging screen from app shell", async () => {
+  it("navigates to messaging screen from header", async () => {
     render(<GrossisteBAppShell />);
-    fireEvent.click(screen.getByTestId("grossiste-tab-messaging"));
+    fireEvent.click(screen.getByTestId("venext-terrain-mobile-header-messaging"));
     await waitFor(() => expect(screen.getByTestId("grossiste-screen-messaging")).toBeTruthy());
     expect(screen.getByTestId("grossiste-b-commerce-messaging")).toBeTruthy();
   });

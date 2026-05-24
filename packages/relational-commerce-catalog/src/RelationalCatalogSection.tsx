@@ -64,7 +64,7 @@ export const RelationalCatalogSection = memo(function RelationalCatalogSection({
             fontSize: 13,
             border: "1px dashed #2a3530",
             background: "transparent",
-            color: "#8fa39a",
+            color: "#526059",
             borderRadius: 8,
           }}
         >

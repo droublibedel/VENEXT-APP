@@ -23,7 +23,7 @@ export const CommerceOrderConversationContext = memo(function CommerceOrderConve
       style={{
         padding: "6px 16px",
         fontSize: 12,
-        color: "#8fa39a",
+        color: "#526059",
         borderBottom: "1px solid rgba(0,168,132,0.06)",
       }}
     >

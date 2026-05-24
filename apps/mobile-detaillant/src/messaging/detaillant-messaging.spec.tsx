@@ -10,7 +10,7 @@ import {
   mockDetaillantOrders,
   mockDetaillantProducts,
 } from "../mocks/detaillant-mock-data";
-import { DETAILLANT_TABS } from "../navigation/detaillant-navigation.config";
+import { DETAILLANT_BOTTOM_TABS } from "../navigation/detaillant-navigation.config";
 import { DetaillantMessagingScreen } from "./DetaillantMessagingScreen";
 import {
   buildDetaillantMessagingInjected,
@@ -47,13 +47,9 @@ describe("detaillant commerce messaging", () => {
     vi.stubGlobal("fetch", vi.fn(() => Promise.reject(new Error("offline"))));
   });
 
-  it("exposes Messagerie tab after Accueil and before Catalogue", () => {
-    const keys = DETAILLANT_TABS.map((t) => t.key);
-    expect(keys.indexOf("home")).toBeLessThan(keys.indexOf("messaging"));
-    expect(keys.indexOf("messaging")).toBeLessThan(keys.indexOf("products"));
-    const tab = DETAILLANT_TABS.find((t) => t.key === "messaging");
-    expect(tab?.label).toBe("Messagerie");
-    expect(tab?.icon).toBe("messages");
+  it("exposes Messagerie in terrain header, not bottom tabs", () => {
+    expect(DETAILLANT_BOTTOM_TABS).toHaveLength(4);
+    expect(DETAILLANT_BOTTOM_TABS.find((t) => t.id === "network")).toBeTruthy();
   });
 
   it("completes quick order flow without opening messaging", async () => {
@@ -71,7 +67,7 @@ describe("detaillant commerce messaging", () => {
 
   it("navigates to messaging screen when user chooses to", async () => {
     render(<DetaillantAppShell />);
-    fireEvent.click(screen.getByTestId("detaillant-tab-messaging"));
+    fireEvent.click(screen.getByTestId("venext-terrain-mobile-header-messaging"));
     await waitFor(() => expect(screen.getByTestId("detaillant-screen-messaging")).toBeTruthy());
     expect(screen.getByTestId("detaillant-messaging-optional-note")).toBeTruthy();
   });

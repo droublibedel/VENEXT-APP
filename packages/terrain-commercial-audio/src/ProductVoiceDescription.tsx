@@ -46,7 +46,7 @@ export const ProductVoiceDescription = memo(function ProductVoiceDescription({
 
   return (
     <section data-testid={testId} className="tca-product-voice-editor">
-      <p style={{ margin: "0 0 8px", fontSize: 12, color: "#8fa39a" }}>
+      <p style={{ margin: "0 0 8px", fontSize: 12, color: "var(--venext-text-secondary, #526059)" }}>
         {tTerrainAudio("recordProduct", locale)} ({tTerrainAudio("maxDuration", locale)})
       </p>
       {current && !current.deletedAt ? (

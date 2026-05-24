@@ -44,6 +44,9 @@ import { RelationalExecutiveStrategicSynthesisRiskService } from "./relational-e
     RelationalExecutiveStrategicSynthesisIngestionService,
     RelationalExecutiveStrategicSynthesisGuard,
   ],
-  exports: [RelationalExecutiveStrategicSynthesisIngestionService],
+  exports: [
+    RelationalExecutiveStrategicSynthesisIngestionService,
+    RelationalExecutiveStrategicSynthesisCorridorContextService,
+  ],
 })
 export class RelationalExecutiveStrategicSynthesisModule {}

@@ -10,17 +10,22 @@ export type OperationalPersistenceResolution = {
   warning?: string;
 };
 
+function readRuntimeEnv(): Record<string, string | undefined> {
+  return typeof process === "undefined" ? {} : process.env;
+}
+
 /** Stratégie stricte BACKOFFICE-01-E — LIVE = source officielle en production. */
 export function resolveOperationalPersistenceMode(): OperationalPersistenceResolution {
-  const isProduction = process.env.NODE_ENV === "production";
+  const env = readRuntimeEnv();
+  const isProduction = env.NODE_ENV === "production";
   const databaseConfigured = hasDatabaseUrl();
   const forcedFallback =
-    process.env.BACKOFFICE_PERSISTENCE_MODE === "FALLBACK_DEV_ONLY" ||
-    process.env.BACKOFFICE_PERSISTENCE_MODE === "FALLBACK" ||
-    process.env.BACKOFFICE_FORCE_FALLBACK === "true";
+    env.BACKOFFICE_PERSISTENCE_MODE === "FALLBACK_DEV_ONLY" ||
+    env.BACKOFFICE_PERSISTENCE_MODE === "FALLBACK" ||
+    env.BACKOFFICE_FORCE_FALLBACK === "true";
   const hybridDebug =
-    process.env.BACKOFFICE_PERSISTENCE_MODE === "HYBRID_DEBUG" ||
-    process.env.BACKOFFICE_PERSISTENCE_MODE === "HYBRID";
+    env.BACKOFFICE_PERSISTENCE_MODE === "HYBRID_DEBUG" ||
+    env.BACKOFFICE_PERSISTENCE_MODE === "HYBRID";
 
   if (forcedFallback) {
     return {

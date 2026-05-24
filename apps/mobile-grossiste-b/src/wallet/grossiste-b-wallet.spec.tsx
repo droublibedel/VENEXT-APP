@@ -36,15 +36,11 @@ describe("grossiste B wallet (20.65)", () => {
     vi.stubGlobal("fetch", vi.fn(() => Promise.reject(new Error("offline"))));
   });
 
-  it("exposes Règlements tab after Messagerie", () => {
-    const keys = GROSSISTE_B_TABS.map((t) => t.key);
-    expect(keys.indexOf("messaging")).toBeLessThan(keys.indexOf("wallet"));
-    expect(GROSSISTE_B_TABS.find((t) => t.id === "wallet")?.label).toBe("Règlements");
-  });
-
-  it("navigates to wallet screen from shell", async () => {
+  it("opens wallet from profile shortcut", async () => {
     render(<GrossisteBAppShell />);
-    fireEvent.click(screen.getByTestId("grossiste-tab-wallet"));
+    fireEvent.click(screen.getByTestId("venext-terrain-mobile-header-profile"));
+    await waitFor(() => expect(screen.getByTestId("grossiste-screen-profile")).toBeTruthy());
+    fireEvent.click(screen.getByTestId("grossiste-profile-open-wallet"));
     await waitFor(() => expect(screen.getByTestId("grossiste-screen-wallet")).toBeTruthy());
     expect(screen.getByTestId("grossiste-b-commerce-wallet")).toBeTruthy();
   });
@@ -98,10 +94,12 @@ describe("grossiste B wallet (20.65)", () => {
     await waitFor(() => expect(screen.getByTestId("grossiste-wallet-refresh")).toBeTruthy());
   });
 
-  it("lazy loads wallet screen in shell", async () => {
+  it("lazy loads wallet screen via profile shortcut", async () => {
     render(<GrossisteBAppShell />);
     expect(screen.queryByTestId("grossiste-screen-wallet")).toBeNull();
-    fireEvent.click(screen.getByTestId("grossiste-tab-wallet"));
+    fireEvent.click(screen.getByTestId("venext-terrain-mobile-header-profile"));
+    await waitFor(() => expect(screen.getByTestId("grossiste-screen-profile")).toBeTruthy());
+    fireEvent.click(screen.getByTestId("grossiste-profile-open-wallet"));
     await waitFor(() => expect(screen.getByTestId("grossiste-screen-wallet")).toBeTruthy());
   });
 });

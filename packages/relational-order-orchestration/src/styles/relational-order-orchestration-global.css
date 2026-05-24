@@ -3,7 +3,7 @@
   flex-direction: column;
   gap: 12px;
   font-family: system-ui, sans-serif;
-  color: #f0f4f2;
+  color: #17201c;
   min-height: 280px;
 }
 
@@ -25,12 +25,12 @@
 .roo-subtitle {
   margin: 4px 0 0;
   font-size: 12px;
-  color: #8fa39a;
+  color: #526059;
 }
 
 .roo-hint {
   font-size: 11px;
-  color: #8fa39a;
+  color: #526059;
   padding: 6px 10px;
   border-radius: 8px;
   background: rgba(0, 168, 132, 0.06);
@@ -40,13 +40,13 @@
   padding: 12px;
   border-radius: 10px;
   border: 1px solid rgba(0, 168, 132, 0.15);
-  background: #0e1a17;
+  background: #ffffff;
 }
 
 .roo-card-kicker {
   margin: 0;
   font-size: 10px;
-  color: #6b7f76;
+  color: #66746d;
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
@@ -60,13 +60,13 @@
 .roo-card-secondary {
   margin: 2px 0 0;
   font-size: 12px;
-  color: #8fa39a;
+  color: #526059;
 }
 
 .roo-card-meta {
   margin: 6px 0 0;
   font-size: 11px;
-  color: #8fa39a;
+  color: #526059;
 }
 
 .roo-signals {
@@ -96,7 +96,7 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #3d524c;
+  background: #cfd8d3;
   flex-shrink: 0;
 }
 
@@ -111,7 +111,7 @@
 
 .roo-timeline-at {
   margin-left: auto;
-  color: #6b7f76;
+  color: #66746d;
   font-size: 10px;
 }
 
@@ -136,7 +136,7 @@
 .roo-panel-text {
   margin: 0;
   font-size: 12px;
-  color: #c5d4ce;
+  color: #526059;
 }
 
 .roo-panel-amount {
@@ -155,7 +155,7 @@
 .roo-hint-inline {
   margin: 8px 0 0;
   font-size: 11px;
-  color: #8fa39a;
+  color: #526059;
 }
 
 .roo-quick-actions {
@@ -168,8 +168,8 @@
   padding: 8px 12px;
   border-radius: 10px;
   border: 1px solid rgba(0, 168, 132, 0.25);
-  background: #0e1a17;
-  color: #f0f4f2;
+  background: #ffffff;
+  color: #17201c;
   font-size: 12px;
   cursor: pointer;
 }
@@ -218,7 +218,7 @@
 .roo-mobile-hint {
   margin: 4px 0 0;
   font-size: 11px;
-  color: #8fa39a;
+  color: #526059;
 }
 
 .roo-order-list-virtual {
@@ -236,7 +236,7 @@
   border: none;
   border-bottom: 1px solid rgba(0, 168, 132, 0.08);
   background: #0a1411;
-  color: #f0f4f2;
+  color: #17201c;
   text-align: left;
   cursor: pointer;
 }
@@ -280,5 +280,5 @@
 .roo-empty-text {
   margin: 8px 0 0;
   font-size: 12px;
-  color: #8fa39a;
+  color: #526059;
 }

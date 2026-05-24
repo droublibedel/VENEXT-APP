@@ -1,4 +1,4 @@
-import { Module } from "@nestjs/common";
+import { Module, forwardRef } from "@nestjs/common";
 
 import { FeatureFlagsModule } from "../../feature-flags/feature-flags.module";
 import { PlatformAuthzModule } from "../../platform-authz/platform-authz.module";
@@ -21,7 +21,7 @@ import { RelationalOperationalSlaService } from "./relational-operational-sla.se
     PlatformAuthzModule,
     DomainRealtimeModule,
     CommerceThreadAccessModule,
-    RelationalPredictiveRiskModule,
+    forwardRef(() => RelationalPredictiveRiskModule),
   ],
   controllers: [RelationalOperationalIntelligenceController],
   providers: [

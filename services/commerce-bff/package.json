@@ -6,22 +6,24 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "start": "node dist/index.js",
-    "dev": "tsx watch src/index.ts",
+    "dev": "NODE_OPTIONS='--env-file=../../.env' tsx watch src/index.ts",
     "test": "vitest run"
   },
   "dependencies": {
     "backoffice-operational": "file:../../packages/backoffice-operational",
     "commerce-access-control": "file:../../packages/commerce-access-control",
     "commerce-humanized-errors": "file:../../packages/commerce-humanized-errors",
+    "commercial-location-terrain": "file:../../packages/commercial-location-terrain",
     "enterprise-commercial-governance": "file:../../packages/enterprise-commercial-governance",
     "express": "^4.21.2",
-    "commercial-location-terrain": "file:../../packages/commercial-location-terrain",
-    "relational-commerce-feed": "file:../../packages/relational-commerce-feed"
+    "relational-commerce-feed": "file:../../packages/relational-commerce-feed",
+    "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
     "@types/express": "^5.0.0",
     "@types/node": "^22.10.2",
     "@types/supertest": "^6.0.2",
+    "@types/swagger-ui-express": "^4.1.8",
     "supertest": "^7.0.0",
     "tsx": "^4.19.2",
     "typescript": "^5.7.2",

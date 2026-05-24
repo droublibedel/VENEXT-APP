@@ -1,32 +1,43 @@
+import { useMemo } from "react";
+
 import { getCommercialLocationProfile } from "commercial-location-terrain";
 import { RelationalCommerceFeedShell } from "relational-commerce-feed";
 import "relational-commerce-feed/styles.css";
 
+import { useDetaillantNetworkData } from "../hooks/useDetaillantNetworkData";
 import { loadDetaillantOnboardingProfile } from "../onboarding/detaillant-onboarding.viewmodel";
-
-const DETAILLANT_ORG = "org-detaillant-demo";
+import { resolveDetaillantOrganizationId } from "../session/resolveDetaillantOrganizationId";
 
 function resolveViewerCity(): string {
   const legacy = loadDetaillantOnboardingProfile();
-  const loc = getCommercialLocationProfile(legacy?.phone || DETAILLANT_ORG);
-  return loc?.city ?? legacy?.city ?? "Yopougon";
+  const actorId = resolveDetaillantOrganizationId();
+  const loc = getCommercialLocationProfile(actorId);
+  return loc?.city ?? legacy?.city ?? "";
 }
 
-export function DetaillantRelationalFeedBridge({
-  partnerIds = ["p1", "p2", "p3", "p4", "p5", "p6", "p7", "p8", "p9", "p10"],
-  partnersPublished = false,
-}: {
-  partnerIds?: string[];
-  partnersPublished?: boolean;
-}) {
+export function DetaillantRelationalFeedBridge({ enabled = true }: { enabled?: boolean }) {
+  const { data } = useDetaillantNetworkData(enabled);
+  const partnerIds = useMemo(() => {
+    const suppliers = data?.activeSuppliers?.map((s) => s.id) ?? [];
+    const partners = data?.newPartners?.map((p) => p.id) ?? [];
+    return [...new Set([...suppliers, ...partners])];
+  }, [data]);
+
+  const categories = useMemo(() => {
+    const legacy = loadDetaillantOnboardingProfile();
+    return legacy?.activities?.length ? legacy.activities : [];
+  }, []);
+
+  const city = resolveViewerCity();
+
   return (
     <RelationalCommerceFeedShell
-      actorId={DETAILLANT_ORG}
+      actorId={resolveDetaillantOrganizationId()}
       role="detaillant"
-      city={resolveViewerCity()}
-      categories={["chaussures"]}
+      city={city}
+      categories={categories}
       partnerIds={partnerIds}
-      partnersPublished={partnersPublished}
+      partnersPublished={partnerIds.length > 0}
       testId="detaillant-relational-feed"
     />
   );

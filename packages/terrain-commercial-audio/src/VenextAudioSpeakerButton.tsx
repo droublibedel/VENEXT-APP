@@ -83,8 +83,8 @@ export const VenextAudioSpeakerButton = memo(function VenextAudioSpeakerButton({
           height: 36,
           borderRadius: "50%",
           border: "none",
-          background: state === "playing" ? "#005c4b" : "#1f2c29",
-          color: "#00a884",
+          background: state === "playing" ? "var(--venext-accent-strong, #00785f)" : "var(--venext-accent-soft, rgba(0, 143, 115, 0.08))",
+          color: state === "playing" ? "#ffffff" : "var(--venext-accent, #008f73)",
           fontSize: 16,
           flexShrink: 0,
         }}
@@ -92,7 +92,7 @@ export const VenextAudioSpeakerButton = memo(function VenextAudioSpeakerButton({
         {state === "playing" ? "❚❚" : "🔊"}
       </button>
       {durationSeconds ? (
-        <span data-testid={`${testId}-duration`} style={{ fontSize: 11, color: "#8fa39a" }}>
+        <span data-testid={`${testId}-duration`} style={{ fontSize: 11, color: "var(--venext-text-secondary, #526059)" }}>
           {formatDur(durationSeconds)}
         </span>
       ) : null}

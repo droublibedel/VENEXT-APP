@@ -1,12 +1,14 @@
 .cn-bell {
   position: relative;
-  min-width: 44px;
-  min-height: 44px;
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(0, 168, 132, 0.12);
-  color: #00a884;
-  font-size: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  min-height: 40px;
+  border-radius: 10px;
+  border: none;
+  background: transparent;
+  color: var(--venext-text, #17201c);
   cursor: pointer;
 }
 
@@ -14,16 +16,24 @@
   position: absolute;
   top: 4px;
   right: 4px;
-  min-width: 18px;
-  height: 18px;
-  padding: 0 4px;
-  border-radius: 9px;
-  background: #e85d4c;
+  min-width: 8px;
+  height: 8px;
+  padding: 0;
+  border-radius: 999px;
+  background: #e5484d;
+  color: transparent;
+  font-size: 0;
+  line-height: 8px;
+  text-align: center;
+}
+
+.cn-bell-badge:not(:empty) {
+  min-width: 16px;
+  height: 16px;
   color: #fff;
   font-size: 10px;
   font-weight: 700;
-  line-height: 18px;
-  text-align: center;
+  line-height: 16px;
 }
 
 .cn-center {
@@ -36,8 +46,9 @@
 .cn-card {
   padding: 12px 14px;
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  background: rgba(18, 24, 22, 0.95);
+  border: 1px solid var(--venext-border, rgba(23, 32, 28, 0.1));
+  background: var(--venext-surface, #ffffff);
+  color: var(--venext-text, #17201c);
 }
 
 .cn-card--unread {
@@ -51,7 +62,7 @@
 .cn-empty {
   padding: 24px;
   text-align: center;
-  color: #8fa39a;
+  color: var(--venext-text-secondary, #526059);
   font-size: 14px;
 }
 
@@ -61,7 +72,8 @@
   max-height: 85vh;
   padding: 16px;
   border-radius: 16px 16px 0 0;
-  background: #0f1412;
+  background: var(--venext-surface, #ffffff);
+  color: var(--venext-text, #17201c);
   z-index: 200;
   overflow: auto;
 }

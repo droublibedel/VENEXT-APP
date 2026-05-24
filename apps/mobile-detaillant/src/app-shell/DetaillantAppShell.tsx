@@ -1,11 +1,10 @@
-import { lazy, Suspense, useCallback, useState } from "react";
+import { lazy, Suspense, useCallback, useEffect, useState } from "react";
 
 import { CommercialRouterProvider } from "commercial-context-routing";
 
 import { useVenextAuthOptional } from "venext-auth-foundation";
 
 import { useDetaillantFeatureFlags } from "../hooks/useDetaillantFeatureFlags";
-import { DetaillantNotificationsBridge } from "../notifications/DetaillantNotificationsBridge";
 import { DetaillantOfflineBridge } from "../offline/DetaillantOfflineBridge";
 import { DetaillantHumanizedErrorsBridge } from "../errors/DetaillantHumanizedErrorsBridge";
 import { DetaillantLiveObservabilityBridge } from "../observability/DetaillantLiveObservabilityBridge";
@@ -18,8 +17,10 @@ import {
   loadDetaillantOnboardingProfile,
 } from "../onboarding/detaillant-onboarding.viewmodel";
 import { DetaillantBottomTabs } from "../navigation/DetaillantBottomTabs";
+import { DetaillantTerrainHeader } from "../navigation/DetaillantTerrainHeader";
 import type { DetaillantTabId } from "../navigation/detaillant-navigation.config";
 import { useDetaillantCommercialRouter } from "../routing/useDetaillantCommercialRouter";
+import { DETAILLANT_LOGOUT_EVENT } from "../session/detaillant-session";
 import { DetaillantAccountScreen } from "../screens/DetaillantAccountScreen";
 import { DetaillantHomeScreen } from "../screens/DetaillantHomeScreen";
 import { DetaillantNetworkScreen } from "../screens/DetaillantNetworkScreen";
@@ -59,9 +60,9 @@ function DetaillantQuickReturnBar({
         margin: "8px 12px",
         padding: "8px 12px",
         borderRadius: 8,
-        border: "1px solid #2a3530",
-        background: "#121816",
-        color: "#b8c9c0",
+        border: "1px solid var(--venext-border)",
+        background: "var(--venext-surface)",
+        color: "var(--venext-text-secondary)",
         fontSize: 13,
         width: "calc(100% - 24px)",
       }}
@@ -92,10 +93,20 @@ export function DetaillantAppShell() {
           activities: legacy.activities ?? [],
           city: legacy.city,
           otpVerified: true,
+          organizationId: legacy.organizationId,
         });
       }
     }
   }, [auth, authFoundation]);
+
+  useEffect(() => {
+    const onLogout = () => {
+      setOnboardingDone(false);
+      setActiveTab("home");
+    };
+    window.addEventListener(DETAILLANT_LOGOUT_EVENT, onLogout);
+    return () => window.removeEventListener(DETAILLANT_LOGOUT_EVENT, onLogout);
+  }, []);
 
   const { router, routingInput, focusReference, canGoBack, goBack } =
     useDetaillantCommercialRouter(setActiveTab);
@@ -104,7 +115,7 @@ export function DetaillantAppShell() {
     return (
       <div className="detaillant-app" data-testid="detaillant-mobile-disabled">
         <main className="detaillant-main">
-          <p style={{ padding: 24, color: "#8fa39a", fontSize: 15 }}>
+          <p style={{ padding: 24, color: "var(--venext-text-muted)", fontSize: 15 }}>
             Application détaillant — bientôt disponible sur votre compte.
           </p>
         </main>
@@ -123,9 +134,11 @@ export function DetaillantAppShell() {
   return (
     <CommercialRouterProvider router={router} flags={routingInput.flags}>
       <div className="detaillant-app" data-testid="detaillant-mobile-app">
-        <div style={{ position: "fixed", top: 8, right: 8, zIndex: 100 }}>
-          <DetaillantNotificationsBridge />
-        </div>
+        <DetaillantTerrainHeader
+          activeTab={activeTab}
+          onMessaging={() => setActiveTab("messaging")}
+          onProfile={() => setActiveTab("account")}
+        />
         <DetaillantQuickReturnBar canGoBack={canGoBack} goBack={goBack} />
         <DetaillantLocationBridge />
         <DetaillantUxHarmonyBridge />

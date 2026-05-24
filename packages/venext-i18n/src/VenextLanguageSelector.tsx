@@ -30,7 +30,7 @@ export const VenextLanguageSelector = memo(function VenextLanguageSelector({
 
   return (
     <label className={className} data-testid={testId} style={{ display: "block", fontSize: 13 }}>
-      <span style={{ display: "block", marginBottom: 6, color: "#8fa39a" }}>{t("language.label")}</span>
+      <span style={{ display: "block", marginBottom: 6, color: "#526059" }}>{t("language.label")}</span>
       <select
         value={locale}
         onChange={onChange}
@@ -39,9 +39,9 @@ export const VenextLanguageSelector = memo(function VenextLanguageSelector({
           width: "100%",
           padding: "10px 12px",
           borderRadius: 8,
-          border: "1px solid #2a3530",
-          background: "#121816",
-          color: "#e8f0ec",
+          border: "1px solid rgba(23, 32, 28, 0.14)",
+          background: "#ffffff",
+          color: "#17201c",
           fontSize: 14,
         }}
       >

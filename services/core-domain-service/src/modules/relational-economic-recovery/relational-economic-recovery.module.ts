@@ -44,6 +44,9 @@ import { RelationalEconomicRecoveryStepService } from "./relational-economic-rec
     RelationalEconomicRecoveryIngestionService,
     RelationalEconomicRecoveryGuard,
   ],
-  exports: [RelationalEconomicRecoveryIngestionService],
+  exports: [
+    RelationalEconomicRecoveryIngestionService,
+    RelationalEconomicRecoveryCorridorContextService,
+  ],
 })
 export class RelationalEconomicRecoveryModule {}

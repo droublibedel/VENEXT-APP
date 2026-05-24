@@ -91,7 +91,7 @@ export const DetaillantMessagingScreen = memo(function DetaillantMessagingScreen
         className="detaillant-card"
         style={{ padding: 20 }}
       >
-        <p style={{ color: "#8fa39a", margin: 0, fontSize: 14 }}>
+        <p style={{ color: "var(--venext-text-muted)", margin: 0, fontSize: 14 }}>
           Messagerie — optionnelle, bientôt disponible sur votre compte.
         </p>
       </section>
@@ -110,7 +110,7 @@ export const DetaillantMessagingScreen = memo(function DetaillantMessagingScreen
         refreshing={loading}
       />
       <p
-        style={{ margin: "0 0 12px", fontSize: 12, color: "#8fa39a" }}
+        style={{ margin: "0 0 12px", fontSize: 12, color: "var(--venext-text-muted)" }}
         data-testid="detaillant-messaging-optional-note"
       >
         La commande rapide reste disponible dans le catalogue — sans discussion obligatoire.

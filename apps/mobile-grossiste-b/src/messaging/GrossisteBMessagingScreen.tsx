@@ -95,7 +95,7 @@ export const GrossisteBMessagingScreen = memo(function GrossisteBMessagingScreen
         className="grossiste-b-card"
         style={{ padding: 20 }}
       >
-        <p style={{ color: "#8fa39a", margin: 0, fontSize: 14 }}>
+        <p style={{ color: "var(--venext-text-muted)", margin: 0, fontSize: 14 }}>
           Messagerie commerciale — bientôt disponible sur votre compte.
         </p>
       </section>

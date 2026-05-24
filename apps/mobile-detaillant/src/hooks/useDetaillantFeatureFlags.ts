@@ -145,11 +145,14 @@ export function useDetaillantFeatureFlags() {
   useEffect(() => {
     let cancelled = false;
 
-    void fetch("/api/core/v1/feature-flags", { credentials: "include", cache: "no-store" })
+    void fetch("/api/feature-flags", { credentials: "include", cache: "no-store" })
       .then((res) => (res.ok ? res.json() : null))
-      .then((body: { flags?: Record<string, boolean> } | null) => {
+      .then((body: { flags?: Record<string, boolean>; payload?: { key: string; enabled: boolean }[] } | null) => {
         if (cancelled) return;
-        setFlags({ ...DEFAULTS, ...(body?.flags ?? {}) });
+        const payloadFlags = Object.fromEntries(
+          (body?.payload ?? []).map((flag) => [flag.key, flag.enabled]),
+        );
+        setFlags({ ...DEFAULTS, ...payloadFlags, ...(body?.flags ?? {}) });
         setHydrated(true);
       })
       .catch(() => {

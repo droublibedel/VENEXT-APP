@@ -26,7 +26,7 @@ export function CommerceNotificationPreferencesPanel({
 }: Props) {
   return (
     <div data-testid="cn-preferences" style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-      <h3 style={{ margin: 0, fontSize: 15, color: "#f0f4f2" }}>
+      <h3 style={{ margin: 0, fontSize: 15, color: "var(--venext-text, #17201c)" }}>
         {getNotificationTranslation("notifications.preferences", locale)}
       </h3>
       {ROWS.map(({ key, labelKey }) => (

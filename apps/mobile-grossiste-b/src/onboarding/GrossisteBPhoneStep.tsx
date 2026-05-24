@@ -22,11 +22,11 @@ export const GrossisteBPhoneStep = memo(function GrossisteBPhoneStep({
   return (
     <section data-testid="gb-onboarding-phone">
       <h2 style={{ margin: "0 0 8px", fontSize: 18 }}>Votre numéro</h2>
-      <p style={{ margin: "0 0 16px", fontSize: 13, color: "#8fa39a" }}>
+      <p style={{ margin: "0 0 16px", fontSize: 13, color: "var(--venext-text-muted)" }}>
         Téléphone-first — comme WhatsApp.
       </p>
       <label style={{ display: "block", marginBottom: 12 }}>
-        <span style={{ fontSize: 12, color: "#8fa39a" }}>Numéro de téléphone</span>
+        <span style={{ fontSize: 12, color: "var(--venext-text-muted)" }}>Numéro de téléphone</span>
         <input
           className="grossiste-b-search"
           type="tel"
@@ -39,7 +39,7 @@ export const GrossisteBPhoneStep = memo(function GrossisteBPhoneStep({
       {phoneOk ? (
         <>
           <label style={{ display: "block", marginBottom: 8 }}>
-            <span style={{ fontSize: 12, color: "#8fa39a" }}>Code reçu par SMS</span>
+            <span style={{ fontSize: 12, color: "var(--venext-text-muted)" }}>Code reçu par SMS</span>
             <input
               className="grossiste-b-search"
               type="text"

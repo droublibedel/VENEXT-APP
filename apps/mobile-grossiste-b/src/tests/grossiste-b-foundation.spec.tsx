@@ -9,7 +9,7 @@ import {
   sanitizeGrossisteText,
 } from "../mocks/grossiste-b-intelligence";
 import { mockGrossisteActivity, mockGrossisteCatalog } from "../mocks/grossiste-b-mock-data";
-import { GROSSISTE_B_TABS } from "../navigation/grossiste-b-navigation.config";
+import { GROSSISTE_B_BOTTOM_TABS } from "../navigation/grossiste-b-navigation.config";
 
 vi.mock("../hooks/useGrossisteFeatureFlags", () => ({
   useGrossisteFeatureFlags: () => ({
@@ -38,13 +38,16 @@ describe("grossiste B mobile foundation", () => {
     );
   });
 
-  it("renders six navigation tabs", () => {
+  it("renders four bottom navigation tabs and terrain header", () => {
     render(<GrossisteBAppShell />);
     expect(screen.getByTestId("grossiste-bottom-tabs")).toBeTruthy();
-    expect(GROSSISTE_B_TABS).toHaveLength(7);
-    for (const tab of GROSSISTE_B_TABS) {
+    expect(GROSSISTE_B_BOTTOM_TABS).toHaveLength(4);
+    for (const tab of GROSSISTE_B_BOTTOM_TABS) {
       expect(screen.getByTestId(tab.testId)).toBeTruthy();
     }
+    expect(screen.getByTestId("venext-terrain-mobile-header")).toBeTruthy();
+    expect(screen.queryByTestId("grossiste-tab-messaging")).toBeNull();
+    expect(screen.queryByTestId("grossiste-tab-profile")).toBeNull();
   });
 
   it("mounts only one screen at a time", async () => {
@@ -84,9 +87,9 @@ describe("grossiste B mobile foundation", () => {
     expect(screen.getByTestId("grossiste-active-cities")).toBeTruthy();
   });
 
-  it("renders profile screen", async () => {
+  it("renders profile screen from header", async () => {
     render(<GrossisteBAppShell />);
-    fireEvent.click(screen.getByTestId("grossiste-tab-profile"));
+    fireEvent.click(screen.getByTestId("venext-terrain-mobile-header-profile"));
     await waitFor(() => expect(screen.getByTestId("grossiste-screen-profile")).toBeTruthy());
     expect(screen.getByTestId("grossiste-profile-identity")).toBeTruthy();
   });

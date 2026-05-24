@@ -75,7 +75,7 @@ export const CommercialContactSuggestions = memo(function CommercialContactSugge
 
   return (
     <section data-testid="cnd-contact-suggestions">
-      <h3 style={{ fontSize: 13, margin: "0 0 8px", color: "#8fa39a" }}>Personnes que vous pourriez connaître</h3>
+      <h3 style={{ fontSize: 13, margin: "0 0 8px", color: "var(--venext-text-secondary, #526059)" }}>Personnes que vous pourriez connaître</h3>
       <VirtualSuggestions
         suggestions={suggestions}
         syncGranted={syncGranted}

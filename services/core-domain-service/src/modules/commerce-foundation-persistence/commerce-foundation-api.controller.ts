@@ -21,6 +21,8 @@ import { CommerceActivityFeedPersistenceService } from "./services/commerce-acti
 import { CommerceOfflinePersistenceService } from "./services/commerce-offline-persistence.service";
 import { CommerceNotificationPersistenceService } from "./services/commerce-notification-persistence.service";
 import { EnterpriseGovernancePersistenceService } from "./services/enterprise-governance-persistence.service";
+import { DetaillantRegistrationService } from "./detaillant-registration.service";
+import { TerrainSearchService } from "./terrain-search.service";
 
 function envelope<T>(payload: T, dataSource: "live" | "fallback" = "live") {
   return {
@@ -41,6 +43,8 @@ export class CommerceFoundationApiController {
     private readonly enterpriseGovernance: EnterpriseGovernancePersistenceService,
     private readonly accessGuard: CommerceAccessGuardService,
     private readonly grossisteAPoleGuard: GrossisteAPoleGuardService,
+    private readonly detaillantRegistration: DetaillantRegistrationService,
+    private readonly terrainSearchService: TerrainSearchService,
   ) {}
 
   @Post("seed-demo")
@@ -565,6 +569,37 @@ export class CommerceFoundationApiController {
       `/commerce-foundation/producer/${endpoint}`,
     );
     return this.mappers.mapProducer(endpoint, organizationId || DEMO_ORG_PRODUCER);
+  }
+
+  @Get("terrain/search")
+  async terrainSearch(
+    @Query("q") q: string,
+    @Query("organizationId") organizationId: string,
+    @Query("actorRole") actorRole?: string,
+  ) {
+    const result = await this.terrainSearchService.search(String(q ?? ""), String(organizationId ?? ""), actorRole);
+    return envelope(result);
+  }
+
+  @Post("detaillant/register")
+  async registerDetaillant(
+    @Body()
+    body: {
+      phone: string;
+      displayName: string;
+      activities?: string[];
+      city: string;
+      businessName?: string;
+    },
+  ) {
+    const result = await this.detaillantRegistration.register({
+      phone: String(body.phone ?? ""),
+      displayName: String(body.displayName ?? ""),
+      activities: Array.isArray(body.activities) ? body.activities.map(String) : [],
+      city: String(body.city ?? ""),
+      businessName: body.businessName ? String(body.businessName) : undefined,
+    });
+    return envelope(result);
   }
 
   @Get("detaillant/:endpoint")

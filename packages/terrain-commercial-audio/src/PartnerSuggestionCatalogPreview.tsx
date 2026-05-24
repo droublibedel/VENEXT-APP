@@ -25,7 +25,8 @@ export const PartnerSuggestionCatalogPreview = memo(function PartnerSuggestionCa
           gap: 8,
           alignItems: "center",
           padding: 8,
-          background: "linear-gradient(135deg,#1a2420,#0f1512)",
+          background: "var(--venext-surface-raised, #fbfcfb)",
+          border: "1px solid var(--venext-border, rgba(23, 32, 28, 0.1))",
           borderRadius: 10,
           minHeight: 56,
         }}
@@ -35,7 +36,8 @@ export const PartnerSuggestionCatalogPreview = memo(function PartnerSuggestionCa
             width: 40,
             height: 40,
             borderRadius: 8,
-            background: "#2a3530",
+            background: "var(--venext-accent-soft, rgba(0, 143, 115, 0.08))",
+            color: "var(--venext-accent, #008f73)",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -47,9 +49,9 @@ export const PartnerSuggestionCatalogPreview = memo(function PartnerSuggestionCa
         </div>
         <div>
           {partnerRoleLabel ? (
-            <span style={{ fontSize: 10, color: "#00a884" }}>{partnerRoleLabel}</span>
+            <span style={{ fontSize: 10, color: "var(--venext-accent, #008f73)" }}>{partnerRoleLabel}</span>
           ) : null}
-          {city ? <p style={{ margin: "2px 0 0", fontSize: 10, color: "#8fa39a" }}>{city}</p> : null}
+          {city ? <p style={{ margin: "2px 0 0", fontSize: 10, color: "var(--venext-text-secondary, #526059)" }}>{city}</p> : null}
         </div>
       </div>
     );

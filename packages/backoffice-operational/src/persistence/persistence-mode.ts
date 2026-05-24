@@ -5,6 +5,10 @@ import {
 
 export type BackofficePersistenceMode = "LIVE" | "FALLBACK" | "HYBRID";
 
+function readRuntimeEnv(): Record<string, string | undefined> {
+  return typeof process === "undefined" ? {} : process.env;
+}
+
 export function isBackofficeLivePersistenceFlagEnabled(): boolean {
   const resolution = resolveOperationalPersistenceMode();
   if (resolution.mode === "FALLBACK_DEV_ONLY") return false;
@@ -12,14 +16,15 @@ export function isBackofficeLivePersistenceFlagEnabled(): boolean {
 }
 
 export function isBackofficeLiveGovernanceFlagEnabled(): boolean {
-  const raw = process.env.backoffice_live_governance_enabled ?? process.env.BACKOFFICE_LIVE_GOVERNANCE_ENABLED;
+  const env = readRuntimeEnv();
+  const raw = env.backoffice_live_governance_enabled ?? env.BACKOFFICE_LIVE_GOVERNANCE_ENABLED;
   if (raw === "false") return false;
   if (raw === "true") return true;
-  return process.env.NODE_ENV === "production" || isBackofficeLivePersistenceFlagEnabled();
+  return env.NODE_ENV === "production" || isBackofficeLivePersistenceFlagEnabled();
 }
 
 export function hasDatabaseUrl(): boolean {
-  return Boolean(process.env.DATABASE_URL?.trim());
+  return Boolean(readRuntimeEnv().DATABASE_URL?.trim());
 }
 
 function mapOperationalToLegacy(mode: OperationalPersistenceMode): BackofficePersistenceMode {

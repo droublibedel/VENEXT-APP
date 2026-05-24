@@ -80,9 +80,9 @@ function GrossisteAQuickReturnBar({
         margin: "12px 0",
         padding: "8px 12px",
         borderRadius: 8,
-        border: "1px solid #2a3530",
-        background: "#121816",
-        color: "#b8c9c0",
+        border: "1px solid rgba(23, 32, 28, 0.12)",
+        background: "#ffffff",
+        color: "#17201c",
         fontSize: 13,
       }}
     >

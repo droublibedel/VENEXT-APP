@@ -5,15 +5,28 @@ export const LIVE_ENT_GROSSISTE_A = "ent-live-grossiste-a-nord";
 
 /** Seed LIVE grands comptes (Instruction BACKOFFICE-01-B). */
 export async function seedEnterpriseGovernanceLive(prisma: PrismaClient): Promise<number> {
-  const existing = await prisma.enterpriseCommercialChannelRecord.count();
-  if (existing > 0) return 0;
+  const existingCompletedSeed = await prisma.enterpriseContractDocumentRecord.count({
+    where: { enterpriseId: LIVE_ENT_PRODUCER },
+  });
+  if (existingCompletedSeed > 0) return 0;
 
   const now = new Date();
   let n = 0;
 
-  await prisma.enterpriseCommercialChannelRecord.create({
-    data: {
+  await prisma.enterpriseCommercialChannelRecord.upsert({
+    where: { enterpriseId: LIVE_ENT_PRODUCER },
+    create: {
       enterpriseId: LIVE_ENT_PRODUCER,
+      actorKind: "producteur",
+      contractReference: "CTR-LIVE-PROD-2026",
+      companyName: "AgroNexus CI — Grand compte",
+      headquarters: "Abidjan, Plateau",
+      governanceStatus: "ACTIVE",
+      activationStatus: "ACTIVE",
+      onboardingProgress: 100,
+      status: "ACTIVE",
+    },
+    update: {
       actorKind: "producteur",
       contractReference: "CTR-LIVE-PROD-2026",
       companyName: "AgroNexus CI — Grand compte",
@@ -26,9 +39,20 @@ export async function seedEnterpriseGovernanceLive(prisma: PrismaClient): Promis
   });
   n += 1;
 
-  await prisma.enterpriseCommercialChannelRecord.create({
-    data: {
+  await prisma.enterpriseCommercialChannelRecord.upsert({
+    where: { enterpriseId: LIVE_ENT_GROSSISTE_A },
+    create: {
       enterpriseId: LIVE_ENT_GROSSISTE_A,
+      actorKind: "grossiste_a",
+      contractReference: "CTR-LIVE-GA-2026",
+      companyName: "Distribution Nord Plus — Grand compte",
+      headquarters: "Bouaké",
+      governanceStatus: "CHANNEL_OPEN",
+      activationStatus: "ACTIVE",
+      onboardingProgress: 80,
+      status: "ACTIVE",
+    },
+    update: {
       actorKind: "grossiste_a",
       contractReference: "CTR-LIVE-GA-2026",
       companyName: "Distribution Nord Plus — Grand compte",
@@ -47,11 +71,18 @@ export async function seedEnterpriseGovernanceLive(prisma: PrismaClient): Promis
     [LIVE_ENT_GROSSISTE_A, "executive", "Direction"],
     [LIVE_ENT_GROSSISTE_A, "relational-commercial", "Relationnel"],
   ] as const) {
-    await prisma.enterprisePoleActivationRecord.create({
-      data: {
-        id: `epa-${enterpriseId}-${poleId}`,
+    await prisma.enterprisePoleActivationRecord.upsert({
+      where: { enterpriseId_poleId: { enterpriseId, poleId } },
+      create: {
         enterpriseId,
         poleId,
+        poleLabel,
+        activated: true,
+        secureSlug: poleId,
+        privateUrl: `https://venext.co/e/${enterpriseId}/${poleId}`,
+        status: "ACTIVE",
+      },
+      update: {
         poleLabel,
         activated: true,
         secureSlug: poleId,

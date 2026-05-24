@@ -44,6 +44,9 @@ import { RelationalExecutiveOperationsRiskService } from "./relational-executive
     RelationalExecutiveOperationsIngestionService,
     RelationalExecutiveOperationsGuard,
   ],
-  exports: [RelationalExecutiveOperationsIngestionService],
+  exports: [
+    RelationalExecutiveOperationsIngestionService,
+    RelationalExecutiveOperationsCorridorContextService,
+  ],
 })
 export class RelationalExecutiveOperationsModule {}

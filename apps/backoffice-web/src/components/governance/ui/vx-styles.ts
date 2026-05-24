@@ -1,6 +1,6 @@
 /** VENEXT governance palette (Instruction 10A §16) */
 export const vx = {
-  teal: "#075E54",
+  teal: "#00A884",
   mint: "#00A884",
   amber: "#FFC107",
   graphite: "#1a1f24",

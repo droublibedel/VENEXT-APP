@@ -17,7 +17,7 @@ export type DetaillantHint = { id: string; text: string };
 export function buildSalesSignals(home: DetaillantHomeDto | null): DetaillantHint[] {
   if (!home) return [];
   const hints: DetaillantHint[] = [];
-  if (home.activityToday >= 15) {
+  if ((home.activityToday ?? 0) >= 15) {
     hints.push({
       id: "sales1",
       text: sanitizeDetaillantText("Votre activité est dynamique ce matin."),
@@ -35,13 +35,13 @@ export function buildSalesSignals(home: DetaillantHomeDto | null): DetaillantHin
 export function buildActivityHints(home: DetaillantHomeDto | null): DetaillantHint[] {
   if (!home) return [];
   const hints: DetaillantHint[] = [];
-  if (home.activePartners >= 5) {
+  if ((home.activePartners ?? 0) >= 5) {
     hints.push({
       id: "act1",
       text: sanitizeDetaillantText("Votre réseau est actif."),
     });
   }
-  home.discreetSuggestions.slice(0, 2).forEach((s, i) => {
+  home.discreetSuggestions?.slice(0, 2).forEach((s, i) => {
     hints.push({ id: `act-s-${i}`, text: sanitizeDetaillantText(s) });
   });
   return hints.slice(0, 3);
