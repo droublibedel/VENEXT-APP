@@ -50,8 +50,16 @@ export const RelationalCommerceFeedShell = memo(function RelationalCommerceFeedS
 
   if (!feed.entries.length) {
     return (
-      <section data-testid="rcf-fallback-loading" className="rcf-shell">
-        <p style={{ color: "var(--venext-text-secondary, #526059)", fontSize: 13 }}>Chargement du réseau commercial…</p>
+      <section data-testid="rcf-fallback-loading" className="rcf-shell rcf-shell--empty">
+        <article className="rcf-card rcf-skeleton-card" data-testid="rcf-skeleton-1">
+          <div className="rcf-skeleton-line rcf-skeleton-line--title" />
+          <div className="rcf-skeleton-line" />
+          <div className="rcf-skeleton-line rcf-skeleton-line--short" />
+        </article>
+        <article className="rcf-card rcf-skeleton-card" data-testid="rcf-skeleton-2">
+          <div className="rcf-skeleton-line" />
+          <div className="rcf-skeleton-line rcf-skeleton-line--short" />
+        </article>
       </section>
     );
   }

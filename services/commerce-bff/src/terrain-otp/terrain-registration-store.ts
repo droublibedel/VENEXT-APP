@@ -30,3 +30,8 @@ export function consumeRegistrationToken(normalizedPhone: string, token: string)
   store.delete(token);
   return true;
 }
+
+export function verifyRegistrationToken(normalizedPhone: string, token: string): boolean {
+  const record = store.get(token);
+  return Boolean(record && record.phone === normalizedPhone && Date.now() <= record.expiresAt);
+}

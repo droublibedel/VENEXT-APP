@@ -11,7 +11,8 @@ export function DetaillantOfflineBridge() {
       actorRole="DETAILLANT"
       flags={flags}
       flagsHydrated={hydrated}
-      showQueue
+      showQueue={false}
+      terrainMinimal
     />
   );
 }

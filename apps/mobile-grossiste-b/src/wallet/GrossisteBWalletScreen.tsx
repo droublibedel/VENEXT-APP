@@ -16,13 +16,16 @@ import { buildGrossisteSettlementHints } from "./grossiste-b-wallet-intelligence
 import { grossisteBWalletAccountSettings } from "./grossiste-b-wallet-governance";
 import {
   clearCommerceWalletCache,
+  resolveWalletLiveEnabled,
   useCommercePaymentActivity,
   useCommerceTransactions,
   useCommerceWalletBalance,
 } from "commerce-wallet";
+import { loadGrossisteBOnboardingProfile } from "../onboarding/grossiste-b-onboarding.viewmodel";
 import {
   useVenextWalletSecurityOptional,
   useWalletBalanceSync,
+  useWalletPlatformSync,
   WalletAdaptiveSecurityShell,
 } from "venext-auth-foundation";
 
@@ -37,8 +40,16 @@ export const GrossisteBWalletScreen = memo(function GrossisteBWalletScreen({
   const walletEnabled =
     hydrated && enabled && flags.grossiste_b_wallet_enabled !== false;
 
+  const organizationId = loadGrossisteBOnboardingProfile()?.organizationId ?? null;
+  const liveEnabled = resolveWalletLiveEnabled({
+    walletEnabled: flags.grossiste_b_wallet_enabled !== false,
+    bffRoutesEnabled: flags.venext_bff_routes_enabled !== false,
+    backendPersistenceEnabled: flags.venext_backend_persistence_enabled !== false,
+    organizationId,
+  });
   const accountSettings = useMemo(() => grossisteBWalletAccountSettings(flags), [flags]);
-  const opts = { enabled: walletEnabled, liveEnabled: false };
+  const opts = { enabled: walletEnabled, liveEnabled };
+  useWalletPlatformSync({ organizationId, enabled: walletEnabled, liveEnabled });
 
   const balance = useCommerceWalletBalance(opts);
   const transactions = useCommerceTransactions(opts);

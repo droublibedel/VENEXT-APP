@@ -1,4 +1,5 @@
 import { memo } from "react";
+import { VenextHiddenDataSourceMarker } from "commerce-ux-harmony";
 
 import { CommerceConversationList } from "../conversations/CommerceConversationList";
 import type { CommerceConversation, ConversationCategory } from "../hooks/commerce-messaging.types";
@@ -37,14 +38,11 @@ export const CommerceConversationSidebar = memo(function CommerceConversationSid
         MESSAGERIE COMMERCE
       </p>
       {!loading ? (
-        <p
-          className="cm-source"
-          data-testid="cm-data-source"
-          data-fallback={fallbackUsed ? "true" : "false"}
-          data-source={dataSource}
-        >
-          {fallbackUsed ? "Données de démonstration enrichies" : "Données synchronisées"}
-        </p>
+        <VenextHiddenDataSourceMarker
+          testId="cm-data-source"
+          dataSource={dataSource}
+          fallbackUsed={fallbackUsed}
+        />
       ) : null}
       <CommerceConversationList
         conversations={conversations}

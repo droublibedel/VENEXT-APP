@@ -103,13 +103,9 @@ function RelationalCommerceCatalogShellInner({
     >
       <header className="rcc-header">
         <h2 className="rcc-title">Mon réseau commercial</h2>
-        <p className="rcc-subtitle">
-          Catalogues de vos partenaires — pas de marketplace ouverte.
-        </p>
+        <p className="rcc-subtitle">Catalogues de vos partenaires commerciaux.</p>
         {catalog.fallbackUsed ? (
-          <span data-testid="rcc-data-fallback" className="rcc-hint">
-            Données de démonstration
-          </span>
+          <span data-testid="rcc-data-fallback" data-fallback="true" aria-hidden />
         ) : null}
       </header>
 

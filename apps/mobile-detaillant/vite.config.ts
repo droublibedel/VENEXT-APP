@@ -15,6 +15,7 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
+      "@venext/mobile-grossiste-b": path.resolve(__dirname, "../mobile-grossiste-b/src"),
     },
   },
   build: {

@@ -1,16 +1,17 @@
-import { lazy, memo, Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { lazy, memo, Suspense, useCallback, useMemo, useState } from "react";
 import {
-  OPERATIONAL_JOURNEY_EVENTS,
-  wireAuthOtpStep,
-  wireJourneyAbandonOnUnmount,
-  trackJourneyComplete,
-  trackJourneyStart,
-  trackJourneyStep,
-} from "commerce-operational-observability";
+  getTerrainProfileState,
+  setPrimaryTerrainProfileAsync,
+  TerrainProfileSelectionStep,
+  type TerrainProfileId,
+} from "commerce-terrain-profile-runtime";
+import { terrainOnboardingProgressLabel, type TerrainOnboardingStepKey } from "commerce-ux-harmony";
+
 import { VenextScreenLoader } from "../ux/VenextScreenLoader";
 
 import type { GrossisteBOnboardingProfile, GrossisteBOnboardingStep } from "./grossiste-b-onboarding.types";
-import { GrossisteBOnboardingAudioHint } from "./GrossisteBOnboardingAudioHint";
+import { completeGrossisteBRegistration } from "./grossiste-b-onboarding-api";
+import { toInternationalCiPhone } from "./grossiste-b-phone";
 import { createEmptyGrossisteBProfile, saveGrossisteBOnboardingProfile } from "./grossiste-b-onboarding.viewmodel";
 
 const GrossisteBPhoneStep = lazy(() =>
@@ -28,34 +29,20 @@ const GrossisteBCityStep = lazy(() =>
 
 export const GrossisteBQuickOnboarding = memo(function GrossisteBQuickOnboarding({
   onComplete,
+  onSwitchToLogin,
 }: {
   onComplete: () => void;
+  onSwitchToLogin?: () => void;
 }) {
-  const [step, setStep] = useState<GrossisteBOnboardingStep>("phone");
-  const [showAudioHint, setShowAudioHint] = useState(false);
+  const [step, setStep] = useState<GrossisteBOnboardingStep>(() =>
+    getTerrainProfileState().primaryProfile ? "phone" : "profile",
+  );
+  const [terrainProfileChoice, setTerrainProfileChoice] = useState<TerrainProfileId | null>(
+    getTerrainProfileState().primaryProfile ?? "grossiste_b",
+  );
   const [profile, setProfile] = useState<GrossisteBOnboardingProfile>(createEmptyGrossisteBProfile);
-  const onboardingJourneyId = useRef<string | null>(null);
-
-  useEffect(() => {
-    onboardingJourneyId.current = trackJourneyStart({
-      journeyKey: "terrain_onboarding",
-      actorId: profile.phone || "anonymous",
-      actorRole: "GROSSISTE_B",
-      application: "mobile-grossiste-b",
-      screen: "auth.otp",
-      module: "onboarding",
-    });
-    wireAuthOtpStep(onboardingJourneyId.current, { screen: "auth.otp" });
-    return () => {
-      wireJourneyAbandonOnUnmount(onboardingJourneyId.current, "onboarding");
-      onboardingJourneyId.current = null;
-    };
-  }, []);
-
-  useEffect(() => {
-    if (!onboardingJourneyId.current) return;
-    trackJourneyStep(onboardingJourneyId.current, `onboarding_${step}`, { screen: `onboarding.${step}` });
-  }, [step]);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const patch = useCallback((partial: Partial<GrossisteBOnboardingProfile>) => {
     setProfile((p) => ({ ...p, ...partial }));
@@ -71,63 +58,92 @@ export const GrossisteBQuickOnboarding = memo(function GrossisteBQuickOnboarding
     });
   }, []);
 
-  const completeAfterAudio = useCallback(() => {
-    setShowAudioHint(false);
-    onComplete();
-  }, [onComplete]);
-
-  const finish = useCallback(() => {
-    const done = { ...profile, completedAt: new Date().toISOString() };
-    saveGrossisteBOnboardingProfile(done);
-    if (onboardingJourneyId.current) {
-      trackJourneyComplete(onboardingJourneyId.current, OPERATIONAL_JOURNEY_EVENTS.AUTH.ENTERPRISE_INVITATION_COMPLETE, {
-        screen: "onboarding.complete",
-      });
-      onboardingJourneyId.current = null;
+  const finish = useCallback(async () => {
+    setSubmitting(true);
+    setSubmitError(null);
+    const result = await completeGrossisteBRegistration({
+      phone: toInternationalCiPhone(profile.phone),
+      registrationToken: profile.registrationToken,
+      displayName: profile.displayName,
+      activities: profile.activities,
+      city: profile.city || "Abidjan",
+      devBypassOtp: import.meta.env.DEV && profile.otpVerified && !profile.registrationToken,
+    });
+    setSubmitting(false);
+    if (!result.ok) {
+      setSubmitError(result.userMessage);
+      return;
     }
-    setShowAudioHint(true);
-  }, [profile]);
+    const done = {
+      ...profile,
+      organizationId: result.organizationId,
+      completedAt: new Date().toISOString(),
+    };
+    saveGrossisteBOnboardingProfile(done);
+    onComplete();
+  }, [profile, onComplete]);
 
   const stepIndex = useMemo(() => {
-    const order: GrossisteBOnboardingStep[] = ["phone", "identity", "activities", "city"];
+    const order: GrossisteBOnboardingStep[] = ["profile", "phone", "identity", "activities", "city"];
     return order.indexOf(step) + 1;
   }, [step]);
 
-  if (showAudioHint) {
-    return (
-      <div className="grossiste-b-app" data-testid="gb-quick-onboarding-audio">
-        <main className="grossiste-b-main" style={{ padding: 16 }}>
-          <GrossisteBOnboardingAudioHint
-            ownerActorId={profile.phone || "org-grossiste-b-demo"}
-            onDismiss={completeAfterAudio}
-          />
-        </main>
-      </div>
-    );
-  }
+  const progressLabel = useMemo(
+    () => terrainOnboardingProgressLabel(stepIndex, step as TerrainOnboardingStepKey),
+    [step, stepIndex],
+  );
 
   return (
     <div className="grossiste-b-app" data-testid="gb-quick-onboarding">
       <main className="grossiste-b-main" style={{ padding: 16 }}>
+        {onSwitchToLogin && step === "profile" ? (
+          <button
+            type="button"
+            data-testid="gb-onboarding-to-login"
+            onClick={onSwitchToLogin}
+            style={{
+              marginBottom: 12,
+              border: "none",
+              background: "transparent",
+              color: "var(--venext-accent)",
+              fontWeight: 600,
+              fontSize: 13,
+            }}
+          >
+            Déjà inscrit ? Se connecter
+          </button>
+        ) : null}
         <p style={{ fontSize: 11, color: "var(--venext-accent)", margin: "0 0 12px" }} data-testid="gb-onboarding-progress">
-          Étape {stepIndex} / 4 — inscription terrain rapide
+          {progressLabel}
         </p>
         <Suspense fallback={<VenextScreenLoader variant="form" />}>
+          {step === "profile" ? (
+            <TerrainProfileSelectionStep
+              selected={terrainProfileChoice}
+              onSelect={setTerrainProfileChoice}
+              onContinue={() => {
+                if (!terrainProfileChoice) return;
+                void setPrimaryTerrainProfileAsync(terrainProfileChoice, "onboarding").then(() => {
+                  setStep("phone");
+                });
+              }}
+            />
+          ) : null}
           {step === "phone" ? (
             <GrossisteBPhoneStep
               phone={profile.phone}
               otpVerified={profile.otpVerified}
               onPhoneChange={(phone) => patch({ phone })}
-              onOtpVerified={() => patch({ otpVerified: true })}
+              onOtpVerified={(registrationToken) =>
+                patch({ otpVerified: true, registrationToken })
+              }
               onNext={() => setStep("identity")}
             />
           ) : null}
           {step === "identity" ? (
             <GrossisteBIdentityStep
               displayName={profile.displayName}
-              businessName={profile.businessName ?? ""}
               onDisplayNameChange={(displayName) => patch({ displayName })}
-              onBusinessNameChange={(businessName) => patch({ businessName: businessName || undefined })}
               onNext={() => setStep("activities")}
             />
           ) : null}
@@ -139,12 +155,20 @@ export const GrossisteBQuickOnboarding = memo(function GrossisteBQuickOnboarding
             />
           ) : null}
           {step === "city" ? (
-            <GrossisteBCityStep
-              city={profile.city}
-              onCityChange={(city) => patch({ city })}
-              onFinish={finish}
-              onSkip={finish}
-            />
+            <>
+              {submitError ? (
+                <p role="alert" style={{ color: "var(--venext-danger, #b42318)", fontSize: 13, marginBottom: 12 }}>
+                  {submitError}
+                </p>
+              ) : null}
+              <GrossisteBCityStep
+                city={profile.city}
+                onCityChange={(city) => patch({ city })}
+                onFinish={() => void finish()}
+                onSkip={() => void finish()}
+                submitting={submitting}
+              />
+            </>
           ) : null}
         </Suspense>
       </main>

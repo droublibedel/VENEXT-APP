@@ -7,11 +7,13 @@ export const GrossisteBCityStep = memo(function GrossisteBCityStep({
   onCityChange,
   onFinish,
   onSkip,
+  submitting = false,
 }: {
   city: string;
   onCityChange: (v: string) => void;
   onFinish: () => void;
   onSkip?: () => void;
+  submitting?: boolean;
 }) {
   const [query, setQuery] = useState("");
   const filtered = useMemo(() => {
@@ -62,12 +64,12 @@ export const GrossisteBCityStep = memo(function GrossisteBCityStep({
         <button
           type="button"
           className="grossiste-b-action grossiste-b-action--primary"
-          disabled={!city}
+          disabled={!city || submitting}
           onClick={onFinish}
           data-testid="gb-onboarding-finish"
           style={{ width: "100%" }}
         >
-          Commencer
+          {submitting ? "Enregistrement…" : "Commencer"}
         </button>
         {onSkip ? (
           <button

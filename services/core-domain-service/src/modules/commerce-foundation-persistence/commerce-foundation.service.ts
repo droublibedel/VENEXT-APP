@@ -64,6 +64,7 @@ export class CommerceFoundationService {
       "CommerceNotificationPreferences",
       "CommerceActivityFeed",
       "CommerceOfflineSnapshot",
+      "TerrainBusinessIdentity",
     ];
     let deleted = 0;
     for (const entityType of types) {

@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 
 import {
   applyGrossisteBBackNavigation,
@@ -10,10 +10,18 @@ import {
 } from "commercial-context-routing";
 
 import type { GrossisteBTabId } from "../navigation/grossiste-b-navigation.config";
-import { useGrossisteFeatureFlags } from "../hooks/useGrossisteFeatureFlags";
+import { useGrossisteFeatureFlags, type GrossisteFlagsState } from "../hooks/useGrossisteFeatureFlags";
 
-export function useGrossisteBCommercialRouter(setActiveTab: (tab: GrossisteBTabId) => void) {
-  const { flags, hydrated } = useGrossisteFeatureFlags();
+export function useGrossisteBCommercialRouter(
+  setActiveTab: (tab: GrossisteBTabId) => void,
+  options?: { flags?: GrossisteFlagsState; hydrated?: boolean },
+) {
+  const internalFlags = useGrossisteFeatureFlags();
+  const flags = options?.flags ?? internalFlags.flags;
+  const hydrated = options?.hydrated ?? internalFlags.hydrated;
+  const routingReadyRef = useRef(hydrated);
+  if (hydrated) routingReadyRef.current = true;
+  const routingReady = routingReadyRef.current || hydrated;
   const [focusReference, setFocusReference] = useState<CommercialContextReference>({});
 
   const routingFlags: CommercialContextRoutingFlags = useMemo(
@@ -26,7 +34,7 @@ export function useGrossisteBCommercialRouter(setActiveTab: (tab: GrossisteBTabI
   );
 
   const router = useMemo(() => {
-    if (!hydrated || !isCommercialContextRoutingEnabled(routingFlags)) {
+    if (!routingReady || !isCommercialContextRoutingEnabled(routingFlags)) {
       return null;
     }
     return createGrossisteBCommercialRouter({
@@ -36,7 +44,7 @@ export function useGrossisteBCommercialRouter(setActiveTab: (tab: GrossisteBTabI
         setFocusReference,
       },
     });
-  }, [hydrated, routingFlags, setActiveTab]);
+  }, [routingReady, routingFlags, setActiveTab]);
 
   const canGoBack = Boolean(
     router &&

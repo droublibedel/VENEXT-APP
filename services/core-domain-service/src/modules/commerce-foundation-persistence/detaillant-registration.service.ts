@@ -138,4 +138,20 @@ export class DetaillantRegistrationService {
 
     return { organizationId, profile };
   }
+
+  async restoreSessionByPhone(phone: string) {
+    const normalizedPhone = normalizeCiPhone(phone);
+    if (!normalizedPhone) {
+      throw new BadRequestException("Numéro de téléphone invalide.");
+    }
+    const profileId = buildDetaillantProfileId(normalizedPhone);
+    const existing = await this.foundation.getByKey<Record<string, unknown>>("ActorProfile", profileId);
+    if (!existing?.onboardingCompleted) {
+      throw new BadRequestException("Aucun compte détaillant trouvé pour ce numéro.");
+    }
+    return {
+      organizationId: String(existing.organizationId ?? buildDetaillantOrganizationId(normalizedPhone)),
+      profile: existing,
+    };
+  }
 }

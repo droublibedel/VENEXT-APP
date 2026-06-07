@@ -2,7 +2,7 @@ import { CommercialActivityFeedShell } from "commercial-activity-feed";
 import { useCommercialRouter } from "commercial-context-routing";
 
 import { useGrossisteFeatureFlags } from "../hooks/useGrossisteFeatureFlags";
-import { GROSSISTE_B_ORG_ID } from "../mocks/grossiste-b-mock-data";
+import { resolveGrossisteBOrganizationId } from "../session/resolveGrossisteBOrganizationId";
 
 export function GrossisteBActivityFeedBridge() {
   const { flags, hydrated } = useGrossisteFeatureFlags();
@@ -10,7 +10,7 @@ export function GrossisteBActivityFeedBridge() {
   return (
     <CommercialActivityFeedShell
       actorRole="GROSSISTE_B"
-      organizationId={GROSSISTE_B_ORG_ID}
+      organizationId={resolveGrossisteBOrganizationId()}
       flags={flags}
       flagsHydrated={hydrated}
       router={router ?? undefined}

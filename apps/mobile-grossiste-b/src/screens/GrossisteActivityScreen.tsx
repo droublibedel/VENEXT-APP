@@ -1,13 +1,14 @@
 import { memo, useMemo } from "react";
+
 import type { CommercialContextRoutingInput } from "commercial-context-routing";
+import { VenextTerrainKpiGrid } from "commerce-ux-harmony";
+import "commerce-ux-harmony/terrain-kpi.css";
 
 import { GrossisteBCommercialDelivery } from "../delivery/GrossisteBCommercialDelivery";
-import { GrossisteDataSourceBadge } from "../components/GrossisteDataSourceBadge";
 import { GrossisteScreenHeader } from "../components/GrossisteScreenHeader";
 import { useGrossisteActivityData } from "../hooks/useGrossisteActivityData";
-import { buildActivityHints } from "../mocks/grossiste-b-intelligence";
+import { buildActivitySummary } from "../mocks/grossiste-b-intelligence";
 import { GrossisteBRelationalFeedBridge } from "../feed/GrossisteBRelationalFeedBridge";
-import { GrossisteHintStrip } from "../widgets/GrossisteHintStrip";
 import { useGrossisteFeatureFlags } from "../hooks/useGrossisteFeatureFlags";
 import { GrossisteMetricCard } from "../widgets/GrossisteMetricCard";
 
@@ -19,30 +20,21 @@ export const GrossisteActivityScreen = memo(function GrossisteActivityScreen({
   routingInput?: CommercialContextRoutingInput;
 }) {
   const { flags } = useGrossisteFeatureFlags();
-  const { data, loading, dataSource, fallbackUsed, refresh } = useGrossisteActivityData(enabled);
-  const hints = useMemo(() => buildActivityHints(data), [data]);
+  const { data, loading } = useGrossisteActivityData(enabled);
   const feedEnabled = flags.commercial_activity_feed_enabled !== false;
+  const summary = useMemo(() => buildActivitySummary(data), [data]);
 
   return (
     <section data-testid="grossiste-screen-activity">
-      <GrossisteScreenHeader
-        title="Activité"
-        subtitle="Mon activité bouge aujourd'hui"
-        onRefresh={refresh}
-        refreshing={loading}
-      />
-      <GrossisteDataSourceBadge dataSource={dataSource} fallbackUsed={fallbackUsed} loading={loading} />
-      <GrossisteBCommercialDelivery enabled={enabled} contextRouting={routingInput} />
-      <GrossisteHintStrip hints={hints} testId="grossiste-activity-hints" />
+      <GrossisteScreenHeader title="Activité" subtitle="Mon activité bouge aujourd'hui" />
 
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          gap: 10,
-          marginBottom: 14,
-        }}
-      >
+      {summary ? (
+        <p className="terrain-home-summary" data-testid="grossiste-activity-summary">
+          {summary}
+        </p>
+      ) : null}
+
+      <VenextTerrainKpiGrid columns={2}>
         <GrossisteMetricCard
           label="Réseau aujourd'hui"
           value={data?.networkActivityToday ?? "—"}
@@ -63,15 +55,22 @@ export const GrossisteActivityScreen = memo(function GrossisteActivityScreen({
           value={data?.activeCities.length ?? "—"}
           testId="grossiste-metric-cities"
         />
-      </div>
+      </VenextTerrainKpiGrid>
+
+      {feedEnabled ? (
+        <>
+          <h2 className="grossiste-b-section-title">Réseau commercial</h2>
+          <GrossisteBRelationalFeedBridge enabled={enabled && !loading} />
+        </>
+      ) : null}
 
       {data?.movingProducts?.length ? (
         <>
-          <h2 className="grossiste-b-section-title">Produits qui bougent</h2>
+          <h2 className="grossiste-b-section-title">Catalogue récent</h2>
           {data.movingProducts.map((p) => (
             <article key={p.id} className="grossiste-b-card" data-testid={`grossiste-moving-${p.id}`}>
               <strong>{p.name}</strong>
-              <span style={{ float: "right", fontSize: 12, color: "var(--venext-accent)" }}>
+              <span style={{ float: "right", fontSize: 12, color: "var(--venext-text-secondary)" }}>
                 {p.momentum === "up" ? "↑" : "→"}
               </span>
             </article>
@@ -81,7 +80,7 @@ export const GrossisteActivityScreen = memo(function GrossisteActivityScreen({
 
       {data?.simpleAlerts?.length ? (
         <>
-          <h2 className="grossiste-b-section-title">À noter</h2>
+          <h2 className="grossiste-b-section-title">Activité récente</h2>
           {data.simpleAlerts.map((a) => (
             <article key={a.id} className="grossiste-b-card">
               <p style={{ margin: 0, fontSize: 13 }}>{a.text}</p>
@@ -90,23 +89,7 @@ export const GrossisteActivityScreen = memo(function GrossisteActivityScreen({
         </>
       ) : null}
 
-      {feedEnabled ? (
-        <>
-          <h2 className="grossiste-b-section-title">Fil relationnel</h2>
-          <GrossisteBRelationalFeedBridge />
-        </>
-      ) : null}
-
-      {data?.discreetTrends?.length ? (
-        <>
-          <h2 className="grossiste-b-section-title">Tendances discrètes</h2>
-          {data.discreetTrends.map((t) => (
-            <article key={t.id} className="grossiste-b-card">
-              <p style={{ margin: 0, fontSize: 13 }}>{t.label}</p>
-            </article>
-          ))}
-        </>
-      ) : null}
+      <GrossisteBCommercialDelivery enabled={enabled} contextRouting={routingInput} />
     </section>
   );
 });

@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "jsx": "react-jsx",
+    "strict": true,
+    "skipLibCheck": true,
+    "noEmit": true,
+    "isolatedModules": true,
+    "paths": {
+      "@/*": ["./src/*"],
+      "@venext/mobile-detaillant/*": ["../mobile-detaillant/src/*"],
+      "@venext/mobile-grossiste-b/*": ["../mobile-grossiste-b/src/*"]
+    }
+  },
+  "include": ["src", "../mobile-detaillant/src/vite-env.d.ts", "../mobile-grossiste-b/src/vite-env.d.ts"]
+}

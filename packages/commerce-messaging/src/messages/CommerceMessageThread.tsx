@@ -8,12 +8,21 @@ import type { CommerceMessage } from "../hooks/commerce-messaging.types";
 import { groupMessagesByDate } from "./message-date-groups.js";
 import { VenextVoiceMessageBubble } from "../voice/VenextVoiceMessageBubble.js";
 
+function businessContextBadgeLabel(context: CommerceMessage["businessContext"]): string | null {
+  if (!context) return null;
+  if (context === "grossiste_distribution") return "Grossiste";
+  if (context === "retailer_procurement") return "Détaillant";
+  if (context === "mixed_relationship") return "Mixte";
+  return null;
+}
+
 export const CommerceMessageThread = memo(function CommerceMessageThread({
   messages,
   testId = "cm-message-thread",
   virtualizationEnabled = true,
   onDeleteMessage,
   terrainMode = false,
+  showBusinessContextBadge = false,
 }: {
   messages: CommerceMessage[];
   testId?: string;
@@ -21,6 +30,7 @@ export const CommerceMessageThread = memo(function CommerceMessageThread({
   /** Suppression globale VENEXT */
   onDeleteMessage?: (messageId: string) => void;
   terrainMode?: boolean;
+  showBusinessContextBadge?: boolean;
 }) {
   const [olderOffset, setOlderOffset] = useState(0);
 
@@ -57,9 +67,11 @@ export const CommerceMessageThread = memo(function CommerceMessageThread({
           message={m}
           isSelf={isSelf}
           onDelete={isSelf ? onDeleteMessage : undefined}
+          showBusinessContextBadge={showBusinessContextBadge}
         />
       );
     }
+    const badge = showBusinessContextBadge ? businessContextBadgeLabel(m.businessContext) : null;
     const isCard = m.kind !== "text" && m.kind !== "image";
     return (
       <article
@@ -67,6 +79,11 @@ export const CommerceMessageThread = memo(function CommerceMessageThread({
         data-testid={`cm-msg-${m.id}`}
         className={`cm-bubble ${isSelf ? "cm-bubble--self" : "cm-bubble--partner"}${isCard ? " cm-bubble--card" : ""}`}
       >
+        {badge ? (
+          <span className="cm-bubble-business-badge" data-testid="cm-msg-business-badge">
+            {badge}
+          </span>
+        ) : null}
         {m.kind === "image" && m.imageUrl ? (
           <img
             src={m.imageUrl}

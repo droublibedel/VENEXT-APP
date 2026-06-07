@@ -63,10 +63,16 @@ describe("detaillant mobile foundation", () => {
     expect(screen.queryByTestId("detaillant-screen-home")).toBeNull();
   });
 
-  it("renders home screen", async () => {
+  it("shows home screen with KPI metrics", async () => {
     render(<DetaillantAppShell />);
     await waitFor(() => expect(screen.getByTestId("detaillant-metric-activity")).toBeTruthy());
-    expect(screen.getByTestId("detaillant-home-hints")).toBeTruthy();
+    expect(screen.getByTestId("detaillant-home-summary")).toBeTruthy();
+  });
+
+  it("does not show demo data source badge when offline fallback", async () => {
+    render(<DetaillantAppShell />);
+    await waitFor(() => expect(screen.getByTestId("detaillant-screen-home")).toBeTruthy());
+    expect(screen.queryByTestId("detaillant-data-source")).toBeNull();
   });
 
   it("renders products screen", async () => {
@@ -96,15 +102,6 @@ describe("detaillant mobile foundation", () => {
     await waitFor(() => expect(screen.getByTestId("detaillant-screen-account")).toBeTruthy());
     expect(screen.getByTestId("detaillant-account-identity")).toBeTruthy();
     expect(screen.getByTestId("detaillant-account-logout")).toBeTruthy();
-  });
-
-  it("shows fallback demo data badge", async () => {
-    render(<DetaillantAppShell />);
-    await waitFor(() => {
-      const badges = screen.getAllByTestId("detaillant-data-source");
-      expect(badges[0]?.getAttribute("data-fallback")).toBe("true");
-      expect(badges[0]?.textContent).toContain("démonstration");
-    });
   });
 
   it("builds subtle sales intelligence", () => {

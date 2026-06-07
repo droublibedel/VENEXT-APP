@@ -60,10 +60,11 @@ describe("grossiste B mobile foundation", () => {
     expect(screen.queryByTestId("grossiste-screen-activity")).toBeNull();
   });
 
-  it("renders activity screen with metrics", async () => {
+  it("renders activity screen with harmonized KPI metrics", async () => {
     render(<GrossisteBAppShell />);
-    await waitFor(() => expect(screen.getByTestId("grossiste-metric-network")).toBeTruthy());
-    expect(screen.getByTestId("grossiste-activity-hints")).toBeTruthy();
+    await waitFor(() => expect(screen.getByTestId("terrain-kpi-grid")).toBeTruthy());
+    expect(screen.getByTestId("grossiste-metric-network")).toBeTruthy();
+    expect(screen.queryByTestId("grossiste-activity-hints")).toBeNull();
   });
 
   it("renders catalog screen with search", async () => {
@@ -94,14 +95,10 @@ describe("grossiste B mobile foundation", () => {
     expect(screen.getByTestId("grossiste-profile-identity")).toBeTruthy();
   });
 
-  it("shows fallback demo data badge", async () => {
+  it("does not show demo data badge on activity home", async () => {
     render(<GrossisteBAppShell />);
-    await waitFor(() => {
-      const badges = screen.getAllByTestId("grossiste-data-source");
-      expect(badges.length).toBeGreaterThan(0);
-      expect(badges[0]?.getAttribute("data-fallback")).toBe("true");
-      expect(badges[0]?.textContent).toContain("démonstration");
-    });
+    await waitFor(() => expect(screen.getByTestId("grossiste-screen-activity")).toBeTruthy());
+    expect(screen.queryByTestId("grossiste-data-source")).toBeNull();
   });
 
   it("sanitizes forbidden jargon in intelligence", () => {

@@ -7,6 +7,8 @@ import { CommerceFoundationRepository } from "./commerce-foundation.repository";
 import { CommerceFoundationService } from "./commerce-foundation.service";
 import { CommerceFoundationEnvelopeMappers } from "./commerce-foundation-envelope.mappers";
 import { DetaillantRegistrationService } from "./detaillant-registration.service";
+import { GrossisteBRegistrationService } from "./grossiste-b-registration.service";
+import { TerrainProfileIdentityService } from "./terrain-profile-identity.service";
 import { TerrainSearchService } from "./terrain-search.service";
 import { ActorProfilePersistenceService } from "./services/actor-profile-persistence.service";
 import { CommercialContextPersistenceService } from "./services/commercial-context-persistence.service";
@@ -43,6 +45,8 @@ import { RelationalCatalogPersistenceService } from "./services/relational-catal
     CommerceFoundationService,
     CommerceFoundationEnvelopeMappers,
     DetaillantRegistrationService,
+    GrossisteBRegistrationService,
+    TerrainProfileIdentityService,
     TerrainSearchService,
   ],
   exports: [CommerceFoundationService, CommerceFoundationRepository],

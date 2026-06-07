@@ -109,7 +109,7 @@ export const GrossisteBMessagingScreen = memo(function GrossisteBMessagingScreen
     >
       <GrossisteScreenHeader
         title="Messagerie"
-        subtitle="Échanges rapides autour de vos ventes terrain"
+        subtitle="Échanges rapides autour de vos ventes"
         onRefresh={refresh}
         refreshing={loading}
       />

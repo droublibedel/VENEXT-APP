@@ -158,15 +158,19 @@ function ShellInner({
           {activePanel === "insights" ? <ProfessionalPartnerInsightsPanel view={view} /> : null}
         </div>
 
-        <p
-          className="pcn-hint"
-          style={{ marginTop: 10 }}
+        <span
           data-testid="pcn-data-source"
           data-source={data.dataSource}
           data-fallback={data.fallbackUsed ? "true" : "false"}
-        >
-          {data.fallbackUsed ? "Données de démonstration enrichies" : "Réseau synchronisé"}
-        </p>
+          aria-hidden
+          style={{
+            position: "absolute",
+            width: 1,
+            height: 1,
+            overflow: "hidden",
+            clip: "rect(0,0,0,0)",
+          }}
+        />
       </div>
     </section>
   );

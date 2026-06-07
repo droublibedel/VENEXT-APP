@@ -12,7 +12,8 @@
     "resolveJsonModule": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["src/*"],
+      "@venext/mobile-grossiste-b/*": ["../mobile-grossiste-b/src/*"]
     }
   },
   "include": ["src"]

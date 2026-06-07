@@ -76,12 +76,16 @@ import { DomainRealtimeModule } from "./modules/domain-realtime/domain-realtime.
 import { SponsoredConversationModule } from "./modules/sponsored-conversation/sponsored-conversation.module";
 import { CommercialTrustModule } from "./modules/commercial-trust/commercial-trust.module";
 import { CommerceFoundationPersistenceModule } from "./modules/commerce-foundation-persistence/commerce-foundation-persistence.module";
+import { CommerceMarketCatalogModule } from "./modules/commerce-market-catalog/commerce-market-catalog.module";
 import { EnterpriseGovernanceLiveModule } from "./modules/enterprise-governance-live/enterprise-governance-live.module";
+import { WalletPlatformModule } from "./modules/wallet-platform/wallet-platform.module";
 
 @Module({
   imports: [
     CommerceFoundationPersistenceModule,
+    CommerceMarketCatalogModule,
     EnterpriseGovernanceLiveModule,
+    WalletPlatformModule,
     DomainRealtimeModule,
     CommercialTrustModule,
     SponsoredConversationModule,

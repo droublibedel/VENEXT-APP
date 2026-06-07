@@ -71,7 +71,7 @@ export const DetaillantProductsScreen = memo(function DetaillantProductsScreen({
   if (relationalCatalog) {
     return (
       <section data-testid="detaillant-screen-products">
-        <DetaillantScreenHeader title="Catalogue" subtitle="Fournisseurs de votre réseau" />
+        <DetaillantScreenHeader title="Marché" subtitle="Fournisseurs de votre réseau" />
         <DetaillantRelationalCatalog enabled={enabled} contextRouting={routingInput} />
       </section>
     );
@@ -79,7 +79,7 @@ export const DetaillantProductsScreen = memo(function DetaillantProductsScreen({
 
   return (
     <section data-testid="detaillant-screen-products">
-      <DetaillantScreenHeader title="Catalogue" subtitle="Commande rapide" onRefresh={refresh} refreshing={loading} />
+      <DetaillantScreenHeader title="Marché" subtitle="Sourcing fournisseurs" onRefresh={refresh} refreshing={loading} />
       <DetaillantDataSourceBadge dataSource={dataSource} fallbackUsed={fallbackUsed} loading={loading} />
       <DetaillantHintStrip hints={hints} testId="detaillant-products-hints" />
 

@@ -8,11 +8,13 @@ import { buildGrossisteSettlementHints } from "./grossiste-a-wallet-intelligence
 import { grossisteAWalletAccountSettings } from "./grossiste-a-wallet-governance";
 import {
   clearCommerceWalletCache,
+  resolveWalletLiveEnabled,
   useCommercePartnerPayments,
   useCommercePaymentActivity,
   useCommerceTransactions,
   useCommerceWalletBalance,
 } from "commerce-wallet";
+import { useWalletPlatformSync } from "venext-auth-foundation";
 
 export const GrossisteAWalletWorkspace = memo(function GrossisteAWalletWorkspace({
   enabled,
@@ -24,8 +26,16 @@ export const GrossisteAWalletWorkspace = memo(function GrossisteAWalletWorkspace
   const walletEnabled =
     hydrated && enabled && flags.grossiste_a_wallet_enabled !== false;
 
+  const organizationId = "org-grossiste-a-nord-plus";
+  const liveEnabled = resolveWalletLiveEnabled({
+    walletEnabled: flags.grossiste_a_wallet_enabled !== false,
+    bffRoutesEnabled: flags.venext_bff_routes_enabled !== false,
+    backendPersistenceEnabled: flags.venext_backend_persistence_enabled !== false,
+    organizationId,
+  });
   const accountSettings = useMemo(() => grossisteAWalletAccountSettings(flags), [flags]);
-  const opts = { enabled: walletEnabled, liveEnabled: false };
+  const opts = { enabled: walletEnabled, liveEnabled };
+  useWalletPlatformSync({ organizationId, enabled: walletEnabled, liveEnabled });
 
   const balance = useCommerceWalletBalance(opts);
   const transactions = useCommerceTransactions(opts);

@@ -9,12 +9,15 @@ import { buildRetailSettlementHints } from "./detaillant-wallet-intelligence";
 import { detaillantWalletAccountSettings } from "./detaillant-wallet-governance";
 import {
   clearCommerceWalletCache,
+  resolveWalletLiveEnabled,
   useCommerceTransactions,
   useCommerceWalletBalance,
 } from "commerce-wallet";
+import { loadDetaillantOnboardingProfile } from "../onboarding/detaillant-onboarding.viewmodel";
 import {
   useVenextWalletSecurityOptional,
   useWalletBalanceSync,
+  useWalletPlatformSync,
   WalletAdaptiveSecurityShell,
 } from "venext-auth-foundation";
 
@@ -27,8 +30,16 @@ export const DetaillantWalletScreen = memo(function DetaillantWalletScreen({
   const walletEnabled =
     hydrated && enabled && flags.detaillant_wallet_enabled !== false;
 
+  const organizationId = loadDetaillantOnboardingProfile()?.organizationId ?? null;
+  const liveEnabled = resolveWalletLiveEnabled({
+    walletEnabled: flags.detaillant_wallet_enabled !== false,
+    bffRoutesEnabled: flags.venext_bff_routes_enabled !== false,
+    backendPersistenceEnabled: flags.venext_backend_persistence_enabled !== false,
+    organizationId,
+  });
   const accountSettings = useMemo(() => detaillantWalletAccountSettings(), []);
-  const opts = { enabled: walletEnabled, liveEnabled: false };
+  const opts = { enabled: walletEnabled, liveEnabled };
+  useWalletPlatformSync({ organizationId, enabled: walletEnabled, liveEnabled });
   const balance = useCommerceWalletBalance(opts);
   const transactions = useCommerceTransactions(opts);
   const walletSecurity = useVenextWalletSecurityOptional();

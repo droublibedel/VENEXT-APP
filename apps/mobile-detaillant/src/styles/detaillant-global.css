@@ -28,13 +28,13 @@ button {
 }
 
 .detaillant-app {
-  --venext-bg: #f6f7f5;
+  --venext-bg: #ffffff;
   --venext-bg-elevated: #ffffff;
   --venext-surface: #ffffff;
-  --venext-surface-raised: #fbfcfb;
+  --venext-surface-raised: #fafbfb;
   --venext-text: #17201c;
-  --venext-text-secondary: #526059;
-  --venext-text-muted: #7b8982;
+  --venext-text-secondary: #3f4d47;
+  --venext-text-muted: #5a6760;
   --venext-accent: #008f73;
   --venext-accent-strong: #00785f;
   --venext-accent-soft: rgba(0, 143, 115, 0.08);
@@ -51,13 +51,13 @@ button {
   min-height: 100%;
   max-width: 480px;
   margin: 0 auto;
-  background: linear-gradient(180deg, var(--venext-bg) 0%, #eef2ef 100%);
+  background: #ffffff;
 }
 
 .detaillant-main {
   flex: 1;
   overflow-y: auto;
-  padding: 22px 18px 104px;
+  padding: 16px 16px 104px;
   -webkit-overflow-scrolling: touch;
 }
 
@@ -163,7 +163,7 @@ button {
 
 .detaillant-tab--active {
   color: var(--venext-text);
-  background: rgba(0, 143, 115, 0.07);
+  background: rgba(23, 32, 28, 0.04);
 }
 
 .detaillant-tab-icon {
@@ -176,19 +176,26 @@ button {
 }
 
 .detaillant-tab--active .detaillant-tab-icon {
-  color: var(--venext-accent);
+  color: var(--venext-text);
 }
 
 .detaillant-hint {
   font-size: 13px;
   line-height: 1.45;
   color: var(--venext-text-secondary);
-  padding: 14px 15px;
+  padding: 12px 14px;
   border: 1px solid var(--venext-border);
-  border-left: 3px solid var(--venext-accent);
   background: #ffffff;
   border-radius: 12px;
-  margin-bottom: 14px;
+  margin-bottom: 10px;
+}
+
+.terrain-home-summary {
+  margin: 0 0 12px;
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--venext-text-secondary);
+  font-weight: 500;
 }
 
 .detaillant-source {
@@ -268,23 +275,24 @@ button {
 }
 
 .detaillant-kpi-card {
-  min-height: 116px;
+  min-height: 96px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  padding: 14px;
 }
 
 .detaillant-kpi-label {
   margin: 0;
-  font-size: 12px;
+  font-size: 11px;
   line-height: 1.35;
-  color: var(--venext-text-muted);
-  font-weight: 650;
+  color: var(--venext-text-secondary);
+  font-weight: 600;
 }
 
 .detaillant-kpi-value {
-  margin: 14px 0 0;
-  font-size: 25px;
+  margin: 10px 0 0;
+  font-size: 22px;
   line-height: 1.05;
   font-weight: 800;
   color: var(--venext-accent);
@@ -293,7 +301,7 @@ button {
 .detaillant-section-title {
   font-size: 13px;
   line-height: 1.3;
-  margin: 20px 0 10px;
+  margin: 14px 0 8px;
   color: var(--venext-text-secondary);
   font-weight: 650;
 }

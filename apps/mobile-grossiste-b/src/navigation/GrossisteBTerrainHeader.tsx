@@ -4,28 +4,23 @@ import { VenextTerrainGlobalSearch, VenextTerrainMobileHeader } from "commerce-u
 import "commerce-ux-harmony/terrain-header.css";
 import "commerce-ux-harmony/terrain-search.css";
 
-import { GROSSISTE_B_ORG_ID } from "../mocks/grossiste-b-mock-data";
+import { resolveGrossisteBOrganizationId } from "../session/resolveGrossisteBOrganizationId";
 import { GrossisteBNotificationsBridge } from "../notifications/GrossisteBNotificationsBridge";
 import { fetchTerrainGlobalSearch } from "../search/terrain-global-search.api";
-import { GROSSISTE_B_TAB_TITLES, type GrossisteBTabId } from "./grossiste-b-navigation.config";
 
 export const GrossisteBTerrainHeader = memo(function GrossisteBTerrainHeader({
-  activeTab,
   onMessaging,
   onProfile,
 }: {
-  activeTab: GrossisteBTabId;
   onMessaging: () => void;
   onProfile: () => void;
 }) {
   const [searchOpen, setSearchOpen] = useState(false);
-  const organizationId = useMemo(() => GROSSISTE_B_ORG_ID, [searchOpen, activeTab]);
+  const organizationId = useMemo(() => resolveGrossisteBOrganizationId(), [searchOpen]);
 
   return (
     <>
       <VenextTerrainMobileHeader
-        title={GROSSISTE_B_TAB_TITLES[activeTab]}
-        brandLabel="VENEXT"
         onMessaging={onMessaging}
         onSearch={() => setSearchOpen(true)}
         onProfile={onProfile}

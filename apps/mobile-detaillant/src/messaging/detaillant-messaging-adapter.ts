@@ -281,6 +281,7 @@ function buildMessagesFor(meta: ConvMeta): CommerceMessage[] {
       at: "09:05",
       orderId: meta.orderId,
       attachmentLabel: c.linkedOrderLabel ?? "Commande",
+      businessContext: "retailer_procurement",
     });
   }
   return msgs;

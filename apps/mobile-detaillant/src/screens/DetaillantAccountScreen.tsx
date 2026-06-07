@@ -1,7 +1,8 @@
-import { lazy, memo, Suspense, useMemo, useState } from "react";
+import { lazy, memo, Suspense, useMemo } from "react";
 import { VenextScreenLoader } from "../ux/VenextScreenLoader";
 
 import { useVenextAuthOptional } from "venext-auth-foundation";
+import { TerrainProfileSettingsSection } from "commerce-terrain-profile-runtime";
 import { VenextLanguageSelector, useVenextT } from "venext-i18n";
 
 import { useDetaillantFeatureFlags } from "../hooks/useDetaillantFeatureFlags";
@@ -25,7 +26,6 @@ export const DetaillantAccountScreen = memo(function DetaillantAccountScreen({
   const { flags, hydrated } = useDetaillantFeatureFlags();
   const auth = useVenextAuthOptional();
   const walletFlag = hydrated && flags.detaillant_wallet_enabled !== false;
-  const [showWallet, setShowWallet] = useState(false);
   const fallbackAccount = mockDetaillantAccount();
   const profile = loadDetaillantOnboardingProfile();
   const account = useMemo(
@@ -66,22 +66,15 @@ export const DetaillantAccountScreen = memo(function DetaillantAccountScreen({
       </article>
 
       <h2 style={{ fontSize: 15, margin: "16px 0 10px", color: "var(--venext-text-muted)", fontWeight: 600 }}>{t("settings")}</h2>
+      <TerrainProfileSettingsSection className="detaillant-card" />
       {walletFlag ? (
         <>
-          <button
-            type="button"
-            className="detaillant-btn detaillant-btn--secondary"
-            data-testid="detaillant-account-wallet-toggle"
-            style={{ width: "100%", minHeight: 44, marginBottom: 12 }}
-            onClick={() => setShowWallet((v) => !v)}
-          >
-            {showWallet ? "Masquer règlements" : "Voir mes règlements (optionnel)"}
-          </button>
-          {showWallet ? (
-            <Suspense fallback={<VenextScreenLoader variant="wallet" />}>
-              <DetaillantWalletScreen enabled={enabled} />
-            </Suspense>
-          ) : null}
+          <h2 className="detaillant-section-title" style={{ marginTop: 8 }}>
+            Mes règlements
+          </h2>
+          <Suspense fallback={<VenextScreenLoader variant="wallet" />}>
+            <DetaillantWalletScreen enabled={enabled} />
+          </Suspense>
         </>
       ) : null}
 

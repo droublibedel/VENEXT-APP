@@ -1,12 +1,17 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import {
+  buildProfileScopedCacheKey,
+  mergeTerrainFetchInit,
+  registerProfileCachePurgeHandler,
+} from "commerce-terrain-profile-runtime";
 
 import {
   mockGrossisteActivity,
   mockGrossisteCatalog,
   mockGrossisteNetwork,
   mockGrossisteOrders,
-  GROSSISTE_B_ORG_ID,
 } from "../mocks/grossiste-b-mock-data";
+import { resolveGrossisteBOrganizationId } from "../session/resolveGrossisteBOrganizationId";
 import type {
   GrossisteActivityDto,
   GrossisteBffEndpoint,
@@ -25,8 +30,20 @@ export function clearGrossisteDataCache() {
   cache.clear();
 }
 
+registerProfileCachePurgeHandler((profile) => {
+  if (profile === "grossiste_b") clearGrossisteDataCache();
+});
+
 function cacheKey(endpoint: string, organizationId: string) {
-  return `${endpoint}:${organizationId}`;
+  const domain =
+    endpoint === "activity"
+      ? "activity"
+      : endpoint === "catalog"
+        ? "catalogues"
+        : endpoint === "orders"
+          ? "orders"
+          : "network";
+  return buildProfileScopedCacheKey("grossiste_b", domain, organizationId);
 }
 
 async function fetchGrossisteEndpoint<T>(
@@ -36,7 +53,7 @@ async function fetchGrossisteEndpoint<T>(
 ): Promise<{ envelope: GrossisteEnvelope<T> | null; error: string | null }> {
   const url = `/api/grossiste-b/${endpoint}?organizationId=${encodeURIComponent(organizationId)}`;
   try {
-    const res = await fetch(url, { credentials: "include", cache: "no-store", signal });
+    const res = await fetch(url, mergeTerrainFetchInit({ cache: "no-store", signal }));
     if (!res.ok) return { envelope: null, error: `http_${res.status}` };
     const body = (await res.json()) as GrossisteEnvelope<T>;
     return { envelope: body, error: null };
@@ -51,7 +68,7 @@ function useGrossisteEndpoint<T>(
   endpoint: GrossisteBffEndpoint,
   fallback: FallbackFn<T>,
   enabled = true,
-  organizationId = GROSSISTE_B_ORG_ID,
+  organizationId = resolveGrossisteBOrganizationId(),
 ): GrossisteLiveState<T> {
   const { flags, hydrated } = useGrossisteFeatureFlags();
   const liveEnabled =
@@ -144,7 +161,7 @@ function envelope<T>(payload: T): GrossisteEnvelope<T> {
   return {
     dataSource: "fallback",
     fallbackUsed: true,
-    organizationId: GROSSISTE_B_ORG_ID,
+    organizationId: resolveGrossisteBOrganizationId(),
     payload,
   };
 }

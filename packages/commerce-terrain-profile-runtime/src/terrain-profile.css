@@ -1,0 +1,111 @@
+.terrain-profile-shell {
+  min-height: 100dvh;
+  background: var(--venext-bg, #fff);
+  color: var(--venext-text, #1a2420);
+}
+
+.terrain-profile-gate {
+  padding: 16px;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.terrain-profile-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--venext-surface-muted, #f4f6f5);
+  color: var(--venext-text-muted, #5c6660);
+}
+
+.terrain-profile-transition {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(4px);
+  animation: terrain-profile-fade-in 0.2s ease-out;
+}
+
+.terrain-profile-transition__card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 24px 32px;
+  border-radius: 16px;
+  background: var(--venext-surface, #fff);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+}
+
+.terrain-profile-transition__spinner {
+  width: 28px;
+  height: 28px;
+  border: 2px solid var(--venext-border, #e4e8e6);
+  border-top-color: var(--venext-accent, #00a884);
+  border-radius: 50%;
+  animation: terrain-profile-spin 0.7s linear infinite;
+}
+
+.terrain-profile-transition__label {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--venext-text, #1a2420);
+}
+
+.terrain-profile-shell[data-profile-transition="true"] .terrain-profile-host {
+  opacity: 0.6;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+@keyframes terrain-profile-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes terrain-profile-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.terrain-profile-shell[data-active-profile] .terrain-profile-host {
+  animation: terrain-profile-host-in 0.35s ease-out;
+}
+
+@keyframes terrain-profile-host-in {
+  from {
+    opacity: 0.4;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.cm-bubble-business-badge {
+  display: inline-block;
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-bottom: 4px;
+  background: rgba(0, 168, 132, 0.12);
+  color: #007a5e;
+}

@@ -4,6 +4,7 @@ import {
   Get,
   Param,
   Patch,
+  Put,
   Post,
   Query,
   Headers,
@@ -22,6 +23,8 @@ import { CommerceOfflinePersistenceService } from "./services/commerce-offline-p
 import { CommerceNotificationPersistenceService } from "./services/commerce-notification-persistence.service";
 import { EnterpriseGovernancePersistenceService } from "./services/enterprise-governance-persistence.service";
 import { DetaillantRegistrationService } from "./detaillant-registration.service";
+import { GrossisteBRegistrationService } from "./grossiste-b-registration.service";
+import { TerrainProfileIdentityService } from "./terrain-profile-identity.service";
 import { TerrainSearchService } from "./terrain-search.service";
 
 function envelope<T>(payload: T, dataSource: "live" | "fallback" = "live") {
@@ -44,6 +47,8 @@ export class CommerceFoundationApiController {
     private readonly accessGuard: CommerceAccessGuardService,
     private readonly grossisteAPoleGuard: GrossisteAPoleGuardService,
     private readonly detaillantRegistration: DetaillantRegistrationService,
+    private readonly grossisteBRegistration: GrossisteBRegistrationService,
+    private readonly terrainProfileIdentity: TerrainProfileIdentityService,
     private readonly terrainSearchService: TerrainSearchService,
   ) {}
 
@@ -571,6 +576,46 @@ export class CommerceFoundationApiController {
     return this.mappers.mapProducer(endpoint, organizationId || DEMO_ORG_PRODUCER);
   }
 
+  @Get("terrain/profile-identity/:userKey")
+  async getTerrainProfileIdentity(@Param("userKey") userKey: string) {
+    const payload = await this.terrainProfileIdentity.get(String(userKey ?? ""));
+    return envelope(payload);
+  }
+
+  @Put("terrain/profile-identity")
+  async upsertTerrainProfileIdentity(
+    @Body()
+    body: {
+      userKey: string;
+      enabledProfiles?: string[];
+      primaryProfile?: string | null;
+      currentActiveProfile: string;
+      lastActiveProfile?: string | null;
+      activatedAt?: string;
+      switchedAt?: string;
+      switchReason?: string;
+      source?: string;
+      switchCount?: number;
+      profileSessionId?: string;
+      activeProfileVersion?: number;
+      lastSyncedAt?: string;
+      deviceId?: string;
+      lastDeviceId?: string;
+      permissions?: Record<string, unknown>;
+    },
+  ) {
+    const payload = await this.terrainProfileIdentity.upsert({
+      userKey: String(body.userKey ?? ""),
+      enabledProfiles: Array.isArray(body.enabledProfiles) ? body.enabledProfiles.map(String) : [],
+      primaryProfile: body.primaryProfile ? String(body.primaryProfile) : null,
+      currentActiveProfile: String(body.currentActiveProfile ?? ""),
+      activatedAt: body.activatedAt,
+      switchedAt: body.switchedAt,
+      source: body.source,
+    });
+    return envelope(payload);
+  }
+
   @Get("terrain/search")
   async terrainSearch(
     @Query("q") q: string,
@@ -578,6 +623,18 @@ export class CommerceFoundationApiController {
     @Query("actorRole") actorRole?: string,
   ) {
     const result = await this.terrainSearchService.search(String(q ?? ""), String(organizationId ?? ""), actorRole);
+    return envelope(result);
+  }
+
+  @Post("detaillant/restore-session")
+  async restoreDetaillantSession(@Body() body: { phone: string }) {
+    const result = await this.detaillantRegistration.restoreSessionByPhone(String(body.phone ?? ""));
+    return envelope(result);
+  }
+
+  @Post("grossiste-b/restore-session")
+  async restoreGrossisteBSession(@Body() body: { phone: string }) {
+    const result = await this.grossisteBRegistration.restoreSessionByPhone(String(body.phone ?? ""));
     return envelope(result);
   }
 
@@ -598,6 +655,25 @@ export class CommerceFoundationApiController {
       activities: Array.isArray(body.activities) ? body.activities.map(String) : [],
       city: String(body.city ?? ""),
       businessName: body.businessName ? String(body.businessName) : undefined,
+    });
+    return envelope(result);
+  }
+
+  @Post("grossiste-b/register")
+  async registerGrossisteB(
+    @Body()
+    body: {
+      phone: string;
+      displayName: string;
+      activities?: string[];
+      city: string;
+    },
+  ) {
+    const result = await this.grossisteBRegistration.register({
+      phone: String(body.phone ?? ""),
+      displayName: String(body.displayName ?? ""),
+      activities: Array.isArray(body.activities) ? body.activities.map(String) : [],
+      city: String(body.city ?? ""),
     });
     return envelope(result);
   }

@@ -1,8 +1,8 @@
 import type { VenextActorRole, VenextAuthFlags } from "./venext-auth.types";
 
 export const BCEAO_SECURED_BALANCE_THRESHOLD_FCFA = 1000;
-/** Instruction 20.78-B — inactivité terrain en session wallet sécurisée (20 s exactes). */
-export const SECURED_WALLET_IDLE_TIMEOUT_MS = 20_000;
+/** VENEXT-WALLET-SECURITY-01 — inactivité terrain wallet sécurisé (15 s). */
+export const SECURED_WALLET_IDLE_TIMEOUT_MS = 15_000;
 /** Producteur / Grossiste A — session professionnelle (inchangé 20.78-A). */
 export const SECURED_WALLET_INACTIVITY_TIMEOUT_MS = 20 * 60 * 1000;
 export const VENEXT_WALLET_SECURITY_STORAGE_KEY = "venext_wallet_security_v1";

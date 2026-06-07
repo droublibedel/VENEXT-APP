@@ -1,12 +1,13 @@
-export type GrossisteBOnboardingStep = "phone" | "identity" | "activities" | "city" | "done";
+export type GrossisteBOnboardingStep = "profile" | "phone" | "identity" | "activities" | "city" | "done";
 
 export type GrossisteBOnboardingProfile = {
   phone: string;
   otpVerified: boolean;
+  registrationToken?: string;
   displayName: string;
-  businessName?: string;
   activities: string[];
   city: string;
+  organizationId?: string;
   completedAt?: string;
 };
 

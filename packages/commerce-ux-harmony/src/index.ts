@@ -17,6 +17,18 @@ export {
   harmonizeVisibleCopy,
 } from "./commerce-ux-wording-audit";
 export {
+  TERRAIN_ONBOARDING_STEP_LABELS,
+  terrainOnboardingProgressLabel,
+} from "./onboarding/terrain-onboarding-copy";
+export type { TerrainOnboardingStepKey } from "./onboarding/terrain-onboarding-copy";
+export { VenextHiddenDataSourceMarker } from "./components/VenextHiddenDataSourceMarker";
+export {
+  UX_INTERNAL_VOCABULARY_PATTERNS,
+  auditUiFileContent,
+  auditUiStringLiteral,
+} from "./audit/ux-internal-vocabulary-audit";
+export type { UxVocabularyViolation } from "./audit/ux-internal-vocabulary-audit";
+export {
   evaluateNavigationHarmony,
   maxQuickActionsForPlatform,
 } from "./commerce-ux-navigation-rules";
@@ -120,6 +132,7 @@ export { VenextSkeletonSystem } from "./skeleton/venext-skeleton-system-facade";
 
 export { VenextTerrainMobileHeader } from "./VenextTerrainMobileHeader";
 export type { VenextTerrainMobileHeaderProps } from "./VenextTerrainMobileHeader";
+export { VenextTerrainKpiGrid } from "./VenextTerrainKpiGrid";
 export { VenextTerrainGlobalSearch } from "./VenextTerrainGlobalSearch";
 export type {
   TerrainSearchResult,

@@ -178,9 +178,7 @@ function CommercialDeliveryFlowShellInner({
         <h2 className="cdf-title">{title}</h2>
         <p className="cdf-subtitle">Ma livraison avance avec mon activité commerciale.</p>
         {flow.fallbackUsed ? (
-          <span data-testid="cdf-data-fallback" className="cdf-hint">
-            Données de démonstration
-          </span>
+          <span data-testid="cdf-data-fallback" data-fallback="true" aria-hidden />
         ) : null}
       </header>
 

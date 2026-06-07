@@ -4,47 +4,44 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 
 import { VenextTerrainGlobalSearch, VenextTerrainMobileHeader } from "./index";
 
-describe("VenextTerrainMobileHeader", () => {
+describe("VenextTerrainMobileHeader (VENEXT-MOBILE-UX-03)", () => {
   afterEach(() => cleanup());
 
-  it("renders messaging, title, search, notifications slot and profile", () => {
+  it("places profile left and messaging right with search and notifications", () => {
     render(
       <VenextTerrainMobileHeader
-        title="Accueil"
-        brandLabel="VENEXT"
         onMessaging={() => {}}
         onSearch={() => {}}
         onProfile={() => {}}
         notificationsSlot={<span data-testid="notif-slot">N</span>}
       />,
     );
-    expect(screen.getByTestId("venext-terrain-mobile-header")).toBeTruthy();
+    expect(screen.getByTestId("venext-terrain-mobile-header-profile")).toBeTruthy();
     expect(screen.getByTestId("venext-terrain-mobile-header-messaging")).toBeTruthy();
     expect(screen.getByTestId("venext-terrain-mobile-header-search")).toBeTruthy();
-    expect(screen.getByTestId("venext-terrain-mobile-header-profile")).toBeTruthy();
-    expect(screen.getByTestId("venext-terrain-mobile-header-title").textContent).toContain("Accueil");
     expect(screen.getByTestId("notif-slot")).toBeTruthy();
+    expect(screen.queryByTestId("venext-terrain-mobile-header-title")).toBeNull();
+    expect(screen.getByTestId("venext-terrain-mobile-header-logo")).toBeTruthy();
   });
 
-  it("invokes header actions", () => {
+  it("invokes header actions in UX-03 order", () => {
     const onMessaging = vi.fn();
     const onSearch = vi.fn();
     const onProfile = vi.fn();
     render(
       <VenextTerrainMobileHeader
-        title="Réseau"
         onMessaging={onMessaging}
         onSearch={onSearch}
         onProfile={onProfile}
         notificationsSlot={null}
       />,
     );
-    fireEvent.click(screen.getByTestId("venext-terrain-mobile-header-messaging"));
-    fireEvent.click(screen.getByTestId("venext-terrain-mobile-header-search"));
     fireEvent.click(screen.getByTestId("venext-terrain-mobile-header-profile"));
-    expect(onMessaging).toHaveBeenCalledOnce();
-    expect(onSearch).toHaveBeenCalledOnce();
+    fireEvent.click(screen.getByTestId("venext-terrain-mobile-header-search"));
+    fireEvent.click(screen.getByTestId("venext-terrain-mobile-header-messaging"));
     expect(onProfile).toHaveBeenCalledOnce();
+    expect(onSearch).toHaveBeenCalledOnce();
+    expect(onMessaging).toHaveBeenCalledOnce();
   });
 });
 

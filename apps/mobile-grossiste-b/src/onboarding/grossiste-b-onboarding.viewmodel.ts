@@ -1,5 +1,6 @@
 import type { GrossisteBOnboardingProfile } from "./grossiste-b-onboarding.types";
 import { GROSSISTE_B_ONBOARDING_STORAGE_KEY } from "./grossiste-b-onboarding.types";
+import { isValidLocalCiPhone, sanitizeLocalCiPhoneInput } from "./grossiste-b-phone";
 
 export const MOCK_OTP_CODE = "123456";
 
@@ -8,7 +9,6 @@ export function createEmptyGrossisteBProfile(): GrossisteBOnboardingProfile {
     phone: "",
     otpVerified: false,
     displayName: "",
-    businessName: undefined,
     activities: [],
     city: "",
   };
@@ -31,14 +31,21 @@ export function saveGrossisteBOnboardingProfile(profile: GrossisteBOnboardingPro
   );
 }
 
+export function clearGrossisteBOnboardingProfile(): void {
+  localStorage.removeItem(GROSSISTE_B_ONBOARDING_STORAGE_KEY);
+}
+
 export function isGrossisteBOnboardingComplete(): boolean {
   const p = loadGrossisteBOnboardingProfile();
   return Boolean(p?.completedAt && p.otpVerified && p.displayName.trim() && p.city);
 }
 
 export function validateGrossisteBPhone(phone: string): boolean {
-  const digits = phone.replace(/\D/g, "");
-  return digits.length >= 8;
+  return isValidLocalCiPhone(phone);
+}
+
+export function normalizeGrossisteBPhoneForStorage(phone: string): string {
+  return sanitizeLocalCiPhoneInput(phone);
 }
 
 export function validateGrossisteBOtp(otp: string): boolean {

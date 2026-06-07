@@ -1,4 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import {
+  mergeTerrainProfileFeatureFlags,
+  useTerrainProfileRuntimeOptional,
+} from "commerce-terrain-profile-runtime";
 
 export type DetaillantFlagsState = Record<string, boolean | undefined>;
 
@@ -139,8 +143,13 @@ const DEV_DEFAULTS: DetaillantFlagsState = {
 const DEFAULTS = IS_PRODUCTION ? PRODUCTION_DEFAULTS : DEV_DEFAULTS;
 
 export function useDetaillantFeatureFlags() {
-  const [flags, setFlags] = useState<DetaillantFlagsState>(DEFAULTS);
-  const [hydrated, setHydrated] = useState(false);
+  const profileRuntime = useTerrainProfileRuntimeOptional();
+  const activeProfile = profileRuntime?.activeProfile ?? "detaillant";
+  const [flags, setFlags] = useState<DetaillantFlagsState>(() =>
+    mergeTerrainProfileFeatureFlags(DEFAULTS, activeProfile),
+  );
+  const [hydrated, setHydrated] = useState(!IS_PRODUCTION);
+  const everHydratedRef = useRef(hydrated);
 
   useEffect(() => {
     let cancelled = false;
@@ -152,12 +161,15 @@ export function useDetaillantFeatureFlags() {
         const payloadFlags = Object.fromEntries(
           (body?.payload ?? []).map((flag) => [flag.key, flag.enabled]),
         );
-        setFlags({ ...DEFAULTS, ...payloadFlags, ...(body?.flags ?? {}) });
+        const merged = { ...DEFAULTS, ...payloadFlags, ...(body?.flags ?? {}) };
+        setFlags(mergeTerrainProfileFeatureFlags(merged, activeProfile));
+        everHydratedRef.current = true;
         setHydrated(true);
       })
       .catch(() => {
         if (!cancelled) {
-          setFlags(DEFAULTS);
+          setFlags(mergeTerrainProfileFeatureFlags(DEFAULTS, activeProfile));
+          everHydratedRef.current = true;
           setHydrated(true);
         }
       });
@@ -165,7 +177,7 @@ export function useDetaillantFeatureFlags() {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [activeProfile]);
 
-  return { flags, hydrated };
+  return { flags, hydrated: hydrated || everHydratedRef.current };
 }

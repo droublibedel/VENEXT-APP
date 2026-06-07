@@ -1,4 +1,4 @@
-export type DetaillantOnboardingStep = "phone" | "identity" | "activities" | "city" | "done";
+export type DetaillantOnboardingStep = "profile" | "phone" | "identity" | "activities" | "city" | "done";
 
 export type DetaillantOnboardingProfile = {
   phone: string;

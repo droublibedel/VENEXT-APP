@@ -2,6 +2,7 @@
 import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
+import { TERRAIN_PROFILE_STORAGE_KEY } from "commerce-terrain-profile-runtime";
 import { DetaillantQuickOnboarding } from "./DetaillantQuickOnboarding";
 import { DETAILLANT_ONBOARDING_STORAGE_KEY } from "./detaillant-onboarding.types";
 import {
@@ -15,7 +16,15 @@ import {
   validateDetaillantPhone,
 } from "./detaillant-onboarding.viewmodel";
 
+async function goPastTerrainProfileStep() {
+  if (!screen.queryByTestId("terrain-profile-selection")) return;
+  fireEvent.click(screen.getByTestId("terrain-profile-option-detaillant"));
+  fireEvent.click(screen.getByTestId("terrain-profile-continue"));
+  await waitFor(() => expect(screen.getByTestId("dt-onboarding-phone")).toBeTruthy());
+}
+
 async function completeDetaillantOnboarding() {
+  await goPastTerrainProfileStep();
   fireEvent.change(screen.getByTestId("dt-onboarding-phone-input"), {
     target: { value: "0700000002" },
   });
@@ -35,6 +44,7 @@ async function completeDetaillantOnboarding() {
 afterEach(() => {
   cleanup();
   localStorage.removeItem(DETAILLANT_ONBOARDING_STORAGE_KEY);
+  localStorage.removeItem(TERRAIN_PROFILE_STORAGE_KEY);
 });
 
 describe("detaillant onboarding viewmodel", () => {
@@ -77,6 +87,7 @@ describe("detaillant onboarding viewmodel", () => {
 describe("detaillant quick onboarding flow", () => {
   beforeEach(() => {
     localStorage.removeItem(DETAILLANT_ONBOARDING_STORAGE_KEY);
+    localStorage.removeItem(TERRAIN_PROFILE_STORAGE_KEY);
     vi.stubGlobal(
       "fetch",
       vi.fn(async (input: RequestInfo) => {
@@ -96,13 +107,21 @@ describe("detaillant quick onboarding flow", () => {
     );
   });
 
-  it("starts phone-first", async () => {
+  it("starts with profile selection when no primary profile", async () => {
     render(<DetaillantQuickOnboarding onComplete={vi.fn()} />);
-    await waitFor(() => expect(screen.getByTestId("dt-onboarding-phone")).toBeTruthy());
+    await waitFor(() => expect(screen.getByTestId("terrain-profile-selection")).toBeTruthy());
+  });
+
+  it("uses premium onboarding copy without internal vocabulary", async () => {
+    render(<DetaillantQuickOnboarding onComplete={vi.fn()} />);
+    await waitFor(() => expect(screen.getByTestId("dt-onboarding-progress")).toBeTruthy());
+    expect(screen.getByTestId("dt-onboarding-progress").textContent).toMatch(/Commençons/);
+    expect(screen.queryByText(/terrain rapide|profil principal|pas de fiche/i)).toBeNull();
   });
 
   it("OTP auto simulation", async () => {
     render(<DetaillantQuickOnboarding onComplete={vi.fn()} />);
+    await goPastTerrainProfileStep();
     fireEvent.change(screen.getByTestId("dt-onboarding-phone-input"), {
       target: { value: "0700000000" },
     });
@@ -113,6 +132,7 @@ describe("detaillant quick onboarding flow", () => {
 
   it("single identity field only", async () => {
     render(<DetaillantQuickOnboarding onComplete={vi.fn()} />);
+    await goPastTerrainProfileStep();
     fireEvent.change(screen.getByTestId("dt-onboarding-phone-input"), {
       target: { value: "0700000000" },
     });
@@ -124,6 +144,7 @@ describe("detaillant quick onboarding flow", () => {
 
   it("pseudo Sarah grossiste", async () => {
     render(<DetaillantQuickOnboarding onComplete={vi.fn()} />);
+    await goPastTerrainProfileStep();
     fireEvent.change(screen.getByTestId("dt-onboarding-phone-input"), {
       target: { value: "0700000000" },
     });
@@ -138,6 +159,7 @@ describe("detaillant quick onboarding flow", () => {
 
   it("multi activities", async () => {
     render(<DetaillantQuickOnboarding onComplete={vi.fn()} />);
+    await goPastTerrainProfileStep();
     fireEvent.change(screen.getByTestId("dt-onboarding-phone-input"), {
       target: { value: "0700000000" },
     });
@@ -155,6 +177,7 @@ describe("detaillant quick onboarding flow", () => {
 
   it("city selection", async () => {
     render(<DetaillantQuickOnboarding onComplete={vi.fn()} />);
+    await goPastTerrainProfileStep();
     fireEvent.change(screen.getByTestId("dt-onboarding-phone-input"), {
       target: { value: "0700000000" },
     });
@@ -172,7 +195,7 @@ describe("detaillant quick onboarding flow", () => {
 
   it("no logo or boutique required", async () => {
     render(<DetaillantQuickOnboarding onComplete={vi.fn()} />);
-    await waitFor(() => screen.getByTestId("dt-onboarding-phone"));
+    await goPastTerrainProfileStep();
     expect(screen.queryByTestId("dt-onboarding-logo")).toBeNull();
     expect(screen.queryByTestId("dt-onboarding-business-name")).toBeNull();
   });

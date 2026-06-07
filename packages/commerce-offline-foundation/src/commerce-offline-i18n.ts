@@ -5,8 +5,8 @@ const FR: Dict = {
   "offline.banner.offline": "Hors ligne — activité sauvegardée",
   "offline.sync.pending": "Synchronisation en attente",
   "offline.sync.done": "Activité à jour",
-  "offline.sync.update": "Mise à jour disponible",
-  "offline.queue.empty": "Aucune action en attente",
+  "offline.sync.update": "Nouveautés à synchroniser",
+  "offline.queue.empty": "Tout est à jour",
   "offline.queue.title": "Actions en attente",
   "offline.connectivity.online": "En ligne",
   "offline.connectivity.degraded": "Connexion faible",
@@ -25,7 +25,7 @@ const EN: Dict = {
   "offline.banner.offline": "Offline — activity saved",
   "offline.sync.pending": "Sync pending",
   "offline.sync.done": "Up to date",
-  "offline.sync.update": "Update available",
+  "offline.sync.update": "Updates to sync",
 };
 
 const AR: Dict = { ...FR, "offline.banner.weak": "اتصال ضعيف", "offline.connectivity.offline": "غير متصل" };

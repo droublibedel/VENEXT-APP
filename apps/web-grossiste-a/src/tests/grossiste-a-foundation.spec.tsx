@@ -110,12 +110,12 @@ describe("grossiste A web foundation", () => {
     await waitFor(() => expect(screen.getByTestId("ga-intelligence-hints")).toBeTruthy());
   });
 
-  it("shows fallback demo badge", async () => {
+  it("marks fallback data source without visible demo copy", async () => {
     render(<GrossisteAAppShell />);
     await waitFor(() => {
       const badges = screen.getAllByTestId("grossiste-a-data-source");
       expect(badges[0]?.getAttribute("data-fallback")).toBe("true");
-      expect(badges[0]?.textContent).toContain("démonstration");
+      expect(badges[0]?.textContent?.trim()).toBe("");
     });
   });
 

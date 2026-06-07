@@ -1,17 +1,18 @@
 import { CommerceOfflineShell } from "commerce-offline-foundation";
 
 import { useGrossisteFeatureFlags } from "../hooks/useGrossisteFeatureFlags";
-import { GROSSISTE_B_ORG_ID } from "../mocks/grossiste-b-mock-data";
+import { resolveGrossisteBOrganizationId } from "../session/resolveGrossisteBOrganizationId";
 
 export function GrossisteBOfflineBridge() {
   const { flags, hydrated } = useGrossisteFeatureFlags();
   return (
     <CommerceOfflineShell
-      organizationId={GROSSISTE_B_ORG_ID}
+      organizationId={resolveGrossisteBOrganizationId()}
       actorRole="GROSSISTE_B"
       flags={flags}
       flagsHydrated={hydrated}
-      showQueue
+      showQueue={false}
+      terrainMinimal
     />
   );
 }

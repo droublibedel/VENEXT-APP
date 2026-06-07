@@ -182,9 +182,7 @@ function RelationalOrderOrchestrationShellInner({
         <h2 className="roo-title">{title}</h2>
         <p className="roo-subtitle">Votre commande avance dans votre activité commerciale.</p>
         {orch.fallbackUsed ? (
-          <span data-testid="roo-data-fallback" className="roo-hint">
-            Données de démonstration
-          </span>
+          <span data-testid="roo-data-fallback" data-fallback="true" aria-hidden />
         ) : null}
       </header>
 

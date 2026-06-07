@@ -1,4 +1,5 @@
 import { memo } from "react";
+import { VenextHiddenDataSourceMarker } from "commerce-ux-harmony";
 
 import type { CommerceWalletPanel } from "../hooks/commerce-wallet.types";
 
@@ -25,14 +26,11 @@ export const CommerceWalletSidebar = memo(function CommerceWalletSidebar({
   return (
     <aside className="cw-sidebar" data-testid={testId}>
       <p className="cw-sidebar-title">RÈGLEMENTS COMMERCE</p>
-      <p
-        className="cw-source"
-        data-testid="cw-data-source"
-        data-fallback={fallbackUsed ? "true" : "false"}
-        data-source={dataSource}
-      >
-        {fallbackUsed ? "Données de démonstration" : "Données synchronisées"}
-      </p>
+      <VenextHiddenDataSourceMarker
+        testId="cw-data-source"
+        dataSource={dataSource}
+        fallbackUsed={fallbackUsed}
+      />
       <nav className="cw-sidebar-nav" aria-label="Sections wallet">
         {PANELS.map((p) => (
           <button

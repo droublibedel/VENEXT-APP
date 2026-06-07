@@ -9,6 +9,7 @@ export { CommercePartnerPaymentCard } from "./payments/CommercePartnerPaymentCar
 export { CommercePaymentStatusCard } from "./payments/CommercePaymentStatusCard";
 export { CommercePaymentActivityStrip } from "./payments/CommercePaymentActivityStrip";
 export { CommerceWalletGovernanceBadge } from "./governance/CommerceWalletGovernanceBadge";
+export { resolveWalletLiveEnabled } from "./wallet/resolve-wallet-live-enabled";
 export {
   useCommerceWalletBalance,
   useCommerceTransactions,

@@ -1,7 +1,19 @@
 import { lazy, memo, Suspense, useCallback, useMemo, useState } from "react";
+import {
+  ensureTerrainProfileIdentity,
+  getTerrainProfileState,
+  loadTerrainProfileState,
+  resolveTerrainProfileBootstrap,
+  saveTerrainProfileState,
+  setTerrainUserKey,
+  TerrainProfileSelectionStep,
+} from "commerce-terrain-profile-runtime";
+import { terrainOnboardingProgressLabel, type TerrainOnboardingStepKey } from "commerce-ux-harmony";
+
 import { VenextScreenLoader } from "../ux/VenextScreenLoader";
 
 import type { DetaillantOnboardingProfile, DetaillantOnboardingStep } from "./detaillant-onboarding.types";
+import type { TerrainProfileId } from "commerce-terrain-profile-runtime";
 import { completeDetaillantRegistration } from "./detaillant-onboarding-api";
 import { toInternationalCiPhone } from "./detaillant-phone";
 import { createEmptyDetaillantProfile, saveDetaillantOnboardingProfile } from "./detaillant-onboarding.viewmodel";
@@ -21,10 +33,17 @@ const DetaillantCityStep = lazy(() =>
 
 export const DetaillantQuickOnboarding = memo(function DetaillantQuickOnboarding({
   onComplete,
+  onSwitchToLogin,
 }: {
   onComplete: () => void;
+  onSwitchToLogin?: () => void;
 }) {
-  const [step, setStep] = useState<DetaillantOnboardingStep>("phone");
+  const [step, setStep] = useState<DetaillantOnboardingStep>(() =>
+    getTerrainProfileState().primaryProfile ? "phone" : "profile",
+  );
+  const [terrainProfileChoice, setTerrainProfileChoice] = useState<TerrainProfileId | null>(
+    getTerrainProfileState().primaryProfile ?? "detaillant",
+  );
   const [profile, setProfile] = useState<DetaillantOnboardingProfile>(createEmptyDetaillantProfile);
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
@@ -65,21 +84,72 @@ export const DetaillantQuickOnboarding = memo(function DetaillantQuickOnboarding
       completedAt: new Date().toISOString(),
     };
     saveDetaillantOnboardingProfile(done);
+    const userKey =
+      toInternationalCiPhone(profile.phone).replace(/\D/g, "").slice(-10) || result.organizationId;
+    setTerrainUserKey(userKey);
+    const chosen =
+      terrainProfileChoice ?? resolveTerrainProfileBootstrap(userKey, "detaillant");
+    try {
+      await ensureTerrainProfileIdentity(userKey, chosen, "onboarding");
+    } catch {
+      // Le compte commerce est créé ; la synchro profil sera retentée à la connexion.
+    }
     onComplete();
-  }, [profile, onComplete]);
+  }, [profile, onComplete, terrainProfileChoice]);
 
   const stepIndex = useMemo(() => {
-    const order: DetaillantOnboardingStep[] = ["phone", "identity", "activities", "city"];
+    const order: DetaillantOnboardingStep[] = ["profile", "phone", "identity", "activities", "city"];
     return order.indexOf(step) + 1;
   }, [step]);
+
+  const progressLabel = useMemo(
+    () => terrainOnboardingProgressLabel(stepIndex, step as TerrainOnboardingStepKey),
+    [step, stepIndex],
+  );
 
   return (
     <div className="detaillant-app" data-testid="dt-quick-onboarding">
       <main className="detaillant-main" style={{ padding: 16 }}>
+        {onSwitchToLogin && step === "profile" ? (
+          <button
+            type="button"
+            data-testid="dt-onboarding-to-login"
+            onClick={onSwitchToLogin}
+            style={{
+              marginBottom: 12,
+              border: "none",
+              background: "transparent",
+              color: "var(--venext-accent)",
+              fontWeight: 600,
+              fontSize: 13,
+            }}
+          >
+            Déjà inscrit ? Se connecter
+          </button>
+        ) : null}
         <p style={{ fontSize: 11, color: "var(--venext-accent)", margin: "0 0 12px" }} data-testid="dt-onboarding-progress">
-          Étape {stepIndex} / 4 — inscription terrain rapide
+          {progressLabel}
         </p>
         <Suspense fallback={<VenextScreenLoader variant="form" />}>
+          {step === "profile" ? (
+            <TerrainProfileSelectionStep
+              selected={terrainProfileChoice}
+              onSelect={setTerrainProfileChoice}
+              onContinue={() => {
+                if (!terrainProfileChoice) return;
+                const state = loadTerrainProfileState();
+                saveTerrainProfileState({
+                  ...state,
+                  primaryProfile: terrainProfileChoice,
+                  currentActiveProfile: terrainProfileChoice,
+                  enabledProfiles: state.enabledProfiles.includes(terrainProfileChoice)
+                    ? state.enabledProfiles
+                    : [...state.enabledProfiles, terrainProfileChoice],
+                });
+                setStep("phone");
+              }}
+            />
+          ) : null}
           {step === "phone" ? (
             <DetaillantPhoneStep
               phone={profile.phone}

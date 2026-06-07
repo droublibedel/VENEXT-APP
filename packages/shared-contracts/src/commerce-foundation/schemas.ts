@@ -175,6 +175,7 @@ export const CommerceFoundationEntityTypeSchema = z.enum([
   "EnterpriseTrustedDevice",
   "EnterpriseGovernanceHistory",
   "GovernanceActionNote",
+  "TerrainBusinessIdentity",
 ]);
 
 export type CommerceFoundationEntityType = z.infer<typeof CommerceFoundationEntityTypeSchema>;

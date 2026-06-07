@@ -1,4 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import {
+  mergeTerrainProfileFeatureFlags,
+  useTerrainProfileRuntimeOptional,
+} from "commerce-terrain-profile-runtime";
 
 export type GrossisteFlagsState = Record<string, boolean | undefined>;
 
@@ -141,8 +145,13 @@ const DEV_DEFAULTS: GrossisteFlagsState = {
 const DEFAULTS = IS_PRODUCTION ? PRODUCTION_DEFAULTS : DEV_DEFAULTS;
 
 export function useGrossisteFeatureFlags() {
-  const [flags, setFlags] = useState<GrossisteFlagsState>(DEFAULTS);
-  const [hydrated, setHydrated] = useState(false);
+  const profileRuntime = useTerrainProfileRuntimeOptional();
+  const activeProfile = profileRuntime?.activeProfile ?? "grossiste_b";
+  const [flags, setFlags] = useState<GrossisteFlagsState>(() =>
+    mergeTerrainProfileFeatureFlags(DEFAULTS, activeProfile),
+  );
+  const [hydrated, setHydrated] = useState(!IS_PRODUCTION);
+  const everHydratedRef = useRef(hydrated);
 
   useEffect(() => {
     let cancelled = false;
@@ -153,12 +162,14 @@ export function useGrossisteFeatureFlags() {
       .then((body: { flags?: Record<string, boolean> } | null) => {
         if (cancelled) return;
         const remote = body?.flags ?? {};
-        setFlags({ ...base, ...remote });
+        setFlags(mergeTerrainProfileFeatureFlags({ ...base, ...remote }, activeProfile));
+        everHydratedRef.current = true;
         setHydrated(true);
       })
       .catch(() => {
         if (!cancelled) {
-          setFlags(base);
+          setFlags(mergeTerrainProfileFeatureFlags(base, activeProfile));
+          everHydratedRef.current = true;
           setHydrated(true);
         }
       });
@@ -166,7 +177,7 @@ export function useGrossisteFeatureFlags() {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [activeProfile]);
 
-  return { flags, hydrated };
+  return { flags, hydrated: hydrated || everHydratedRef.current };
 }

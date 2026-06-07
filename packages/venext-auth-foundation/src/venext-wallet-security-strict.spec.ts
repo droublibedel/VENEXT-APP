@@ -41,19 +41,19 @@ describe("venext-wallet-security strict terrain (20.78-B)", () => {
     vi.useRealTimers();
   });
 
-  it("SECURED_WALLET_IDLE_TIMEOUT_MS is exactly 20 seconds", () => {
-    expect(SECURED_WALLET_IDLE_TIMEOUT_MS).toBe(20_000);
+  it("SECURED_WALLET_IDLE_TIMEOUT_MS is exactly 15 seconds", () => {
+    expect(SECURED_WALLET_IDLE_TIMEOUT_MS).toBe(15_000);
   });
 
-  it("terrain secured mode uses 20 second idle timeout when flag on", () => {
+  it("terrain secured mode uses 15 second idle timeout when flag on", () => {
     const r = resolveWalletSecurityMode({
       actorRole: "GROSSISTE_B",
       balanceFcfa: 1500,
       flags: terrainStrictFlags,
     });
     expect(r.mode).toBe("SECURED_WALLET_MODE");
-    expect(r.inactivityTimeoutMs).toBe(20_000);
-    expect(resolveTerrainSecuredIdleTimeoutMs(terrainStrictFlags)).toBe(20_000);
+    expect(r.inactivityTimeoutMs).toBe(15_000);
+    expect(resolveTerrainSecuredIdleTimeoutMs(terrainStrictFlags)).toBe(15_000);
   });
 
   it("producer formal mode keeps 20 minute timeout", () => {
@@ -99,7 +99,7 @@ describe("venext-wallet-security strict terrain (20.78-B)", () => {
     expect(readWalletSecurityState().locked).toBe(false);
   });
 
-  it("20 second inactivity timeout expires session", () => {
+  it("15 second inactivity timeout expires session", () => {
     vi.useFakeTimers();
     configureWalletPin("4321");
     secureWalletSession("4321");

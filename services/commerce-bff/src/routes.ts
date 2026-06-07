@@ -30,7 +30,13 @@ import {
   bffPartnerSuggestions,
 } from "./terrain-audio/terrain-audio-store.js";
 import { registerDetaillantOnboardingRoutes } from "./detaillant-onboarding/detaillant-onboarding.routes.js";
+import { registerGrossisteBOnboardingRoutes } from "./grossiste-b-onboarding/grossiste-b-onboarding.routes.js";
+import { registerTerrainProfileRoutes } from "./terrain-profile/terrain-profile.routes.js";
+import { registerCommerceMarketCatalogRoutes } from "./commerce-market-catalog/commerce-market-catalog.routes.js";
+import { createTerrainProfileGuard } from "./terrain-profile/terrain-profile-guard.js";
 import { registerTerrainSearchRoutes } from "./terrain-search/terrain-search.routes.js";
+import { registerTerrainLoginRoutes } from "./terrain-login/terrain-login.routes.js";
+import { registerWalletPlatformRoutes } from "./wallet-platform/wallet-platform.routes.js";
 import { registerTerrainOtpRoutes } from "./terrain-otp/terrain-otp.routes.js";
 
 function maybeShapeListEnvelope(body: unknown, maxItems?: number): unknown {
@@ -108,8 +114,13 @@ export function registerRoutes(app: Express) {
   });
 
   registerTerrainOtpRoutes(app);
+  registerTerrainLoginRoutes(app);
   registerDetaillantOnboardingRoutes(app);
+  registerGrossisteBOnboardingRoutes(app);
+  registerTerrainProfileRoutes(app);
+  registerCommerceMarketCatalogRoutes(app);
   registerTerrainSearchRoutes(app);
+  registerWalletPlatformRoutes(app);
 
   app.get("/api/feature-flags", async (_req, res) => {
     await proxyCore(res, "/commerce-foundation/feature-flags", () => [
@@ -121,8 +132,10 @@ export function registerRoutes(app: Express) {
 
   const guardActorEndpoint = createEndpointAccessGuard();
   const guardGrossisteASeparation = createGrossisteASeparationMiddleware();
+  const guardGrossisteBProfile = createTerrainProfileGuard("GROSSISTE_B");
+  const guardDetaillantProfile = createTerrainProfileGuard("DETAILLANT");
 
-  app.get("/api/grossiste-b/:endpoint", guardActorEndpoint, async (req, res) => {
+  app.get("/api/grossiste-b/:endpoint", guardGrossisteBProfile, guardActorEndpoint, async (req, res) => {
     const org = String(req.query.organizationId ?? "org-grossiste-b-demo");
     const endpoint = String(req.params.endpoint);
     await proxyCore(
@@ -152,7 +165,7 @@ export function registerRoutes(app: Express) {
     );
   });
 
-  app.get("/api/detaillant/:endpoint", async (req, res) => {
+  app.get("/api/detaillant/:endpoint", guardDetaillantProfile, async (req, res) => {
     const org = String(req.query.organizationId ?? "org-detaillant-yopougon");
     const endpoint = String(req.params.endpoint);
     await proxyCore(

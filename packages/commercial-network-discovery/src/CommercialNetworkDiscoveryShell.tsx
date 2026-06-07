@@ -141,14 +141,13 @@ function DiscoveryShellInner({
         </p>
       ) : null}
 
-      <p
-        className="cnd-hint"
+      <span
+        className="venext-sr-only"
         data-testid="cnd-data-source"
         data-source={discovery.dataSource}
         data-fallback={discovery.fallbackUsed ? "true" : "false"}
-      >
-        {discovery.fallbackUsed ? "Données de démonstration enrichies" : "Réseau synchronisé"}
-      </p>
+        aria-hidden
+      />
     </section>
   );
 }

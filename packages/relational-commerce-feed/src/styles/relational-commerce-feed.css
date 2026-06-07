@@ -37,3 +37,28 @@
   font-weight: 600;
   font-size: 14px;
 }
+
+.rcf-shell--empty {
+  gap: 10px;
+}
+
+.rcf-skeleton-card {
+  min-height: 88px;
+}
+
+.rcf-skeleton-line {
+  height: 10px;
+  border-radius: 6px;
+  background: linear-gradient(90deg, #eef1ef 0%, #f6f8f7 50%, #eef1ef 100%);
+  margin-bottom: 8px;
+}
+
+.rcf-skeleton-line--title {
+  width: 55%;
+  height: 12px;
+}
+
+.rcf-skeleton-line--short {
+  width: 35%;
+  margin-bottom: 0;
+}

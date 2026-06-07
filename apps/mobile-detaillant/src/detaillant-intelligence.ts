@@ -66,6 +66,17 @@ export function buildDemandHints(products: DetaillantProductsDto | null): Detail
   return hints;
 }
 
+export function buildHomeSummary(home: DetaillantHomeDto | null): string | null {
+  if (!home) return null;
+  const suggestion = home.discreetSuggestions?.[0]?.trim();
+  if (suggestion) return sanitizeDetaillantText(suggestion);
+  if ((home.activePartners ?? 0) > 0) {
+    return `${home.activePartners} partenaire${home.activePartners > 1 ? "s" : ""} actif${home.activePartners > 1 ? "s" : ""} dans votre réseau.`;
+  }
+  if (home.salesTodayLabel) return `Ventes du jour : ${home.salesTodayLabel}.`;
+  return null;
+}
+
 export function buildPartnerHints(network: DetaillantNetworkDto | null): DetaillantHint[] {
   if (!network) return [];
   return network.networkSuggestions.slice(0, 3).map((text, i) => ({

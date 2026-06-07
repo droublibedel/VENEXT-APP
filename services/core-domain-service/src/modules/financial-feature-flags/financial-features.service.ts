@@ -22,6 +22,10 @@ export class FinancialFeaturesService {
   async snapshotForOrg(organizationId?: string, regionCode?: string) {
     const keys = [
       "wallet_enabled",
+      "wallet_kyc_enabled",
+      "wallet_biometric_enabled",
+      "wallet_auto_lock_enabled",
+      "wallet_provider_gateway_enabled",
       "qr_enabled",
       "nfc_enabled",
       "payments_enabled",

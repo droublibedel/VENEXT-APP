@@ -24,10 +24,10 @@ function GrossisteBLegacySessionSync({ children }: { children: ReactNode }) {
     establishTerrainSession({
       phone: legacy.phone,
       displayName: legacy.displayName,
-      businessName: legacy.businessName,
       activities: legacy.activities ?? [],
       city: legacy.city,
       otpVerified: true,
+      organizationId: legacy.organizationId,
     });
   }, [isAuthenticated, establishTerrainSession]);
 

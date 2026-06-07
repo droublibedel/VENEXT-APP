@@ -11,7 +11,7 @@ import {
 } from "commerce-performance-foundation";
 
 import { useGrossisteFeatureFlags } from "../hooks/useGrossisteFeatureFlags";
-import { GROSSISTE_B_ORG_ID } from "../mocks/grossiste-b-mock-data";
+import { resolveGrossisteBOrganizationId } from "../session/resolveGrossisteBOrganizationId";
 
 /** Performance + session cleanup (Instructions 20.85 / 20.85-A). */
 export function GrossisteBPerformanceBridge() {
@@ -19,7 +19,7 @@ export function GrossisteBPerformanceBridge() {
 
   useEffect(() => {
     if (!hydrated || !isCommercePerformanceEnabled(flags)) return;
-    runCommerceStorageCleanup(GROSSISTE_B_ORG_ID);
+    runCommerceStorageCleanup(resolveGrossisteBOrganizationId());
   }, [flags, hydrated]);
 
   useEffect(() => {
@@ -27,7 +27,7 @@ export function GrossisteBPerformanceBridge() {
 
     const unsubSession = subscribeCommerceSessionCleanup((detail) => {
       runFullCommerceSessionCleanup({
-        organizationId: detail.organizationId || GROSSISTE_B_ORG_ID,
+        organizationId: detail.organizationId || resolveGrossisteBOrganizationId(),
         reason: detail.reason,
       });
     });

@@ -1,0 +1,10 @@
+.vtkg-grid {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.vtkg-grid > * {
+  min-height: 96px;
+  height: 100%;
+}

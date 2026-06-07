@@ -6,12 +6,13 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "start": "node dist/index.js",
-    "dev": "NODE_OPTIONS='--env-file=../../.env' tsx watch src/index.ts",
+    "dev": "node --env-file=../../.env ./node_modules/tsx/dist/cli.mjs watch src/index.ts",
     "test": "vitest run"
   },
   "dependencies": {
     "backoffice-operational": "file:../../packages/backoffice-operational",
     "commerce-access-control": "file:../../packages/commerce-access-control",
+    "commerce-economic-lanes": "file:../../packages/commerce-economic-lanes",
     "commerce-humanized-errors": "file:../../packages/commerce-humanized-errors",
     "commercial-location-terrain": "file:../../packages/commercial-location-terrain",
     "enterprise-commercial-governance": "file:../../packages/enterprise-commercial-governance",

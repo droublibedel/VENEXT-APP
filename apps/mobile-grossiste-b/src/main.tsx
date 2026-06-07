@@ -1,6 +1,7 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { MobileCommerceErrorBoundary } from "commerce-humanized-errors";
+import { ProfileRuntimeProvider } from "commerce-terrain-profile-runtime";
 
 import { GrossisteBAppShell } from "./app-shell/GrossisteBAppShell";
 import { GrossisteBAuthProvider } from "./auth/GrossisteBAuthProvider";
@@ -18,9 +19,11 @@ root.render(
   <StrictMode>
     <GrossisteVenextLocale>
       <MobileCommerceErrorBoundary locale="fr-CI" onBack={() => window.history.back()}>
-        <GrossisteBAuthProvider>
-          <GrossisteBAppShell />
-        </GrossisteBAuthProvider>
+        <ProfileRuntimeProvider>
+          <GrossisteBAuthProvider>
+            <GrossisteBAppShell />
+          </GrossisteBAuthProvider>
+        </ProfileRuntimeProvider>
       </MobileCommerceErrorBoundary>
     </GrossisteVenextLocale>
   </StrictMode>,

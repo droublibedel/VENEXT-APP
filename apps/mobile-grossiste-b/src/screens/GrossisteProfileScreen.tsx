@@ -1,5 +1,7 @@
 import { memo } from "react";
 
+import { performGrossisteBLogout } from "../session/grossiste-b-session";
+import { TerrainProfileSettingsSection } from "commerce-terrain-profile-runtime";
 import { useVenextAuthOptional } from "venext-auth-foundation";
 import { VenextLanguageSelector, useVenextT } from "venext-i18n";
 
@@ -78,6 +80,7 @@ export const GrossisteProfileScreen = memo(function GrossisteProfileScreen({
       </article>
 
       <h2 style={{ fontSize: 14, margin: "16px 0 8px", color: "var(--venext-text-muted)" }}>{t("settings")}</h2>
+      <TerrainProfileSettingsSection className="grossiste-b-card" />
       <article
         className="grossiste-b-card"
         data-testid="grossiste-profile-settings"
@@ -99,7 +102,7 @@ export const GrossisteProfileScreen = memo(function GrossisteProfileScreen({
           <button
             type="button"
             data-testid="grossiste-auth-logout"
-            onClick={() => auth.logout()}
+            onClick={() => performGrossisteBLogout(auth)}
             style={{
               marginTop: 16,
               width: "100%",

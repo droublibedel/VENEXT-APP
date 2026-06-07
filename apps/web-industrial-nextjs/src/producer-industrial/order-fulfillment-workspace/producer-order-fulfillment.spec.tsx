@@ -51,7 +51,8 @@ describe("producer order fulfillment workspace", () => {
   it("shows fallback data when API fails", async () => {
     render(<ProducerOrderFulfillmentWorkspace />);
     await waitFor(() => {
-      expect(screen.getAllByText(/démonstration enrichies|synchronisées/i).length).toBeGreaterThan(0);
+      expect(screen.getByTestId("producer-data-source-hint").getAttribute("data-fallback")).toBe("true");
+      expect(screen.queryByText(/démonstration enrichies|synchronisées/i)).toBeNull();
     });
   });
 

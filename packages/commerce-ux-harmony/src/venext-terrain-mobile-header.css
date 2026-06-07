@@ -3,7 +3,7 @@
   grid-template-columns: auto 1fr auto;
   align-items: center;
   gap: 8px;
-  padding: 8px 12px 10px;
+  padding: 6px 10px 8px;
   background: var(--venext-surface, #fff);
   border-bottom: 1px solid var(--venext-border, #e8ece9);
   position: sticky;
@@ -15,32 +15,24 @@
 .vtmh-right {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 2px;
 }
 
 .vtmh-center {
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   min-width: 0;
 }
 
-.vtmh-brand {
+.vtmh-logo-mark {
   display: block;
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--venext-accent, #008f73);
-  margin-bottom: 2px;
-}
-
-.vtmh-title {
-  margin: 0;
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--venext-text, #17201c);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  border: 1.5px solid var(--venext-border, rgba(23, 32, 28, 0.12));
+  background: linear-gradient(145deg, #fafbfb 0%, #f0f2f1 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
 }
 
 .vtmh-icon-btn {
@@ -85,4 +77,5 @@
   border-radius: 10px;
   background: transparent;
   box-shadow: none;
+  color: var(--venext-text, #17201c);
 }

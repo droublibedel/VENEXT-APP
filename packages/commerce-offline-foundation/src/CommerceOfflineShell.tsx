@@ -11,6 +11,8 @@ type Props = {
   flagsHydrated?: boolean;
   locale?: string;
   showQueue?: boolean;
+  /** Masque sync idle et file vide — UI terrain premium (VENEXT-MOBILE-UX-03). */
+  terrainMinimal?: boolean;
 };
 
 export function CommerceOfflineShell({
@@ -20,6 +22,7 @@ export function CommerceOfflineShell({
   flagsHydrated = true,
   locale = "fr-CI",
   showQueue = true,
+  terrainMinimal = false,
 }: Props) {
   const offline = useCommerceOffline({
     organizationId,
@@ -31,11 +34,17 @@ export function CommerceOfflineShell({
 
   if (flags.commerce_offline_foundation_enabled === false) return null;
 
+  const showSync = !terrainMinimal || offline.sync.pendingCount > 0;
+  const showQueuePanel =
+    showQueue && flags.commerce_offline_queue_enabled !== false && (!terrainMinimal || offline.queue.length > 0);
+
   return (
     <div data-testid="cof-shell">
       <CommerceOfflineBanner mode={offline.connectivity} locale={locale} />
-      <CommerceSyncStatus sync={offline.sync} locale={locale} onSync={() => void offline.syncNow()} />
-      {showQueue && flags.commerce_offline_queue_enabled !== false ? (
+      {showSync ? (
+        <CommerceSyncStatus sync={offline.sync} locale={locale} onSync={() => void offline.syncNow()} />
+      ) : null}
+      {showQueuePanel ? (
         <CommerceOfflineQueue
           items={offline.queue}
           locale={locale}

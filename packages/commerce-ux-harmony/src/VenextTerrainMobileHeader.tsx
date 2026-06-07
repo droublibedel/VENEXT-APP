@@ -2,13 +2,11 @@ import type { ReactNode } from "react";
 import { memo } from "react";
 
 export type VenextTerrainMobileHeaderProps = {
-  title: string;
   onMessaging: () => void;
   onSearch: () => void;
   onProfile: () => void;
   notificationsSlot: ReactNode;
   messagingUnread?: number;
-  brandLabel?: string;
   "data-testid"?: string;
 };
 
@@ -38,18 +36,28 @@ function IconButton({
 }
 
 export const VenextTerrainMobileHeader = memo(function VenextTerrainMobileHeader({
-  title,
   onMessaging,
   onSearch,
   onProfile,
   notificationsSlot,
   messagingUnread = 0,
-  brandLabel,
   "data-testid": testId = "venext-terrain-mobile-header",
 }: VenextTerrainMobileHeaderProps) {
   return (
     <header className="vtmh-root" data-testid={testId}>
       <div className="vtmh-left">
+        <IconButton label="Profil" onClick={onProfile} testId={`${testId}-profile`}>
+          <UserIcon />
+        </IconButton>
+      </div>
+      <div className="vtmh-center" data-testid={`${testId}-logo`} aria-hidden>
+        <span className="vtmh-logo-mark" />
+      </div>
+      <div className="vtmh-right">
+        <IconButton label="Rechercher" onClick={onSearch} testId={`${testId}-search`}>
+          <SearchIcon />
+        </IconButton>
+        <div className="vtmh-notifications">{notificationsSlot}</div>
         <IconButton
           label="Messagerie"
           onClick={onMessaging}
@@ -57,19 +65,6 @@ export const VenextTerrainMobileHeader = memo(function VenextTerrainMobileHeader
           badge={messagingUnread}
         >
           <MessageIcon />
-        </IconButton>
-      </div>
-      <div className="vtmh-center" data-testid={`${testId}-title`}>
-        {brandLabel ? <span className="vtmh-brand">{brandLabel}</span> : null}
-        <h1 className="vtmh-title">{title}</h1>
-      </div>
-      <div className="vtmh-right">
-        <IconButton label="Rechercher" onClick={onSearch} testId={`${testId}-search`}>
-          <SearchIcon />
-        </IconButton>
-        <div className="vtmh-notifications">{notificationsSlot}</div>
-        <IconButton label="Profil" onClick={onProfile} testId={`${testId}-profile`}>
-          <UserIcon />
         </IconButton>
       </div>
     </header>

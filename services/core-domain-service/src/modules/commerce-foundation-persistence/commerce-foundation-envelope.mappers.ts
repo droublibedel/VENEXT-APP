@@ -22,11 +22,19 @@ export class CommerceFoundationEnvelopeMappers {
         const products = catalogs.flatMap((c) => (Array.isArray(c.products) ? c.products : []));
         return envelope({
           organizationId,
+          lane: "catalogue",
           products,
           popularIds: products.slice(0, 2).map((p) => (p as { id: string }).id),
           promotions: [],
         });
       }
+      case "market":
+        return envelope({
+          organizationId,
+          lane: "market",
+          products: [],
+          notice: "use_api_market_feed",
+        });
       case "orders": {
         const orders = await this.foundation.orders.listOrders({ organizationId, limit: 20 });
         return envelope({
@@ -85,9 +93,12 @@ export class CommerceFoundationEnvelopeMappers {
       });
     }
     if (endpoint === "products") {
-      const catalogs = await this.foundation.catalogs.listCatalogs({ organizationId, limit: 5 });
-      const products = catalogs.flatMap((c) => (Array.isArray(c.products) ? c.products : []));
-      return envelope({ organizationId, products, popularIds: [], promotions: [] });
+      return envelope({
+        organizationId,
+        lane: "market",
+        products: [],
+        notice: "detaillant_market_only_use_api_market_feed",
+      });
     }
     if (endpoint === "orders") {
       const orders = await this.foundation.orders.listOrders({ organizationId, limit: 20 });

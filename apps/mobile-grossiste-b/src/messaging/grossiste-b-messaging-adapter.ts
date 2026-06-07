@@ -330,6 +330,7 @@ function buildMessagesFor(meta: ConvMeta): CommerceMessage[] {
       at: "08:18",
       orderId: meta.orderId,
       attachmentLabel: c.linkedOrderLabel ?? "Commande en cours",
+      businessContext: "grossiste_distribution",
     });
   }
   msgs.push({

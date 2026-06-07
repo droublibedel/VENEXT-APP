@@ -2,6 +2,18 @@ import { lazy, Suspense, useCallback, useEffect, useState } from "react";
 
 import { CommercialRouterProvider } from "commercial-context-routing";
 
+import {
+  TerrainAuthScreen,
+  TerrainProfileHostUnavailable,
+  attachTerrainProfileOnlineSync,
+  bootTerrainProfileFromBackend,
+  ensureTerrainProfileIdentity,
+  resolveTerrainProfileBootstrap,
+  resolveTerrainProfileHostState,
+  setTerrainUserKey,
+  useTerrainProfileRuntimeOptional,
+} from "commerce-terrain-profile-runtime";
+
 import { useVenextAuthOptional } from "venext-auth-foundation";
 
 import { useDetaillantFeatureFlags } from "../hooks/useDetaillantFeatureFlags";
@@ -15,12 +27,17 @@ import { VenextScreenLoader } from "../ux/VenextScreenLoader";
 import {
   isDetaillantOnboardingComplete,
   loadDetaillantOnboardingProfile,
+  saveDetaillantOnboardingProfile,
 } from "../onboarding/detaillant-onboarding.viewmodel";
 import { DetaillantBottomTabs } from "../navigation/DetaillantBottomTabs";
 import { DetaillantTerrainHeader } from "../navigation/DetaillantTerrainHeader";
 import type { DetaillantTabId } from "../navigation/detaillant-navigation.config";
 import { useDetaillantCommercialRouter } from "../routing/useDetaillantCommercialRouter";
 import { DETAILLANT_LOGOUT_EVENT } from "../session/detaillant-session";
+import { DetaillantTerrainProfileRouter } from "./DetaillantTerrainProfileRouter";
+import {
+  subscribeTerrainNavigationReset,
+} from "commerce-terrain-profile-runtime";
 import { DetaillantAccountScreen } from "../screens/DetaillantAccountScreen";
 import { DetaillantHomeScreen } from "../screens/DetaillantHomeScreen";
 import { DetaillantNetworkScreen } from "../screens/DetaillantNetworkScreen";
@@ -72,11 +89,17 @@ function DetaillantQuickReturnBar({
   );
 }
 
-export function DetaillantAppShell() {
+export function DetaillantAppShell({ terrainShellHost = false }: { terrainShellHost?: boolean } = {}) {
   const { flags, hydrated } = useDetaillantFeatureFlags();
+  const profileRuntime = useTerrainProfileRuntimeOptional();
   const auth = useVenextAuthOptional();
+  const hostState = resolveTerrainProfileHostState({
+    expectedProfile: "detaillant",
+    activeProfile: profileRuntime?.activeProfile ?? (terrainShellHost ? "detaillant" : null),
+    mobileEnabled: flags.detaillant_mobile_enabled,
+    hydrated,
+  });
   const authFoundation = hydrated && flags.venext_auth_foundation_enabled !== false;
-  const enabled = hydrated && flags.detaillant_mobile_enabled !== false;
   const needsQuickOnboarding = hydrated && flags.terrain_quick_onboarding_enabled !== false;
   const terrainSessionReady =
     !authFoundation || (auth?.isAuthenticated ?? false) || isDetaillantOnboardingComplete();
@@ -99,6 +122,54 @@ export function DetaillantAppShell() {
     }
   }, [auth, authFoundation]);
 
+  const handleReconnect = useCallback(
+    (result: { organizationId: string; profile: Record<string, unknown> }) => {
+      const phone = String(result.profile.phone ?? "");
+      saveDetaillantOnboardingProfile({
+        phone,
+        otpVerified: true,
+        displayName: String(result.profile.displayName ?? ""),
+        activities: Array.isArray(result.profile.activities)
+          ? (result.profile.activities as string[])
+          : [],
+        city: String(result.profile.city ?? ""),
+        organizationId: result.organizationId,
+      });
+      const userKey = phone.replace(/\D/g, "").slice(-10) || result.organizationId;
+      setTerrainUserKey(userKey);
+      void bootTerrainProfileFromBackend(userKey).then((state) => {
+        if (!state.primaryProfile) {
+          const profile = resolveTerrainProfileBootstrap(userKey, "detaillant");
+          return ensureTerrainProfileIdentity(userKey, profile, "settings");
+        }
+        return undefined;
+      });
+      handleOnboardingComplete();
+    },
+    [handleOnboardingComplete],
+  );
+
+  useEffect(() => {
+    const profile = loadDetaillantOnboardingProfile();
+    if (!profile?.phone && !profile?.organizationId) return;
+    const userKey =
+      profile.phone.replace(/\D/g, "").slice(-10) ||
+      profile.organizationId ||
+      "";
+    if (!userKey) return;
+    setTerrainUserKey(userKey);
+    void bootTerrainProfileFromBackend(userKey);
+    return attachTerrainProfileOnlineSync(userKey);
+  }, [onboardingDone, terrainSessionReady]);
+
+  useEffect(() => {
+    return subscribeTerrainNavigationReset(({ profile, defaultTab }) => {
+      if (profile === "detaillant") {
+        setActiveTab(defaultTab as DetaillantTabId);
+      }
+    });
+  }, []);
+
   useEffect(() => {
     const onLogout = () => {
       setOnboardingDone(false);
@@ -109,33 +180,41 @@ export function DetaillantAppShell() {
   }, []);
 
   const { router, routingInput, focusReference, canGoBack, goBack } =
-    useDetaillantCommercialRouter(setActiveTab);
+    useDetaillantCommercialRouter(setActiveTab, { flags, hydrated });
 
-  if (!enabled) {
+  if (hostState === "loading") {
     return (
-      <div className="detaillant-app" data-testid="detaillant-mobile-disabled">
-        <main className="detaillant-main">
-          <p style={{ padding: 24, color: "var(--venext-text-muted)", fontSize: 15 }}>
-            Application détaillant — bientôt disponible sur votre compte.
-          </p>
-        </main>
+      <div className="detaillant-app" data-testid="detaillant-mobile-loading">
+        <ScreenLoader />
       </div>
     );
+  }
+
+  if (hostState === "unavailable") {
+    return <TerrainProfileHostUnavailable profile="detaillant" />;
   }
 
   if (needsQuickOnboarding && !onboardingDone && !terrainSessionReady) {
     return (
       <Suspense fallback={<ScreenLoader />}>
-        <DetaillantQuickOnboarding onComplete={handleOnboardingComplete} />
+        <TerrainAuthScreen
+          actorRole="DETAILLANT"
+          onAuthenticated={handleReconnect}
+          renderRegister={({ onSwitchToLogin }) => (
+            <DetaillantQuickOnboarding
+              onComplete={handleOnboardingComplete}
+              onSwitchToLogin={onSwitchToLogin}
+            />
+          )}
+        />
       </Suspense>
     );
   }
 
-  return (
+  const appContent = (
     <CommercialRouterProvider router={router} flags={routingInput.flags}>
       <div className="detaillant-app" data-testid="detaillant-mobile-app">
         <DetaillantTerrainHeader
-          activeTab={activeTab}
           onMessaging={() => setActiveTab("messaging")}
           onProfile={() => setActiveTab("account")}
         />
@@ -168,4 +247,7 @@ export function DetaillantAppShell() {
       </div>
     </CommercialRouterProvider>
   );
+
+  if (terrainShellHost) return appContent;
+  return <DetaillantTerrainProfileRouter>{appContent}</DetaillantTerrainProfileRouter>;
 }

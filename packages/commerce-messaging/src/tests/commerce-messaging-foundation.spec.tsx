@@ -74,12 +74,12 @@ describe("commerce messaging foundation", () => {
     });
   });
 
-  it("shows fallback demo data badge", async () => {
+  it("marks fallback data source without visible demo copy", async () => {
     render(<CommerceConversationShell enabled liveEnabled={false} />);
     await waitFor(() => {
       const badge = screen.getByTestId("cm-data-source");
       expect(badge.getAttribute("data-fallback")).toBe("true");
-      expect(badge.textContent).toContain("démonstration");
+      expect(badge.textContent?.trim()).toBe("");
     });
   });
 

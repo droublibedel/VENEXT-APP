@@ -2,6 +2,11 @@ export type CommerceDataSource = "live" | "fallback" | "mixed";
 
 export type ConversationCategory = "commandes" | "produits" | "reseau" | "activite-terrain";
 
+export type MessageBusinessContext =
+  | "grossiste_distribution"
+  | "retailer_procurement"
+  | "mixed_relationship";
+
 export type CommerceConversation = {
   id: string;
   category: ConversationCategory;
@@ -19,6 +24,7 @@ export type CommerceConversation = {
   partnerId?: string;
   productId?: string;
   conversationMode?: import("../governance/commerce-conversation-governance.types").ConversationMode;
+  businessContext?: MessageBusinessContext;
 };
 
 export type MessageKind =
@@ -53,6 +59,8 @@ export type CommerceMessage = {
   status?: MessageDeliveryStatus;
   /** HH:mm sous la bulle */
   displayTime?: string;
+  /** VENEXT-MOBILE-ARCHI-04A — contexte métier actif lors de l'envoi */
+  businessContext?: MessageBusinessContext;
 };
 
 export type CommerceProductContext = {

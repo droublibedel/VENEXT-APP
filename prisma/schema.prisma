@@ -660,8 +660,34 @@ model User {
   contactSnapshots       UserContactSnapshot[]
   messagesSent           Message[]             @relation("MessageSender")
   relationalCartsCreated RelationalCart[]      @relation("RelCartCreatedBy")
+  businessIdentity       UserBusinessIdentity?
 
   @@map("users")
+}
+
+/// VENEXT-MOBILE-ARCHI-04 — profils métier terrain (Grossiste B / Détaillant) par utilisateur.
+model UserBusinessIdentity {
+  id                   String   @id @default(uuid()) @db.Uuid
+  userId               String?  @unique @db.Uuid
+  phoneKey             String?  @unique @db.VarChar(32)
+  enabledProfiles      String[] @default([])
+  primaryProfile       String   @db.VarChar(32)
+  currentActiveProfile String   @db.VarChar(32)
+  activatedAt          DateTime?
+  lastActiveProfile       String?  @db.VarChar(32)
+  switchedAt           DateTime?
+  switchReason         String?  @db.VarChar(64)
+  source               String?
+  activeProfileVersion Int      @default(1)
+  lastSyncedAt         DateTime?
+  deviceId             String?  @db.VarChar(64)
+  lastDeviceId         String?  @db.VarChar(64)
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@map("user_business_identities")
 }
 
 model Organization {
@@ -699,8 +725,12 @@ model Organization {
   members                                  OrganizationMember[]
   catalogs                                 Catalog[]
   products                                 Product[]
+  catalogueOwnership                       CatalogueOwnership?
+  marketProjections                        ProductMarketProjection[] @relation("MarketViewer")
+  productTransferHistories                 ProductTransferHistory[]  @relation("TransferTarget")
   networkCodes                             NetworkCode[]
   wallets                                  Wallet[]
+  walletAccount                            WalletAccount?
   transactions                             Transaction[]                  @relation("TxnOrg")
   relationshipsReq                         Relationship[]                 @relation("RelRequester")
   relationshipsRec                         Relationship[]                 @relation("RelReceiver")
@@ -1066,6 +1096,9 @@ model Product {
   sponsoredConversationWindows SponsoredConversationWindow[]
   relationalCartItems          RelationalCartItem[]
 
+  commercialInheritance ProductCommercialInheritance?
+  transferHistories     ProductTransferHistory[]      @relation("TransferredCatalogProduct")
+
   @@index([organizationId, catalogId])
   @@map("products")
 }
@@ -1087,6 +1120,86 @@ model ProductVisibility {
   @@index([productId])
   @@index([visibleToRelationshipId])
   @@map("product_visibility")
+}
+
+/// VENEXT-COMMERCE-ARCHI-05 — droits catalogue vs market par acteur économique.
+model CatalogueOwnership {
+  id             String   @id @default(uuid()) @db.Uuid
+  organizationId String   @unique @db.Uuid
+  actorRole      String   @db.VarChar(32)
+  hasCatalogue   Boolean  @default(false)
+  hasMarket      Boolean  @default(false)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@map("catalogue_ownerships")
+}
+
+/// Projection market — produits partenaires visibles par l'acheteur.
+model ProductMarketProjection {
+  id                    String   @id @default(uuid()) @db.Uuid
+  viewerOrganizationId  String   @db.Uuid
+  sourceProductId       String   @db.Uuid
+  sourceOrganizationId  String   @db.Uuid
+  relationshipId        String?  @db.Uuid
+  supplierDisplayName   String   @default("")
+  name                  String
+  description           String   @default("")
+  imageUrls             String[] @default([])
+  unitLabel             String   @default("unité")
+  basePrice             Decimal? @db.Decimal(18, 4)
+  currency              String   @default("XOF")
+  minOrderQuantity      Decimal? @db.Decimal(18, 4)
+  tags                  String[] @default([])
+  audioDescriptionUrl   String?
+  active                Boolean  @default(true)
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+
+  viewerOrganization Organization @relation("MarketViewer", fields: [viewerOrganizationId], references: [id], onDelete: Cascade)
+
+  @@index([viewerOrganizationId])
+  @@index([sourceProductId])
+  @@map("product_market_projections")
+}
+
+/// Traçabilité héritage commercial market → catalogue.
+model ProductCommercialInheritance {
+  id                   String   @id @default(uuid()) @db.Uuid
+  catalogProductId     String   @unique @db.Uuid
+  sourceProductId      String   @db.Uuid
+  sourceOrganizationId String   @db.Uuid
+  inheritedFrom        String   @db.VarChar(64)
+  relationshipId       String?  @db.Uuid
+  transferredAt        DateTime @default(now())
+  audioDescriptionUrl  String?
+  metadata             Json?
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+
+  catalogProduct Product @relation(fields: [catalogProductId], references: [id], onDelete: Cascade)
+
+  @@index([sourceProductId])
+  @@map("product_commercial_inheritances")
+}
+
+model ProductTransferHistory {
+  id                   String   @id @default(uuid()) @db.Uuid
+  targetOrganizationId String   @db.Uuid
+  sourceProductId      String   @db.Uuid
+  catalogProductId     String   @db.Uuid
+  transferredAt        DateTime @default(now())
+  transferredByUserKey String?  @db.VarChar(32)
+  analyticsEvent       String?  @db.VarChar(64)
+  createdAt            DateTime @default(now())
+
+  targetOrganization Organization @relation("TransferTarget", fields: [targetOrganizationId], references: [id], onDelete: Cascade)
+  catalogProduct     Product          @relation("TransferredCatalogProduct", fields: [catalogProductId], references: [id], onDelete: Cascade)
+
+  @@index([targetOrganizationId])
+  @@map("product_transfer_histories")
 }
 
 // -----------------------------------------------------------------------------
@@ -2978,6 +3091,7 @@ model Wallet {
 
   organization Organization  @relation(fields: [organizationId], references: [id], onDelete: Cascade)
   transactions Transaction[]
+  account      WalletAccount?
 
   @@unique([organizationId, currency])
   @@map("wallets")
@@ -3006,6 +3120,179 @@ model Transaction {
   @@index([organizationId])
   @@index([status, createdAt])
   @@map("transactions")
+}
+
+enum WalletKycStatus {
+  PENDING
+  UNDER_REVIEW
+  ACTIVE
+  REJECTED
+  SUSPENDED
+}
+
+enum WalletIdentityDocumentType {
+  CNI
+  PASSEPORT
+  PERMIS
+  CARTE_SEJOUR
+}
+
+enum WalletProviderCode {
+  ORANGE_MONEY
+  MTN_MONEY
+  WAVE
+  MOOV_MONEY
+  OTHER
+}
+
+enum WalletActivityEventType {
+  WALLET_ACTIVATED
+  KYC_SUBMITTED
+  BIOMETRIC_ENABLED
+  BIOMETRIC_DISABLED
+  WALLET_LOCKED
+  WALLET_UNLOCKED
+  INACTIVITY_LOCK
+  BALANCE_THRESHOLD_REACHED
+  TOPUP_STARTED
+  TOPUP_COMPLETED
+  SESSION_REGISTERED
+  SESSION_REVOKED
+}
+
+/// Instruction VENEXT-WALLET-SECURITY-01 — compte wallet backend-first (source de vérité).
+model WalletAccount {
+  id             String          @id @default(uuid()) @db.Uuid
+  organizationId String          @unique @db.Uuid
+  walletId       String          @unique @db.Uuid
+  kycStatus      WalletKycStatus @default(PENDING)
+  activatedAt    DateTime?
+  locked         Boolean         @default(false)
+  lastUnlockedAt DateTime?
+  lastActivityAt DateTime?
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+
+  organization Organization              @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  wallet       Wallet                    @relation(fields: [walletId], references: [id], onDelete: Cascade)
+  kycProfile   WalletKycProfile?
+  documents    WalletIdentityDocument[]
+  security     WalletSessionSecurityState?
+  biometric    WalletBiometricPreference?
+  providerTx   WalletProviderTransaction[]
+  activityLogs WalletActivityLog[]
+  devices      WalletTrustedDevice[]
+
+  @@map("wallet_accounts")
+}
+
+model WalletKycProfile {
+  id              String    @id @default(uuid()) @db.Uuid
+  walletAccountId String    @unique @db.Uuid
+  civilFullName   String    @default("")
+  birthDate       DateTime?
+  submittedAt     DateTime?
+  reviewedAt      DateTime?
+  rejectionReason String    @default("")
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  account WalletAccount @relation(fields: [walletAccountId], references: [id], onDelete: Cascade)
+
+  @@map("wallet_kyc_profiles")
+}
+
+model WalletIdentityDocument {
+  id              String                     @id @default(uuid()) @db.Uuid
+  walletAccountId String                     @db.Uuid
+  documentType    WalletIdentityDocumentType
+  storageKey      String                     @default("")
+  mimeType        String                     @default("image/jpeg")
+  fileName        String                     @default("")
+  ocrReady        Boolean                    @default(true)
+  uploadedAt      DateTime                   @default(now())
+
+  account WalletAccount @relation(fields: [walletAccountId], references: [id], onDelete: Cascade)
+
+  @@index([walletAccountId])
+  @@map("wallet_identity_documents")
+}
+
+model WalletSessionSecurityState {
+  id                    String   @id @default(uuid()) @db.Uuid
+  walletAccountId       String   @unique @db.Uuid
+  pinConfigured         Boolean  @default(false)
+  pinHash               String   @default("")
+  securedBalanceLatch   Boolean  @default(false)
+  inactivityLockCount   Int      @default(0)
+  lastInactivityLockAt  DateTime?
+  updatedAt             DateTime @updatedAt
+
+  account WalletAccount @relation(fields: [walletAccountId], references: [id], onDelete: Cascade)
+
+  @@map("wallet_session_security_states")
+}
+
+model WalletBiometricPreference {
+  id              String   @id @default(uuid()) @db.Uuid
+  walletAccountId String   @unique @db.Uuid
+  enabled         Boolean  @default(false)
+  method          String   @default("DEVICE_DEFAULT")
+  updatedAt       DateTime @updatedAt
+
+  account WalletAccount @relation(fields: [walletAccountId], references: [id], onDelete: Cascade)
+
+  @@map("wallet_biometric_preferences")
+}
+
+model WalletProviderTransaction {
+  id              String             @id @default(uuid()) @db.Uuid
+  walletAccountId String             @db.Uuid
+  provider        WalletProviderCode
+  externalRef     String             @default("")
+  amount          Decimal            @db.Decimal(24, 6)
+  currency        String             @default("XOF")
+  direction       String             @default("IN")
+  status          TransactionStatus  @default(PENDING)
+  metadata        Json               @default("{}")
+  createdAt       DateTime           @default(now())
+
+  account WalletAccount @relation(fields: [walletAccountId], references: [id], onDelete: Cascade)
+
+  @@index([walletAccountId, createdAt])
+  @@map("wallet_provider_transactions")
+}
+
+model WalletActivityLog {
+  id              String                  @id @default(uuid()) @db.Uuid
+  walletAccountId String                  @db.Uuid
+  eventType       WalletActivityEventType
+  payload         Json                    @default("{}")
+  deviceId        String                  @default("")
+  createdAt       DateTime                @default(now())
+
+  account WalletAccount @relation(fields: [walletAccountId], references: [id], onDelete: Cascade)
+
+  @@index([walletAccountId, createdAt])
+  @@map("wallet_activity_logs")
+}
+
+model WalletTrustedDevice {
+  id              String    @id @default(uuid()) @db.Uuid
+  walletAccountId String    @db.Uuid
+  deviceId        String
+  fingerprint     String    @default("")
+  label           String    @default("")
+  trusted         Boolean   @default(true)
+  lastActiveAt    DateTime  @default(now())
+  revokedAt       DateTime?
+  createdAt       DateTime  @default(now())
+
+  account WalletAccount @relation(fields: [walletAccountId], references: [id], onDelete: Cascade)
+
+  @@unique([walletAccountId, deviceId])
+  @@index([walletAccountId])
+  @@map("wallet_trusted_devices")
 }
 
 // -----------------------------------------------------------------------------

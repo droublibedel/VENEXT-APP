@@ -8,15 +8,25 @@ export const VenextVoiceMessageBubble = memo(function VenextVoiceMessageBubble({
   isSelf,
   onDelete,
   testId,
+  showBusinessContextBadge = false,
 }: {
   message: CommerceMessage;
   isSelf: boolean;
   onDelete?: (id: string) => void;
   testId?: string;
+  showBusinessContextBadge?: boolean;
 }) {
   const duration = message.voiceDurationSec ?? 1;
   const playback = useVoicePlayback(duration);
   const peaks = message.voiceWaveform ?? [];
+  const badge =
+    showBusinessContextBadge && message.businessContext === "grossiste_distribution"
+      ? "Grossiste"
+      : showBusinessContextBadge && message.businessContext === "retailer_procurement"
+        ? "Détaillant"
+        : showBusinessContextBadge && message.businessContext === "mixed_relationship"
+          ? "Mixte"
+          : null;
 
   return (
     <article
@@ -24,6 +34,11 @@ export const VenextVoiceMessageBubble = memo(function VenextVoiceMessageBubble({
       className={`cm-bubble cm-bubble--voice ${isSelf ? "cm-bubble--self" : "cm-bubble--partner"}`}
       style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 8 }}
     >
+      {badge ? (
+        <span className="cm-bubble-business-badge" data-testid="cm-msg-business-badge" style={{ width: "100%" }}>
+          {badge}
+        </span>
+      ) : null}
       <button
         type="button"
         data-testid="cm-voice-play"

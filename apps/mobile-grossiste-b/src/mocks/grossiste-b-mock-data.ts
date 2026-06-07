@@ -183,7 +183,7 @@ export function mockGrossisteNetwork(): GrossisteNetworkDto {
 export function mockGrossisteProfile(): GrossisteProfileDto {
   return {
     organizationId: GROSSISTE_B_ORG_ID,
-    commercialName: "Grossiste B — Réseau Ouest",
+    commercialName: "Grossiste — Réseau Ouest",
     networkBadge: "Partenaire actif",
     phone: "+225 07 00 00 00 00",
     recentActivity: "12 commandes cette semaine",

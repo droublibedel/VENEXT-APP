@@ -1,12 +1,8 @@
 import { memo, type ReactNode } from "react";
 
-import type { GrossisteADataSource } from "../hooks/grossiste-a-data.types";
+import { VenextHiddenDataSourceMarker } from "commerce-ux-harmony";
 
-function sourceLabel(dataSource: GrossisteADataSource, fallbackUsed: boolean): string {
-  if (dataSource === "live" && !fallbackUsed) return "Données synchronisées";
-  if (dataSource === "mixed") return "Données synchronisées (complétées)";
-  return "Données de démonstration enrichies";
-}
+import type { GrossisteADataSource } from "../hooks/grossiste-a-data.types";
 
 export const GrossisteAWorkspaceFrame = memo(function GrossisteAWorkspaceFrame({
   title,
@@ -47,9 +43,11 @@ export const GrossisteAWorkspaceFrame = memo(function GrossisteAWorkspaceFrame({
         ) : null}
       </header>
       {!loading ? (
-        <p className="ga-source" data-testid="grossiste-a-data-source" data-fallback={fallbackUsed ? "true" : "false"}>
-          {sourceLabel(dataSource, fallbackUsed)}
-        </p>
+        <VenextHiddenDataSourceMarker
+          testId="grossiste-a-data-source"
+          dataSource={dataSource}
+          fallbackUsed={fallbackUsed}
+        />
       ) : null}
       {children}
     </section>

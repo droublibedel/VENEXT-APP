@@ -17,6 +17,7 @@
     "commerce-offline-foundation": "file:../../packages/commerce-offline-foundation",
     "commerce-operational-observability": "file:../../packages/commerce-operational-observability",
     "commerce-performance-foundation": "file:../../packages/commerce-performance-foundation",
+    "commerce-terrain-profile-runtime": "file:../../packages/commerce-terrain-profile-runtime",
     "commerce-ux-harmony": "file:../../packages/commerce-ux-harmony",
     "commerce-wallet": "file:../../packages/commerce-wallet",
     "commercial-activity-feed": "file:../../packages/commercial-activity-feed",

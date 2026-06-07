@@ -8,13 +8,12 @@ import {
 } from "commercial-location-terrain";
 
 import { loadGrossisteBOnboardingProfile } from "../onboarding/grossiste-b-onboarding.viewmodel";
-
-const ACTOR_ID = "org-grossiste-b-demo";
+import { resolveGrossisteBOrganizationId } from "../session/resolveGrossisteBOrganizationId";
 
 export function GrossisteBLocationBridge({ sessionCount = 1 }: { sessionCount?: number }) {
   const [hidden, setHidden] = useState(false);
   const profile = loadGrossisteBOnboardingProfile();
-  const actorId = profile?.phone || ACTOR_ID;
+  const actorId = profile?.organizationId || resolveGrossisteBOrganizationId();
   const onboardingCity = profile?.city?.trim() ?? "";
 
   useEffect(() => {

@@ -18,6 +18,7 @@
     "test": "vitest run --config vitest.config.ts"
   },
   "dependencies": {
+    "commerce-ux-harmony": "file:../commerce-ux-harmony",
     "commerce-foundation-guardrails": "file:../commerce-foundation-guardrails",
     "commercial-relationship-governance": "file:../commercial-relationship-governance",
     "commercial-context-routing": "file:../commercial-context-routing",

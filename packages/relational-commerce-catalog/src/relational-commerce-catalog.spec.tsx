@@ -254,7 +254,7 @@ describe("useRelationalCommerceCatalog", () => {
 describe("anti-jargon and no mixed marketplace", () => {
   it("shell copy avoids marketplace wording", async () => {
     render(<RelationalCommerceCatalogShell actorRole="producteur" enabled />);
-    await waitFor(() => expect(screen.getByText(/pas de marketplace ouverte/i)).toBeTruthy());
+    await waitFor(() => expect(screen.getByText(/partenaires commerciaux/i)).toBeTruthy());
   });
 
   it("no score visible in UI", async () => {

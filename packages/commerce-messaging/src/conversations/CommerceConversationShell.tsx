@@ -429,6 +429,7 @@ export const CommerceConversationShell = memo(function CommerceConversationShell
             <CommerceMessageThread
               messages={messages}
               terrainMode={terrainMessaging}
+              showBusinessContextBadge={terrainMessaging}
               onDeleteMessage={terrainMessaging ? terrainThread.removeMessage : undefined}
             />
             <CommerceMessageComposer

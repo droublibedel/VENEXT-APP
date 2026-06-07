@@ -25,7 +25,7 @@ export const RelationalFeedCard = memo(function RelationalFeedCard({
           style={{
             aspectRatio: "4/3",
             borderRadius: 10,
-            background: `center/cover url(${entry.imageUrl}) #1a2420`,
+            background: `center/cover url(${entry.imageUrl}) #f0f2f1`,
             marginBottom: 8,
           }}
         />

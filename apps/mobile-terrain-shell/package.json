@@ -1,0 +1,49 @@
+{
+  "name": "mobile-terrain-shell",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "backoffice-operational": "file:../../packages/backoffice-operational",
+    "commerce-humanized-errors": "file:../../packages/commerce-humanized-errors",
+    "commerce-messaging": "file:../../packages/commerce-messaging",
+    "commerce-notifications": "file:../../packages/commerce-notifications",
+    "commerce-offline-foundation": "file:../../packages/commerce-offline-foundation",
+    "commerce-operational-observability": "file:../../packages/commerce-operational-observability",
+    "commerce-performance-foundation": "file:../../packages/commerce-performance-foundation",
+    "commerce-terrain-profile-runtime": "file:../../packages/commerce-terrain-profile-runtime",
+    "commerce-ux-harmony": "file:../../packages/commerce-ux-harmony",
+    "commerce-wallet": "file:../../packages/commerce-wallet",
+    "commercial-activity-feed": "file:../../packages/commercial-activity-feed",
+    "commercial-context-routing": "file:../../packages/commercial-context-routing",
+    "commercial-delivery-flow": "file:../../packages/commercial-delivery-flow",
+    "commercial-location-terrain": "file:../../packages/commercial-location-terrain",
+    "commercial-network-discovery": "file:../../packages/commercial-network-discovery",
+    "relational-commerce-catalog": "file:../../packages/relational-commerce-catalog",
+    "relational-commerce-feed": "file:../../packages/relational-commerce-feed",
+    "relational-order-orchestration": "file:../../packages/relational-order-orchestration",
+    "terrain-commercial-audio": "file:../../packages/terrain-commercial-audio",
+    "venext-auth-foundation": "file:../../packages/venext-auth-foundation",
+    "venext-i18n": "file:../../packages/venext-i18n",
+    "venext-v1-readiness": "file:../../packages/venext-v1-readiness",
+    "lucide-react": "^1.16.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@testing-library/react": "^16.2.0",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@vitejs/plugin-react": "^4.3.4",
+    "jsdom": "^25.0.1",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.3",
+    "vitest": "^3.0.5"
+  }
+}

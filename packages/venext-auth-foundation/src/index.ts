@@ -214,6 +214,11 @@ export {
 } from "./venext-wallet-security-ux";
 
 export { useSecuredWalletTerrainLifecycle } from "./useSecuredWalletTerrainLifecycle";
+export { UserActivityTrackerRuntime } from "./user-activity-tracker-runtime";
+export type { UserActivityTrackerOptions } from "./user-activity-tracker-runtime";
+export { fetchWalletMe, postWalletInactivityLock, postWalletSecurityTouch } from "./wallet-platform-api";
+export type { VenextWalletMeDto } from "./wallet-platform-api";
+export { useWalletPlatformSync } from "./useWalletPlatformSync";
 
 export {
   isTerrainUnlimitedSession,

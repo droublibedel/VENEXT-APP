@@ -19,7 +19,7 @@ export const GrossisteBActivitiesStep = memo(function GrossisteBActivitiesStep({
     <section data-testid="gb-onboarding-activities">
       <h2 style={{ margin: "0 0 8px", fontSize: 18 }}>Vos activités</h2>
       <p style={{ margin: "0 0 16px", fontSize: 13, color: "var(--venext-text-muted)" }}>
-        Choisissez une ou plusieurs — sélection rapide.
+        Choisissez une ou plusieurs.
       </p>
       <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
         {chips.map((a) => {

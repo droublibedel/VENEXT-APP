@@ -65,7 +65,8 @@ describe("producer industrial live data", () => {
     await waitFor(() => {
       expect(screen.getByTestId("producer-data-source-hint").getAttribute("data-source")).toBe("live");
     });
-    expect(screen.getByText("Données synchronisées")).toBeTruthy();
+    expect(screen.getByTestId("producer-data-source-hint").getAttribute("data-source")).toBe("live");
+    expect(screen.getByTestId("producer-data-source-hint").textContent?.trim()).toBe("");
   });
 
   it("falls back when API fails", async () => {
@@ -74,7 +75,8 @@ describe("producer industrial live data", () => {
     await waitFor(() => {
       expect(screen.getByTestId("producer-data-source-hint").getAttribute("data-source")).toBe("fallback");
     });
-    expect(screen.getByText("Données de démonstration enrichies")).toBeTruthy();
+    expect(screen.getByTestId("producer-data-source-hint").getAttribute("data-source")).toBe("fallback");
+    expect(screen.queryByText(/démonstration/i)).toBeNull();
     expect(screen.getByTestId("metric-network-stability")).toBeTruthy();
   });
 

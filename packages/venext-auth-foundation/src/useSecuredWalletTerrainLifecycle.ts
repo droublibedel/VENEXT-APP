@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 
+import { UserActivityTrackerRuntime } from "./user-activity-tracker-runtime";
 import { isTerrainSecurityModel } from "./venext-wallet-security-models";
 import {
   lockSecuredWalletSessionImmediately,
@@ -56,6 +57,9 @@ export function useSecuredWalletTerrainLifecycle(
       scheduleIdleLock();
     };
 
+    const tracker = new UserActivityTrackerRuntime({ onActivity, enabled: true });
+    tracker.attach();
+
     const lockNow = () => {
       if (!shouldInstantBackgroundLock(flags)) return;
       lockSecuredWalletSessionImmediately();
@@ -79,17 +83,14 @@ export function useSecuredWalletTerrainLifecycle(
     window.addEventListener("blur", onBlur);
     window.addEventListener("focus", onFocus);
     window.addEventListener("pagehide", onPageHide);
-    document.addEventListener("pointerdown", onActivity, { passive: true });
-    document.addEventListener("keydown", onActivity);
 
     return () => {
       if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
+      tracker.detach();
       document.removeEventListener("visibilitychange", onVisibility);
       window.removeEventListener("blur", onBlur);
       window.removeEventListener("focus", onFocus);
       window.removeEventListener("pagehide", onPageHide);
-      document.removeEventListener("pointerdown", onActivity);
-      document.removeEventListener("keydown", onActivity);
     };
   }, [active, idleTimeoutMs, flags, onStateChange]);
 }

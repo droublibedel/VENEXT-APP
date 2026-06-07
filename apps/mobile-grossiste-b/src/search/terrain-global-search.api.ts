@@ -1,6 +1,6 @@
 import type { TerrainSearchResponse } from "commerce-ux-harmony";
 
-import { GROSSISTE_B_ORG_ID } from "../mocks/grossiste-b-mock-data";
+import { resolveGrossisteBOrganizationId } from "../session/resolveGrossisteBOrganizationId";
 
 export async function fetchTerrainGlobalSearch(
   query: string,
@@ -9,7 +9,7 @@ export async function fetchTerrainGlobalSearch(
 ): Promise<TerrainSearchResponse> {
   const params = new URLSearchParams({
     q: query,
-    organizationId: organizationId || GROSSISTE_B_ORG_ID,
+    organizationId: organizationId || resolveGrossisteBOrganizationId(),
     role: actorRole,
   });
   const res = await fetch(`/api/terrain/search?${params.toString()}`, {

@@ -7,25 +7,20 @@ import "commerce-ux-harmony/terrain-search.css";
 import { DetaillantNotificationsBridge } from "../notifications/DetaillantNotificationsBridge";
 import { fetchTerrainGlobalSearch } from "../search/terrain-global-search.api";
 import { resolveDetaillantOrganizationId } from "../session/resolveDetaillantOrganizationId";
-import { DETAILLANT_TAB_TITLES, type DetaillantTabId } from "./detaillant-navigation.config";
 
 export const DetaillantTerrainHeader = memo(function DetaillantTerrainHeader({
-  activeTab,
   onMessaging,
   onProfile,
 }: {
-  activeTab: DetaillantTabId;
   onMessaging: () => void;
   onProfile: () => void;
 }) {
   const [searchOpen, setSearchOpen] = useState(false);
-  const organizationId = useMemo(() => resolveDetaillantOrganizationId(), [searchOpen, activeTab]);
+  const organizationId = useMemo(() => resolveDetaillantOrganizationId(), [searchOpen]);
 
   return (
     <>
       <VenextTerrainMobileHeader
-        title={DETAILLANT_TAB_TITLES[activeTab]}
-        brandLabel="VENEXT"
         onMessaging={onMessaging}
         onSearch={() => setSearchOpen(true)}
         onProfile={onProfile}

@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 
 import {
   applyDetaillantBackNavigation,
@@ -10,10 +10,18 @@ import {
 } from "commercial-context-routing";
 
 import type { DetaillantTabId } from "../navigation/detaillant-navigation.config";
-import { useDetaillantFeatureFlags } from "../hooks/useDetaillantFeatureFlags";
+import { useDetaillantFeatureFlags, type DetaillantFlagsState } from "../hooks/useDetaillantFeatureFlags";
 
-export function useDetaillantCommercialRouter(setActiveTab: (tab: DetaillantTabId) => void) {
-  const { flags, hydrated } = useDetaillantFeatureFlags();
+export function useDetaillantCommercialRouter(
+  setActiveTab: (tab: DetaillantTabId) => void,
+  options?: { flags?: DetaillantFlagsState; hydrated?: boolean },
+) {
+  const internalFlags = useDetaillantFeatureFlags();
+  const flags = options?.flags ?? internalFlags.flags;
+  const hydrated = options?.hydrated ?? internalFlags.hydrated;
+  const routingReadyRef = useRef(hydrated);
+  if (hydrated) routingReadyRef.current = true;
+  const routingReady = routingReadyRef.current || hydrated;
   const [focusReference, setFocusReference] = useState<CommercialContextReference>({});
 
   const routingFlags: CommercialContextRoutingFlags = useMemo(
@@ -26,7 +34,7 @@ export function useDetaillantCommercialRouter(setActiveTab: (tab: DetaillantTabI
   );
 
   const router = useMemo(() => {
-    if (!hydrated || !isCommercialContextRoutingEnabled(routingFlags)) {
+    if (!routingReady || !isCommercialContextRoutingEnabled(routingFlags)) {
       return null;
     }
     return createDetaillantCommercialRouter({
@@ -36,7 +44,7 @@ export function useDetaillantCommercialRouter(setActiveTab: (tab: DetaillantTabI
         setFocusReference,
       },
     });
-  }, [hydrated, routingFlags, setActiveTab]);
+  }, [routingReady, routingFlags, setActiveTab]);
 
   const canGoBack = Boolean(
     router &&

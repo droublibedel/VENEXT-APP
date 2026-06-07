@@ -2,6 +2,7 @@ import { memo, useMemo, useState } from "react";
 import type { CommercialContextRoutingInput } from "commercial-context-routing";
 
 import { GrossisteBRelationalCatalog } from "../catalog/GrossisteBRelationalCatalog";
+import { GrossisteMarketLane } from "../catalog/GrossisteMarketLane";
 import { GrossisteDataSourceBadge } from "../components/GrossisteDataSourceBadge";
 import { useGrossisteFeatureFlags } from "../hooks/useGrossisteFeatureFlags";
 import { GrossisteScreenHeader } from "../components/GrossisteScreenHeader";
@@ -25,6 +26,7 @@ export const GrossisteCatalogScreen = memo(function GrossisteCatalogScreen({
     enabled && !relationalCatalog,
   );
   const [query, setQuery] = useState("");
+  const [lane, setLane] = useState<"catalogue" | "market">("catalogue");
   const demandHints = useMemo(() => buildDemandSignals(data), [data]);
   const stockHints = useMemo(() => buildStockSignals(data), [data]);
   const hints = useMemo(() => [...demandHints, ...stockHints].slice(0, 3), [demandHints, stockHints]);
@@ -57,7 +59,19 @@ export const GrossisteCatalogScreen = memo(function GrossisteCatalogScreen({
 
   return (
     <section data-testid="grossiste-screen-catalog">
-      <GrossisteScreenHeader title="Catalogue" subtitle="Vos produits terrain" onRefresh={refresh} refreshing={loading} />
+      <GrossisteScreenHeader title="Catalogue" subtitle="Double univers — vos produits et le marché" onRefresh={refresh} refreshing={loading} />
+      <div role="tablist" style={{ display: "flex", gap: 8, marginBottom: 12 }}>
+        <button type="button" role="tab" data-testid="grossiste-lane-catalogue" aria-selected={lane === "catalogue"} onClick={() => setLane("catalogue")} style={{ fontWeight: lane === "catalogue" ? 700 : 500 }}>
+          Mon catalogue
+        </button>
+        <button type="button" role="tab" data-testid="grossiste-lane-market" aria-selected={lane === "market"} onClick={() => setLane("market")} style={{ fontWeight: lane === "market" ? 700 : 500 }}>
+          Marché fournisseurs
+        </button>
+      </div>
+      {lane === "market" ? (
+        <GrossisteMarketLane enabled={enabled} />
+      ) : (
+        <>
       <GrossisteDataSourceBadge dataSource={dataSource} fallbackUsed={fallbackUsed} loading={loading} />
       <GrossisteHintStrip hints={hints} testId="grossiste-catalog-hints" />
 
@@ -98,6 +112,8 @@ export const GrossisteCatalogScreen = memo(function GrossisteCatalogScreen({
         testId="grossiste-catalog-list"
         renderItem={(p) => <GrossisteProductCard product={p} />}
       />
+        </>
+      )}
     </section>
   );
 });

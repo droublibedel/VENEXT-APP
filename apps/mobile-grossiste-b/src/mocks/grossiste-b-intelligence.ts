@@ -14,6 +14,19 @@ export function sanitizeGrossisteText(text: string): string {
 
 export type GrossisteHint = { id: string; text: string };
 
+export function buildActivitySummary(activity: GrossisteActivityDto | null): string | null {
+  if (!activity) return null;
+  const trend = activity.discreetTrends?.[0]?.label?.trim();
+  if (trend) return sanitizeGrossisteText(trend);
+  if ((activity.activePartners ?? 0) > 0) {
+    return `${activity.activePartners} partenaires actifs sur votre territoire.`;
+  }
+  if (activity.networkActivityToday) {
+    return `Réseau actif : ${activity.networkActivityToday}.`;
+  }
+  return null;
+}
+
 export function buildActivityHints(activity: GrossisteActivityDto | null): GrossisteHint[] {
   if (!activity) return [];
   const hints: GrossisteHint[] = [];

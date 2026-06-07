@@ -41,6 +41,7 @@ import { WholesalerDualCatalogService } from "./wholesaler-dual-catalog.service"
     RelationalCommerceNetworkTraverserService,
     ContactGraphAnalyzerService,
     RelationshipSuggestionEngineService,
+    WholesalerDualCatalogService,
   ],
 })
 export class RelationalCommerceModule {}
